@@ -1,21 +1,41 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 import Logo from "../common/Logo";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  const linkBase =
+    "text-sm transition-colors text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200";
+  const active =
+    "text-zinc-900 dark:text-zinc-100 underline underline-offset-4";
+
+  const closeMenu = () => setOpen(false);
+
   return (
     <nav className="sticky top-0 z-20 border-b border-zinc-200/60 dark:border-zinc-800/60 backdrop-blur bg-white/60 dark:bg-zinc-900/40">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
-        <Logo size="md" />
+        <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2">
+          <Logo size="md" />
+        </NavLink>
 
         <div className="hidden md:flex items-center gap-6">
-          <a
-            href="#"
-            className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-200 transition-colors"
+          <NavLink
+            to="/merge-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
           >
             PDF Birleştir
-          </a>
+          </NavLink>
+          <NavLink
+            to="/split-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Parçala
+          </NavLink>
         </div>
 
         <button
@@ -40,13 +60,27 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile dropdown */}
       {open && (
         <div className="md:hidden border-t border-zinc-200/60 dark:border-zinc-800/60 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm">
           <div className="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
-            <a onClick={() => setOpen(false)} href="#" className="py-2 text-sm">
+            <NavLink
+              to="/merge-pdf"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `py-2 ${linkBase} ${isActive ? active : ""}`
+              }
+            >
               PDF Birleştir
-            </a>
+            </NavLink>
+            <NavLink
+              to="/split-pdf"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `py-2 ${linkBase} ${isActive ? active : ""}`
+              }
+            >
+              PDF Parçala
+            </NavLink>
           </div>
         </div>
       )}

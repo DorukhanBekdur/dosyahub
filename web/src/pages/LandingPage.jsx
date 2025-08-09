@@ -39,50 +39,6 @@ function Logo() {
   );
 }
 
-function Nav() {
-  return (
-    <header className="sticky top-0 z-30 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:supports-[backdrop-filter]:bg-zinc-950/60 bg-white/80 dark:bg-zinc-950/50 border-b border-zinc-200/60 dark:border-zinc-800/60">
-      <div className="mx-auto max-w-6xl px-4 h-16 flex items-center justify-between">
-        <Logo />
-        <nav className="hidden md:flex items-center gap-6 text-sm">
-          <a
-            href="#features"
-            className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-          >
-            Özellikler
-          </a>
-          <a
-            href="#how"
-            className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-          >
-            Nasıl Çalışır?
-          </a>
-          <a
-            href="#faq"
-            className="text-zinc-600 dark:text-zinc-300 hover:text-zinc-900 dark:hover:text-white"
-          >
-            SSS
-          </a>
-        </nav>
-        <div className="flex items-center gap-3">
-          <a
-            href="#upload"
-            className="hidden sm:inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-900"
-          >
-            Canlı Demo
-          </a>
-          <a
-            href="#upload"
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-3.5 py-2.5 text-sm font-medium text-white shadow hover:opacity-95"
-          >
-            Başla <HiArrowRight className="h-4 w-4" />
-          </a>
-        </div>
-      </div>
-    </header>
-  );
-}
-
 function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
   const Icon = icon;
   return (
@@ -226,6 +182,7 @@ function FeaturesGrid() {
             title="PDF Parçalama"
             desc="PDF’i sayfalara böl ve seçtiklerini indir."
             badgeColor="from-sky-500 to-indigo-600"
+            to="/split-pdf"
           />
           <FeatureCard
             icon={HiPhotograph}
@@ -451,13 +408,11 @@ export default function LandingPage() {
 
   return (
     <main className="min-h-dvh bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white">
-      <Nav />
       <Hero />
       <FeaturesGrid />
       <HowItWorks />
       <UploadCTA />
       <FAQ />
-      <Footer />
     </main>
   );
 }
