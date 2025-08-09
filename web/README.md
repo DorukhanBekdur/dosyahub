@@ -1,12 +1,44 @@
-# React + Vite
+# 📂 FileForge – PDF Merge Tool
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+FileForge, kullanıcıların kolayca birden fazla PDF dosyasını tek bir dosya halinde birleştirebilmesini sağlayan, **React + Vite + Tailwind** (frontend) ve **Node.js + Express** (backend) tabanlı bir web uygulamasıdır.
 
-Currently, two official plugins are available:
+## 🚀 Özellikler
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 📄 Birden fazla PDF dosyasını tek tıkla birleştirme
+- ⚡ Hızlı ve kullanıcı dostu arayüz (TailwindCSS ile responsive tasarım)
+- 🔒 Dosyalar sunucuda geçici olarak tutulur, işlem tamamlandıktan sonra otomatik silinir
+- 📱 Mobil uyumlu tasarım
 
-## Expanding the ESLint configuration
+## 🛠 Kullanılan Teknolojiler
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Frontend:**
+
+- React (Vite)
+- Tailwind CSS
+
+**Backend:**
+
+- Node.js
+- Express
+- pdf-lib (PDF dosyalarını birleştirme için)
+
+## 📦 Kurulum ve Çalıştırma
+
+### 1️⃣ Repoyu klonlayın
+
+```bash
+git clone https://github.com/dorukhanbekdur/fileforge.git
+cd fileforge
+```
+
+```bash
+cd server
+pnpm install
+pnpm dev   # API http://localhost:5001 üzerinde çalışır
+```
+
+```bash
+cd ../web
+pnpm install
+pnpm dev   # Arayüz http://localhost:5173 üzerinde çalışır
+```
