@@ -1,44 +1,86 @@
-# 📂 FileForge – PDF Merge Tool
+# DosyaHub
 
-FileForge, kullanıcıların kolayca birden fazla PDF dosyasını tek bir dosya halinde birleştirebilmesini sağlayan, **React + Vite + Tailwind** (frontend) ve **Node.js + Express** (backend) tabanlı bir web uygulamasıdır.
+**DosyaHub** is a modern web application for converting, merging, splitting, and managing multiple file formats — starting with PDF and expanding to Word, Excel, and more in the future.
 
-## 🚀 Özellikler
+## 🚀 Features
 
-- 📄 Birden fazla PDF dosyasını tek tıkla birleştirme
-- ⚡ Hızlı ve kullanıcı dostu arayüz (TailwindCSS ile responsive tasarım)
-- 🔒 Dosyalar sunucuda geçici olarak tutulur, işlem tamamlandıktan sonra otomatik silinir
-- 📱 Mobil uyumlu tasarım
+- **PDF Tools**
 
-## 🛠 Kullanılan Teknolojiler
+  - Merge multiple PDF files into one
+  - Split PDF into separate pages
+
+- **Future Support**
+
+  - Word (.docx) merge, split, and conversion
+  - Excel (.xlsx) tools
+  - Image format conversions
+
+- **User-Friendly Interface**
+  - Responsive design with Tailwind CSS
+  - Dark mode support
+  - Clean and minimal layout
+
+## 🛠 Tech Stack
 
 **Frontend:**
 
-- React (Vite)
+- React
+- Vite
 - Tailwind CSS
+- React Router DOM
 
 **Backend:**
 
 - Node.js
 - Express
-- pdf-lib (PDF dosyalarını birleştirme için)
+- Multer (file upload handling)
+- pdf-lib (PDF processing)
 
-## 📦 Kurulum ve Çalıştırma
-
-### 1️⃣ Repoyu klonlayın
+## 📦 Installation
 
 ```bash
-git clone https://github.com/dorukhanbekdur/fileforge.git
-cd fileforge
+# Clone the repository
+git clone https://github.com/<dorukhanbekdur>/dosyahub.git
 ```
 
 ```bash
+# Install dependencies for frontend
+cd web
+pnpm install
+```
+
+```bash
+# Install dependencies for backend
+cd ../server
+pnpm install
+```
+
+## ▶️ Running the Project
+
+```bash
+# Start backend:
 cd server
-pnpm install
-pnpm dev   # API http://localhost:5001 üzerinde çalışır
+pnpm start
 ```
 
 ```bash
-cd ../web
-pnpm install
-pnpm dev   # Arayüz http://localhost:5173 üzerinde çalışır
+# Start frontend:
+cd web
+pnpm dev
 ```
+
+```bash
+# Frontend will be available at:
+http://localhost:5173
+```
+
+```bash
+# Backend API will be available at:
+http://localhost:5001
+```
+
+## 📜 License
+
+All Rights Reserved © 2025 Dorukhan Bekdur
+This project and its source code are proprietary and may not be used, copied, modified, or distributed without explicit written permission.
+For permission requests, please contact: dorukhanbekdur@gmail.com
