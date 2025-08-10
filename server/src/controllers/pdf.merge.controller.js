@@ -32,7 +32,6 @@ export async function mergeTwoPdfs(req, res) {
     const outPath = path.join(OUTPUT_DIR, filename);
     await fs.writeFile(outPath, outBytes);
 
-    // Geçici uploadları temizlemek istersen:
     await Promise.allSettled([fs.unlink(f1.path), fs.unlink(f2.path)]);
 
     return res.json({ fileId: filename });

@@ -2,14 +2,11 @@ import express from "express";
 import cors from "cors";
 import pdfRouter from "./routes/pdf.routes.js";
 
-// App
 const app = express();
 app.use(cors());
 
-// API routes
 app.use("/api", pdfRouter);
 
-// Global error handler - her zaman JSON döndür
 app.use((err, req, res, next) => {
   if (err?.message === "ONLY_PDF_ALLOWED") {
     return res.status(400).json({ error: "Yalnızca PDF dosyaları yükleyin." });
