@@ -55,7 +55,7 @@ cd ../server
 pnpm install
 ```
 
-## ▶️ Running the Project
+## Running the Project
 
 ```bash
 # Start backend:
