@@ -10,6 +10,6 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Call API
+      - name: Health check (GET /health)
         run: |
-          curl -s https://api.dosyahub.com/ || echo "Ping failed"
+          curl -fsS --retry 2 --max-time 10 https://api.dosyahub.com/health > /dev/null
