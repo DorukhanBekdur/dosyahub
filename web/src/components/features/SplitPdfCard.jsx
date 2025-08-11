@@ -1,6 +1,8 @@
 import { useCallback, useRef, useState } from "react";
 import { HiOutlineCloudUpload, HiDownload } from "react-icons/hi";
 
+const API = import.meta.env.VITE_API_URL;
+
 export default function SplitPdfCard() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -46,7 +48,11 @@ export default function SplitPdfCard() {
       const fd = new FormData();
       fd.append("file", file);
 
-      const res = await fetch("/api/split/pdf", { method: "POST", body: fd });
+      const res = await fetch(`${API}/api/split/pdf`, {
+        method: "POST",
+        body: fd,
+      });
+
       if (!res.ok) {
         const txt = await res.text();
         throw new Error(txt || "Parçalama başarısız.");

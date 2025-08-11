@@ -2,6 +2,8 @@ import { useCallback, useRef, useState } from "react";
 import InfoCard from "../components/features/InfoCard";
 import { HiDownload, HiOutlineCloudUpload } from "react-icons/hi";
 
+const API_BASE = "https://api.dosyahub.com"; // Backend URL'in buraya gelecek
+
 export default function MergePdfPage() {
   const [files, setFiles] = useState([]);
   const [downUrl, setDownUrl] = useState("");
@@ -53,7 +55,10 @@ export default function MergePdfPage() {
       const fd = new FormData();
       fd.append("file1", files[0]);
       fd.append("file2", files[1]);
-      const res = await fetch("/api/merge/pdf", { method: "POST", body: fd });
+      const res = await fetch(`${API_BASE}/api/merge/pdf`, {
+        method: "POST",
+        body: fd,
+      });
 
       const ct = res.headers.get("content-type") || "";
       const data = ct.includes("application/json")
@@ -61,7 +66,7 @@ export default function MergePdfPage() {
         : { error: await res.text() };
       if (!res.ok) throw new Error(data?.error || "Birleştirme başarısız.");
 
-      setDownUrl(`/api/download/${data.fileId}`);
+      setDownUrl(`${API_BASE}/api/download/${data.fileId}`);
     } catch (e) {
       setError(e.message || "Beklenmeyen bir hata oluştu.");
     } finally {
