@@ -16,7 +16,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-20 border-b border-zinc-200/60 dark:border-zinc-800/60 backdrop-blur bg-white/60 dark:bg-zinc-900/40">
       <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
         <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2">
-          <Logo size="md" />
+          <Logo size="lg" />
         </NavLink>
 
         <div className="hidden md:flex items-center gap-6">
