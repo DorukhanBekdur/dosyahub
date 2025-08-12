@@ -19,6 +19,7 @@ export default function Navbar() {
           <Logo size="lg" />
         </NavLink>
 
+        {/* Masaüstü Menü */}
         <div className="hidden md:flex items-center gap-6">
           <NavLink
             to="/merge-pdf"
@@ -36,8 +37,17 @@ export default function Navbar() {
           >
             PDF Parçala
           </NavLink>
+          <NavLink
+            to="/iletisim"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            İletişim
+          </NavLink>
         </div>
 
+        {/* Mobil Menü Butonu */}
         <button
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
@@ -60,6 +70,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobil Menü */}
       {open && (
         <div className="md:hidden border-t border-zinc-200/60 dark:border-zinc-800/60 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm">
           <div className="mx-auto max-w-6xl px-4 py-3 flex flex-col gap-2">
@@ -80,6 +91,15 @@ export default function Navbar() {
               }
             >
               PDF Parçala
+            </NavLink>
+            <NavLink
+              to="/iletisim"
+              onClick={closeMenu}
+              className={({ isActive }) =>
+                `py-2 ${linkBase} ${isActive ? active : ""}`
+              }
+            >
+              İletişim
             </NavLink>
           </div>
         </div>
