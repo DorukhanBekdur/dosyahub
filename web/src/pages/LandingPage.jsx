@@ -370,7 +370,7 @@ function FAQ() {
                 />
               </button>
               {open === idx && (
-                <div className="px-5 pb-5 text-sm text-zinc-600 dark:text-zinc-400">
+                <div className="px-5 pb-5 mt-4 text-sm text-zinc-600 dark:text-zinc-400">
                   {it.a}
                 </div>
               )}
