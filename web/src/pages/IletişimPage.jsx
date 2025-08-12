@@ -95,7 +95,7 @@ export default function IletisimPage() {
             <div>
               <p className="font-medium">E-posta</p>
               <p className="text-sm text-zinc-600 dark:text-zinc-400">
-                dorukhanbekdur@gmail.com
+                destek@dosyahub.com
               </p>
             </div>
           </div>
