@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from "react";
 import InfoCard from "../components/features/InfoCard";
 import { HiDownload, HiOutlineCloudUpload } from "react-icons/hi";
 
-const API_BASE = "https://api.dosyahub.com"; // Backend URL'in buraya gelecek
+const API_BASE = "https://api.dosyahub.com";
 
 export default function MergePdfPage() {
   const [files, setFiles] = useState([]);
