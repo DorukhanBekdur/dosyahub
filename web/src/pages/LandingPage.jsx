@@ -46,12 +46,11 @@ function Hero() {
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
               hızla
             </span>{" "}
-            dönüştürün ve birleştirin.
+            dönüştürün, birleştirin ve yönetin.
           </h1>
           <p className="mt-4 text-zinc-300 max-w-prose">
-            DosyaHub; sade arayüzü, gizlilik odaklı mimarisi ve performanslı
-            altyapısıyla PDF birleştirme, dönüştürme ve daha fazlasını tek yerde
-            toplar.
+            Modern arayüz, güvenli altyapı ve yüksek performans ile dosya
+            işlemlerinizi zahmetsizce tamamlayın.
           </p>
           <div className="mt-6 flex items-center gap-3">
             <a
@@ -78,45 +77,52 @@ function Hero() {
           </div>
         </div>
 
-        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-white/20 p-6 md:p-8 transition-all duration-300 hover:shadow-lg">
+        <aside
+          className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] transition-shadow p-6 md:p-8 duration-300
+"
+        >
           <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
-            Neden DosyaHub?
+            Neden Dosya
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
+              Hub
+            </span>{" "}
+            ?
           </h2>
           <ul className="mt-5 space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
             <FeatureItem
               icon={HiSparkles}
               title="Hızlı ve Güvenilir İşlem"
-              desc="Dosyalarınızı saniyeler içinde işleyin."
+              desc="Dosyalarınızı saniyeler içinde dönüştürün ve yönetin"
               badgeBg="bg-amber-100 dark:bg-amber-900/40"
               iconColor="text-amber-600 dark:text-amber-400"
             />
             <FeatureItem
+              icon={HiColorSwatch}
+              title="Gelişmiş UI Tasarımı"
+              desc="Modern ve kullanıcı dostu arayüz ile kolay kullanım."
+              badgeBg="bg-pink-100 dark:bg-pink-900/40"
+              iconColor="text-pink-600 dark:text-pink-400"
+            />
+            <FeatureItem
               icon={HiLockClosed}
               title="Gizlilik Öncelikli"
-              desc="Dosyalar kısa süreli ve geçici depolanır."
+              desc="Dosyalarınız yalnızca kısa süreli tutulur, tamamen güvendedir."
               badgeBg="bg-sky-100 dark:bg-sky-900/40"
               iconColor="text-sky-600 dark:text-sky-400"
             />
             <FeatureItem
               icon={HiArrowRight}
               title="Geliştirme Sürecinde Olanlar"
-              desc="PNG/JPG/WEBP, PDF merge/split, MP4→MP3"
+              desc="Yakında: Yeni dosya türleri ve güçlü dönüşüm araçları yolda."
               badgeBg="bg-violet-100 dark:bg-violet-900/40"
               iconColor="text-violet-600 dark:text-violet-400"
             />
-            <FeatureItem
-              icon={HiColorSwatch}
-              title="Gelişmiş UI Tasarımı"
-              desc="Modern, kullanıcı dostu ve sezgisel arayüz."
-              badgeBg="bg-pink-100 dark:bg-pink-900/40"
-              iconColor="text-pink-600 dark:text-pink-400"
-            />
           </ul>
 
-          <div className="mt-6 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4">
+          <div className="mt-6 rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 p-4">
             <h3 className="font-medium flex items-center gap-2">
-              <HiOutlineInformationCircle className="text-zinc-500 dark:text-zinc-400" />
-              İpuçları
+              <HiOutlineInformationCircle className="text-zinc-500 dark:text-white" />
+              Bilgi
             </h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
               Büyük dosyalarda yükleme süresi internet hızınıza bağlı
@@ -125,8 +131,16 @@ function Hero() {
           </div>
 
           <div className="mt-8 flex items-center justify-between text-xs text-zinc-500">
-            <span>Version: MVP-1</span>
-            <span className="italic">Hızlı. Güvenli. Basit.</span>
+            <span>
+              Version:{" "}
+              <span className="text-purple-400 font-semibold">MVP-1</span>
+            </span>
+            <span className="italic">
+              <span className="text-purple-400 font-semibold">+1000</span>
+              <span className="text-white">
+                ’den fazla belge güvenle işlendi
+              </span>
+            </span>
           </div>
         </aside>
       </div>
