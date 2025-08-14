@@ -19,26 +19,6 @@ import {
   HiRefresh,
 } from "react-icons/hi";
 
-function Logo() {
-  return (
-    <a
-      href="/"
-      className="flex items-center gap-2"
-      aria-label="DosyaHub ana sayfa"
-    >
-      <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white">
-        <HiOutlineDocumentText className="h-4 w-4" />
-      </div>
-      <span className="font-semibold tracking-tight text-lg">
-        Dosya
-        <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
-          Hub
-        </span>
-      </span>
-    </a>
-  );
-}
-
 function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
   const Icon = icon;
   return (
@@ -58,21 +38,17 @@ function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
 
 function Hero() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -top-32 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-gradient-to-br from-indigo-500/20 to-purple-600/20 blur-3xl" />
-      </div>
-
-      <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <section className="relative overflow-hidden bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700">
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
         <div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-zinc-900 dark:text-white">
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
             Dosyalarınızı{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-purple-600">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
               hızla
             </span>{" "}
             dönüştürün ve birleştirin.
           </h1>
-          <p className="mt-4 text-zinc-600 dark:text-zinc-400 max-w-prose">
+          <p className="mt-4 text-zinc-300 max-w-prose">
             DosyaHub; sade arayüzü, gizlilik odaklı mimarisi ve performanslı
             altyapısıyla PDF birleştirme, dönüştürme ve daha fazlasını tek yerde
             toplar.
@@ -86,13 +62,13 @@ function Hero() {
             </a>
             <a
               href="#features"
-              className="inline-flex items-center gap-2 rounded-xl border border-zinc-200 dark:border-zinc-800 px-4 py-2.5 text-zinc-800 dark:text-zinc-100 hover:bg-zinc-50 dark:hover:bg-zinc-900"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-4 py-2.5 text-white hover:bg-white/10"
             >
               Özellikler
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-500">
+          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-300">
             <span className="inline-flex items-center gap-1">
               <HiLockClosed className="h-4 w-4" /> Gizlilik Öncelikli
             </span>
@@ -102,7 +78,7 @@ function Hero() {
           </div>
         </div>
 
-        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-6 md:p-8 transition-all duration-300 hover:shadow-lg">
+        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-white/20 p-6 md:p-8 transition-all duration-300 hover:shadow-lg">
           <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
             Neden DosyaHub?
           </h2>
@@ -173,34 +149,34 @@ function FeaturesGrid() {
           <FeatureCard
             icon={HiCollection}
             title="PDF Birleştirme"
-            desc="Birden fazla PDF’i tek dosyada birleştir."
+            desc="PDF'leri istediğin sırayla kolayca birleştir."
             badgeColor="from-emerald-500 to-teal-600"
             to="/merge-pdf"
           />
           <FeatureCard
             icon={HiViewGrid}
             title="PDF Parçalama"
-            desc="PDF’i sayfalara böl ve seçtiklerini indir."
+            desc="PDF’i sayfalara böl ve kolayca indir."
             badgeColor="from-sky-500 to-indigo-600"
             to="/split-pdf"
           />
           <FeatureCard
             icon={HiPhotograph}
             title="Görsel → PDF"
-            desc="PNG/JPG/WEBP görsellerini PDF’e dönüştür."
+            desc="Kolayca PNG/JPEG görsellerini pdf'e dönüştürebilirsin."
             badgeColor="from-pink-500 to-rose-600"
           />
           <FeatureCard
             icon={HiSwitchHorizontal}
             title="PDF → Görsel"
-            desc="PDF sayfalarını görsellere çevir."
+            desc="PDF dosyanı PNG/JPEG görsellerine dönüştürebilirsin."
             badgeColor="from-violet-500 to-fuchsia-600"
             soon
           />
           <FeatureCard
             icon={HiDocumentText}
             title="Word → PDF"
-            desc=".docx dosyalarını PDF’e çevir."
+            desc=".doc/.docx dosyalarını kolayca PDF’e dönüştürebilirsin."
             badgeColor="from-amber-500 to-orange-600"
             soon
           />
