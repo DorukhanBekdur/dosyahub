@@ -6,6 +6,7 @@ import {
   HiCloudUpload,
   HiOutlineInformationCircle,
 } from "react-icons/hi";
+import { Link } from "react-router-dom";
 
 function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
   const Icon = icon;
@@ -41,12 +42,12 @@ export default function Hero() {
             işlemlerinizi zahmetsizce tamamlayın.
           </p>
           <div className="mt-6 flex items-center gap-3">
-            <a
-              href="#upload"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-2.5 text-white font-medium shadow hover:opacity-95"
+            <Link
+              to="/merge-pdf"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-2.5 text-white font-medium shadow hover:opacity-95 hover:scale-105 active:scale-95 transition-transform duration-200"
             >
               Dosya Yükle <HiCloudUpload className="h-5 w-5" />
-            </a>
+            </Link>
             <a
               href="#features"
               className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-4 py-2.5 text-white hover:bg-white/10"
