@@ -1,7 +1,6 @@
 import Hero from "../components/sections/Hero";
 import HowItWorks from "../components/sections/HowItWorks";
 import FeaturesGrid from "../components/sections/FeaturesGrid";
-import UploadCTA from "../components/sections/UploadCTA";
 import FAQ from "../components/sections/FAQ";
 
 export default function LandingPage() {
@@ -10,7 +9,6 @@ export default function LandingPage() {
       <Hero />
       <FeaturesGrid />
       <HowItWorks />
-      <UploadCTA />
       <FAQ />
     </main>
   );
