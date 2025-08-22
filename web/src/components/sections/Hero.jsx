@@ -28,7 +28,9 @@ function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
 export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700">
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[radial-gradient(60rem_60rem_at_20%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(50rem_50rem_at_110%_10%,theme(colors.purple.400/35),transparent_55%)]" />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center animate-heroReveal">
         <div>
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
             Dosyalarınızı{" "}
@@ -66,12 +68,12 @@ export default function Hero() {
           </div>
         </div>
 
-        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] transition-shadow p-6 md:p-8 duration-300">
+        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] transition-shadow p-6 md:p-8 duration-300 animate-heroFadeSlow">
           <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
             Neden Dosya
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
               Hub
-            </span>{" "}
+            </span>
             ?
           </h2>
           <ul className="mt-5 space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
@@ -130,6 +132,25 @@ export default function Hero() {
           </div>
         </aside>
       </div>
+
+      <style>{`
+        @keyframes heroReveal {
+          from { opacity: 0; transform: translateY(14px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heroReveal { animation: heroReveal 1.1s cubic-bezier(.2,.7,.2,1) both; }
+
+        @keyframes heroFadeSlow {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .animate-heroFadeSlow { animation: heroFadeSlow .9s ease-out .15s both; }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-heroReveal,
+          .animate-heroFadeSlow { animation: none !important; }
+        }
+      `}</style>
     </section>
   );
 }
