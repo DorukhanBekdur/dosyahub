@@ -6,16 +6,28 @@ export default function FAQ() {
 
   const items = [
     {
-      q: "Dosyalarım nerede tutuluyor?",
+      q: "Dosyalarım nerede tutuluyor ?",
       a: "Dosyalar yalnızca işlem sırasında geçici olarak depolanır ve kısa süre sonra silinir.",
     },
     {
-      q: "Ücretli mi?",
-      a: "Erken erişim sürecinde temel işlemler ücretsizdir. İleride gelişmiş özellikler için uygun fiyatlı planlar sunulabilir.",
+      q: "Ücretli mi ?",
+      a: "Erken erişim sürecinde temel işlemler ücretsizdir.",
     },
     {
-      q: "Hangi dosya türleri desteklenecek?",
-      a: "Şu an odak PDF; sırada PNG/JPG/WEBP ve ses-dönüşüm (MP4→MP3) var.",
+      q: "Hangi dosya türleri desteklenecek ?",
+      a: "Şu anda yaygın dosya türleri destekleniyor, ilerleyen süreçte kapsam sürekli genişletilecek.",
+    },
+    {
+      q: "Dönüştürme sırasında dosya boyutu sınırı var mı ?",
+      a: "Şu an için küçük ve orta boyutlu dosyalar destekleniyor, çok büyük dosyalar sınırlı olabilir.",
+    },
+    {
+      q: "Hesap oluşturmadan PDF dönüştürebilir miyim ?",
+      a: "Evet, temel PDF dönüştürme işlemleri için hesap oluşturmadan da kullanabilirsiniz.",
+    },
+    {
+      q: "Mobil veya masaüstü uygulaması var mı ?",
+      a: "Şu an için yalnızca web üzerinden kullanılabiliyor, mobil ve masaüstü uygulamalar geliştiriliyor.",
     },
   ];
 
@@ -41,7 +53,6 @@ export default function FAQ() {
                       : "bg-white/40 dark:bg-zinc-900/40 hover:bg-zinc-50/50 dark:hover:bg-zinc-900/50"
                   }`}
                 >
-                  {/* sol vurgu şeridi */}
                   <span
                     className={`pointer-events-none absolute left-0 top-0 h-full w-1 rounded-l-xl transition-opacity ${
                       isOpen
