@@ -73,8 +73,6 @@ export default function HowItWorks() {
                          p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.25)] 
                          transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(0,0,0,0.35)]"
             >
-              <div className="md:hidden absolute -left-[2px] top-6 h-4 w-4 rounded-full bg-white/20 border border-purple-400" />
-
               <div className="flex items-center gap-3">
                 <span
                   className="grid place-items-center h-9 w-9 rounded-xl 
