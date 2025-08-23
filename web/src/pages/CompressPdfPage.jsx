@@ -223,7 +223,7 @@ export default function CompressPdfPage() {
       <section className="grid md:grid-cols-2 gap-6 md:gap-8">
         <section className="h-full min-h-[500px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
           <h1 className="text-3xl font-semibold tracking-tight">
-            PDF Sıkıştırma (PDF’yi Sıkıştır)
+            PDF Sıkıştırma
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
             PDF dosyanızın boyutunu azaltın, kaliteyi koruyarak daha hızlı
