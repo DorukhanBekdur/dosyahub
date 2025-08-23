@@ -135,7 +135,6 @@ export default function MergePdfPage() {
         />
         <meta property="og:url" content={CANONICAL} />
         <meta property="og:site_name" content="DosyaHub" />
-        {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="PDF Birleştirme | DosyaHub" />
         <meta
@@ -146,7 +145,6 @@ export default function MergePdfPage() {
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
       </Helmet>
 
-      {/* PAGE CONTENT */}
       <section className="grid md:grid-cols-2 gap-6 md:gap-8">
         <section className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
           <h1 className="text-3xl font-semibold tracking-tight">
