@@ -30,7 +30,6 @@ export default function FeaturesGrid({ items }) {
       title: "PDF Sıkıştırma",
       desc: "Kaliteyi koruyarak boyutu küçült.",
       color: "from-lime-500 to-emerald-600",
-      soon: true,
     },
     {
       icon: HiDocumentText,
