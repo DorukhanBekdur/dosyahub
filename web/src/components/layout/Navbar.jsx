@@ -70,7 +70,7 @@ export default function Navbar() {
               `${linkBase} ${isActive ? active : ""}`
             }
           >
-            Pdf Sıkıştırma
+            PDF Sıkıştırma
           </NavLink>
           <NavLink
             to="/iletisim"
@@ -130,6 +130,15 @@ export default function Navbar() {
             }
           >
             PDF Parçala
+          </NavLink>
+          <NavLink
+            to="/compress-pdf"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Sıkıştırma
           </NavLink>
           <NavLink
             to="/iletisim"
