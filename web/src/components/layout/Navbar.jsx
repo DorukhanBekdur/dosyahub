@@ -70,7 +70,7 @@ export default function Navbar() {
               `${linkBase} ${isActive ? active : ""}`
             }
           >
-            Pdf Sıkıştır
+            Pdf Sıkıştırma
           </NavLink>
           <NavLink
             to="/iletisim"
