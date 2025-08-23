@@ -20,7 +20,7 @@ app.use((err, _req, res, _next) => {
     return res.status(400).json({ error: "Yalnızca PDF dosyaları yükleyin." });
   }
   if (err?.code === "LIMIT_FILE_SIZE") {
-    return res.status(400).json({ error: "Maksimum dosya boyutu 20MB." });
+    return res.status(400).json({ error: "Maksimum dosya boyutu 100MB." });
   }
   console.error("Unhandled error:", err);
   return res.status(500).json({ error: "Sunucu hatası." });
