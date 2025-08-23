@@ -82,7 +82,7 @@ export default function FAQ() {
 
                   <button
                     onClick={() => setOpen(isOpen ? null : idx)}
-                    className="group w-full px-5 py-4 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 rounded-inherit"
+                    className="group w-full px-5 py-4 flex items-center justify-between gap-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 rounded-inherit cursor-pointer"
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${idx}`}
                   >
