@@ -12,6 +12,7 @@ import LandingPage from "./pages/LandingPage";
 import MergePdfPage from "./pages/MergePdfPage";
 import SplitPage from "./pages/SplitPage";
 import ContactPage from "./pages/ContactPage";
+import CompressPage from "./pages/CompressPdfPage";
 
 export default function App() {
   return (
@@ -40,6 +41,16 @@ export default function App() {
               element={
                 <div className="mx-auto max-w-6xl w-full px-4 py-12">
                   <SplitPage />
+                </div>
+              }
+            />
+
+            {/* Compress */}
+            <Route
+              path="/compress-pdf"
+              element={
+                <div className="mx-auto max-w-6xl w-full px-4 py-12">
+                  <CompressPage />
                 </div>
               }
             />

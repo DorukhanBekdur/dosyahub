@@ -65,6 +65,14 @@ export default function Navbar() {
             PDF Parçala
           </NavLink>
           <NavLink
+            to="/compress-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            Pdf Sıkıştır
+          </NavLink>
+          <NavLink
             to="/iletisim"
             className={({ isActive }) =>
               `${linkBase} ${isActive ? active : ""}`

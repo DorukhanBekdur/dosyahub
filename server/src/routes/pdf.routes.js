@@ -3,6 +3,7 @@ import { uploadPdf } from "../libs/multer.js";
 import { mergeTwoPdfs } from "../controllers/pdf.merge.controller.js";
 import { splitPdf } from "../controllers/pdf.split.controller.js";
 import { downloadById } from "../controllers/pdf.download.controller.js";
+import { compressPdf } from "../controllers/pdf.compress.controller.js";
 
 const router = Router();
 
@@ -15,6 +16,8 @@ const uploadTwo = uploadPdf.fields([
 router.post("/merge/pdf", uploadTwo, mergeTwoPdfs);
 
 router.post("/split/pdf", uploadPdf.single("file"), splitPdf);
+
+router.post("/compress/pdf", uploadPdf.single("file"), compressPdf);
 
 router.get("/download/:fileId", downloadById);
 
