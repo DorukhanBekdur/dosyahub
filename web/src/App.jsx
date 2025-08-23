@@ -11,7 +11,7 @@ import Footer from "./components/layout/Footer";
 import LandingPage from "./pages/LandingPage";
 import MergePdfPage from "./pages/MergePdfPage";
 import SplitPage from "./pages/SplitPage";
-import IletisimPage from "./pages/IletişimPage";
+import ContactPage from "./pages/ContactPage";
 
 export default function App() {
   return (
@@ -45,7 +45,7 @@ export default function App() {
             />
 
             {/* İletişim */}
-            <Route path="/iletisim" element={<IletisimPage />} />
+            <Route path="/iletisim" element={<ContactPage />} />
 
             {/* Not Found */}
             <Route path="*" element={<Navigate to="/" replace />} />

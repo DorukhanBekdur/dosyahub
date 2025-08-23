@@ -9,7 +9,7 @@ import {
   HiDocument,
 } from "react-icons/hi";
 
-export default function IletisimPage() {
+export default function ContactPage() {
   const [mode, setMode] = useState("contact");
 
   return (
