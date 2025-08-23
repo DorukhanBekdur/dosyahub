@@ -154,7 +154,7 @@ export default function MergePdfPage() {
           </h1>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
             PDF dosyalarınızı yükleyin ve saniyeler içinde tek bir dosyada
-            birleştirin. Hızlı, güvenli ve ücretsiz PDF birleştirme.
+            birleştirin.
           </p>
 
           <div
