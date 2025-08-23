@@ -78,7 +78,7 @@ export default function SplitPdfCard() {
     <section className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
       <h1 className="text-3xl font-semibold tracking-tight">PDF’i Parçala</h1>
       <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-        Tek PDF dosyasını yükleyin; tüm sayfalar ZIP içinde ayrı PDF’ler olarak
+        PDF dosyasını yükleyin, tüm sayfalar ZIP içinde ayrı PDF’ler olarak
         indirilir.
       </p>
 
@@ -119,7 +119,7 @@ export default function SplitPdfCard() {
           className="mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white
                      bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-colors cursor-pointer"
         >
-          PDF seç
+          PDF Yükle
         </button>
 
         <p className="mt-3 text-xs text-zinc-500">Yalnızca PDF • Maks 50MB</p>

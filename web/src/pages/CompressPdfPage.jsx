@@ -164,7 +164,7 @@ export default function CompressPdfPage() {
             className="mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white
                        bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-colors cursor-pointer"
           >
-            PDF dosyası seç
+            PDF Yükle
           </button>
 
           <p className="mt-3 text-xs text-zinc-500">
