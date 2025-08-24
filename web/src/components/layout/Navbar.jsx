@@ -73,6 +73,14 @@ export default function Navbar() {
             PDF Sıkıştırma
           </NavLink>
           <NavLink
+            to="/organize-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Sıralama
+          </NavLink>
+          <NavLink
             to="/iletisim"
             className={({ isActive }) =>
               `${linkBase} ${isActive ? active : ""}`
@@ -139,6 +147,15 @@ export default function Navbar() {
             }
           >
             PDF Sıkıştırma
+          </NavLink>
+          <NavLink
+            to="/organize-pdf"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Sıralama
           </NavLink>
           <NavLink
             to="/iletisim"
