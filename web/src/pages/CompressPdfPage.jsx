@@ -373,60 +373,68 @@ export default function CompressPdfPage() {
             PDF Sıkıştırma Neden Gerekli ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Büyük PDF’ler e-posta ile gönderilemez, yavaş yüklenir ve paylaşımı
-            zorlaştırır. Görsel ağırlıklı belgelerde
-            <strong> PDF sıkıştırma</strong> bant genişliği ve depolama
-            maliyetlerini düşürür; mobilde okunabilirliği artırır.
+            Büyük boyutlu PDF dosyaları paylaşırken e-posta limitlerini aşabilir
+            veya yavaş yüklemelere neden olabilir.{" "}
+            <strong>PDF sıkıştırma</strong> sayesinde kaliteyi mümkün olduğunca
+            koruyarak dosya boyutunu küçültebilir, belgelerinizi daha hızlı ve
+            kolay şekilde paylaşabilirsiniz.
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
-            DosyaHub ile PDF Sıkıştırma ?
+            DosyaHub ile PDF Nasıl Sıkıştırılır ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            PDF’i yükleyin, kalite kaydırıcısını ihtiyacınıza göre ayarlayın ve{" "}
-            <strong>“PDF’yi Sıkıştır”</strong> butonuna tıklayın. Sıkıştırma
-            sonrası çıktı hemen indirilebilir. İşlem sonrası belgenizi gerekirse{" "}
+            PDF dosyanızı yükleyin ve <strong>“PDF’i Sıkıştır”</strong> butonuna
+            tıklayın. Sistem, dosyanızı optimize ederek küçültür ve indirilmeye
+            hazır hale getirir. İhtiyacınız olursa{" "}
             <a href="/merge-pdf" className="underline hover:opacity-80">
               PDF birleştirme
             </a>{" "}
-            ya da{" "}
+            veya{" "}
             <a href="/split-pdf" className="underline hover:opacity-80">
               PDF parçalama
             </a>{" "}
-            araçlarıyla düzenlemeye devam edebilirsiniz.
+            araçlarımızla dosyalarınızı işlemeye devam edebilirsiniz.
           </p>
 
-          <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
+          <h2 className="text-xl font-semibold mt-8 mb-3">
+            Kimler Kullanabilir ?
+          </h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
+            <li>Öğrenciler: ödev veya tez dosyalarını hızlıca göndermek</li>
             <li>
-              Metin ağırlıklı dosyalarda 70–80 kalite genelde iyi denge sağlar.
+              İş dünyası: rapor ve sözleşmeleri e-posta limitlerini aşmadan
+              paylaşmak
             </li>
-            <li>
-              Görsel ağırlıklı sayfalarda kaliteyi kademeli düşürerek en iyi
-              boyut/görüntü dengesini bulun.
-            </li>
-            <li>
-              Şifreli/bozuk PDF’ler sıkıştırılamayabilir; önce şifreyi kaldırın
-              veya yeniden kaydedin.
-            </li>
+            <li>Freelancer’lar: müşteriyle belgeleri hızlıca paylaşmak</li>
           </ul>
+
+          <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Çok yüksek çözünürlüklü görseller içeren PDF’lerde boyut farkı daha
+            belirgin olur. Eğer en küçük boyutu hedefliyorsanız “yüksek
+            sıkıştırma” seçeneğini deneyin. Gizlilik açısından dosyalar işlem
+            sürecinde geçici olarak işlenir ve kısa süre içinde sistemden
+            silinir.
+          </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
             Sık Sorulan Sorular
           </h2>
           <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
             <div>
-              <p className="font-medium">Sıkıştırma kaliteyi düşürür mü ?</p>
+              <p className="font-medium">Kalite düşer mi?</p>
               <p>
-                Metin ağırlıklı dosyalarda fark azdır; görsellerde düşük kalite
-                ayarında kısmi kayıp olabilir.
+                PDF sıkıştırma görsellerde küçük farklar oluşturabilir fakat
+                metinlerde kalite korunur. DosyaHub, kalite ve boyut arasında en
+                iyi dengeyi sunar.
               </p>
             </div>
             <div>
-              <p className="font-medium">Dosyalar güvende mi ?</p>
+              <p className="font-medium">Ücretsiz mi?</p>
               <p>
-                Dosyalar yalnızca işlem sırasında geçici olarak işlenir ve kısa
-                süre içinde sistemden silinir.
+                Erken erişim sürecinde temel sıkıştırma işlemleri tamamen
+                ücretsizdir.
               </p>
             </div>
           </div>

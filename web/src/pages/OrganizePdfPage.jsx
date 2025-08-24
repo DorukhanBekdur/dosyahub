@@ -100,24 +100,76 @@ export default function OrganizePdfPage() {
         <InfoCard />
 
         <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
-          <h2 className="text-xl font-semibold mb-3">PDF Sayfalarını Sırala</h2>
+          <h2 className="text-xl font-semibold mb-3">
+            PDF Sayfalarını Sıralamak Neden Gerekli ?
+          </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            PDF dosyanızı yükledikten sonra küçük önizlemeleri{" "}
-            <strong>sürükle-bırak</strong> ile yeniden sıralayın. Ardından tek
-            tıkla <strong>yeni sıralı PDF</strong>’i indirebilirsiniz.
+            Uzun PDF dosyalarında sayfaların karışık olması okuma ve paylaşım
+            sürecini zorlaştırabilir. <strong>PDF sıralama</strong> aracıyla
+            sayfaları sürükle-bırak yöntemiyle yeniden düzenleyebilir,
+            istediğiniz sıraya göre tek bir dosya halinde kaydedebilirsiniz.
           </p>
 
-          <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
+          <h2 className="text-xl font-semibold mt-8 mb-3">
+            DosyaHub ile PDF Nasıl Sıralanır ?
+          </h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            PDF dosyanızı yükleyin, sayfaları sürükle-bırak ile istediğiniz
+            sıraya getirin ve <strong>“PDF’i Kaydet”</strong> butonuna tıklayın.
+            Düzenlenmiş PDF dosyanız anında indirilmeye hazır hale gelir. Daha
+            sonra{" "}
+            <a href="/merge-pdf" className="underline hover:opacity-80">
+              PDF birleştirme
+            </a>{" "}
+            veya{" "}
+            <a href="/compress-pdf" className="underline hover:opacity-80">
+              PDF sıkıştırma
+            </a>{" "}
+            araçlarımızla ek düzenlemeler yapabilirsiniz.
+          </p>
+
+          <h2 className="text-xl font-semibold mt-8 mb-3">
+            Kimler Kullanabilir ?
+          </h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-            <li>Daha hızlı sıralama için sayfaları blok halinde sürükleyin.</li>
+            <li>Öğrenciler: not ve sunum sayfalarını düzenli hale getirmek</li>
+            <li>İş dünyası: sözleşme ve raporların sırasını düzeltmek</li>
             <li>
-              Önizlemeler büyük dosyalarda daha yavaş gelebilir; biraz bekleyin.
-            </li>
-            <li>
-              İşlem tarayıcıda gerçekleştiği için dosyanız cihazınızda kalır;
-              gizliliğiniz korunur.
+              Tasarımcılar: portfolyo ve katalog sayfalarını istediği sıraya
+              koymak
             </li>
           </ul>
+
+          <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            Çok sayfalı dosyalarda sürükle-bırak kolaylığı sayesinde birkaç
+            saniyede istediğiniz düzeni oluşturabilirsiniz. Gizlilik açısından
+            dosyalar yalnızca işlem sırasında geçici olarak tutulur ve kısa süre
+            içinde sistemden silinir.
+          </p>
+
+          <h2 className="text-xl font-semibold mt-8 mb-3">
+            Sık Sorulan Sorular
+          </h2>
+          <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
+            <div>
+              <p className="font-medium">Sayfa numaraları değişir mi ?</p>
+              <p>
+                Hayır, sayfa içeriği olduğu gibi korunur. Yalnızca dosyanın
+                içindeki sayfaların sırası değişir.
+              </p>
+            </div>
+            <div>
+              <p className="font-medium">
+                Birden fazla PDF’i aynı anda sıralayabilir miyim ?
+              </p>
+              <p>
+                Önce birleştirme aracını kullanarak PDF’leri tek dosya haline
+                getirebilir, ardından sıralama aracıyla sayfaları istediğiniz
+                gibi düzenleyebilirsiniz.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
     </>

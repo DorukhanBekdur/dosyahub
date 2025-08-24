@@ -62,7 +62,7 @@ export default function Navbar() {
               `${linkBase} ${isActive ? active : ""}`
             }
           >
-            PDF Parçala
+            PDF Parçalama
           </NavLink>
           <NavLink
             to="/compress-pdf"
@@ -137,7 +137,7 @@ export default function Navbar() {
               `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
             }
           >
-            PDF Parçala
+            PDF Parçalama
           </NavLink>
           <NavLink
             to="/compress-pdf"

@@ -76,7 +76,7 @@ export default function SplitPdfCard() {
 
   return (
     <section className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
-      <h1 className="text-3xl font-semibold tracking-tight">PDF’i Parçala</h1>
+      <h1 className="text-3xl font-semibold tracking-tight">PDF’i Parçalama</h1>
       <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
         PDF dosyasını yükleyin, tüm sayfalar ZIP içinde ayrı PDF’ler olarak
         indirilir.
