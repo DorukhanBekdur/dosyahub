@@ -275,7 +275,7 @@ export default function MergePdfPage() {
 
         <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
           <h2 className="text-xl font-semibold mb-3">
-            PDF Birleştirme Neden Gerekli?
+            PDF Birleştirme Neden Gerekli ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Günlük hayatta birden fazla PDF belgesiyle çalışmak yaygındır:
@@ -314,7 +314,7 @@ export default function MergePdfPage() {
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
-            Kimler Kullanabilir?
+            Kimler Kullanabilir ?
           </h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
             <li>Öğrenciler: ders notlarını tek PDF’te toplamak için</li>
@@ -347,7 +347,7 @@ export default function MergePdfPage() {
           </div>
 
           <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-6">
-            Hazır mısınız? Şimdi iki dosyanızı seçin ve{" "}
+            Hazır mısınız ? Şimdi iki dosyanızı seçin ve{" "}
             <strong>PDF’leri birleştirmeye</strong> başlayın.
           </p>
         </div>

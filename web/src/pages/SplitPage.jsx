@@ -110,7 +110,7 @@ export default function SplitPage() {
 
         <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
           <h2 className="text-xl font-semibold mb-3">
-            PDF Parçalama Ne İşe Yarar?
+            PDF Parçalama Neden Gerekli ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Çok sayfalı dosyalarda belirli sayfaları ayırmak, gereksiz sayfaları
@@ -121,7 +121,7 @@ export default function SplitPage() {
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
-            DosyaHub ile PDF’i Nasıl Bölersiniz?
+            DosyaHub ile PDF’i Nasıl Parçalarsınız ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             PDF dosyanızı yükleyin ve <strong>“PDF’i Parçala”</strong> butonuna
@@ -138,7 +138,7 @@ export default function SplitPage() {
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
-            Kullanım Senaryoları
+            Kimler Kullanabilir ?
           </h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
             <li>Öğrenciler: notların yalnızca gerekli sayfalarını paylaşmak</li>
@@ -159,14 +159,14 @@ export default function SplitPage() {
           </h2>
           <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
             <div>
-              <p className="font-medium">Herhangi bir program gerekir mi?</p>
+              <p className="font-medium">Herhangi bir program gerekir mi ?</p>
               <p>
-                Gerekmez. DosyaHub doğrudan tarayıcıda çalışır; kurulum yapmadan
+                Gerekmez. DosyaHub doğrudan tarayıcıda çalışır, kurulum yapmadan
                 kullanabilirsiniz.
               </p>
             </div>
             <div>
-              <p className="font-medium">Çıktılar nasıl teslim edilir?</p>
+              <p className="font-medium">Çıktılar nasıl teslim edilir ?</p>
               <p>
                 Her sayfa ayrı PDF olarak oluşturulur ve tek bir ZIP dosyası
                 halinde indirilir.

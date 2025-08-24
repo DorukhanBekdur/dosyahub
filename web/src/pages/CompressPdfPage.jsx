@@ -370,7 +370,7 @@ export default function CompressPdfPage() {
 
         <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
           <h2 className="text-xl font-semibold mb-3">
-            PDF Sıkıştırma Neden Gerekir?
+            PDF Sıkıştırma Neden Gerekli ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             Büyük PDF’ler e-posta ile gönderilemez, yavaş yüklenir ve paylaşımı
@@ -380,7 +380,7 @@ export default function CompressPdfPage() {
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">
-            DosyaHub ile Nasıl Sıkıştırılır?
+            DosyaHub ile PDF Sıkıştırma ?
           </h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
             PDF’i yükleyin, kalite kaydırıcısını ihtiyacınıza göre ayarlayın ve{" "}
@@ -416,14 +416,14 @@ export default function CompressPdfPage() {
           </h2>
           <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
             <div>
-              <p className="font-medium">Sıkıştırma kaliteyi düşürür mü?</p>
+              <p className="font-medium">Sıkıştırma kaliteyi düşürür mü ?</p>
               <p>
                 Metin ağırlıklı dosyalarda fark azdır; görsellerde düşük kalite
                 ayarında kısmi kayıp olabilir.
               </p>
             </div>
             <div>
-              <p className="font-medium">Dosyalar güvende mi?</p>
+              <p className="font-medium">Dosyalar güvende mi ?</p>
               <p>
                 Dosyalar yalnızca işlem sırasında geçici olarak işlenir ve kısa
                 süre içinde sistemden silinir.
