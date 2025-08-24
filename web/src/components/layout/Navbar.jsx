@@ -54,7 +54,7 @@ export default function Navbar() {
               `${linkBase} ${isActive ? active : ""}`
             }
           >
-            PDF Birleştir
+            PDF Birleştirme
           </NavLink>
           <NavLink
             to="/split-pdf"
@@ -128,7 +128,7 @@ export default function Navbar() {
               `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
             }
           >
-            PDF Birleştir
+            PDF Birleştirme
           </NavLink>
           <NavLink
             to="/split-pdf"
