@@ -37,6 +37,7 @@ export default function FeaturesGrid({ items }) {
       title: "PDF Sıralama",
       desc: "Pdf sayfalarını sürükle-bırak yöntemiyle kolayca yeniden sıralayın.",
       color: "from-purple-500 to-indigo-600",
+      to: "organize-pdf",
     },
     {
       icon: HiDocumentText,
