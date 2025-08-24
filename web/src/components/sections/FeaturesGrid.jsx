@@ -33,6 +33,12 @@ export default function FeaturesGrid({ items }) {
       to: "compress-pdf",
     },
     {
+      icon: HiSwitchHorizontal,
+      title: "PDF Sıralama",
+      desc: "Pdf sayfalarını sürükle-bırak yöntemiyle kolayca yeniden sıralayın.",
+      color: "from-purple-500 to-indigo-600",
+    },
+    {
       icon: HiDocumentText,
       title: "Word → PDF",
       desc: ".doc/.docx dosyalarını PDF’e dönüştür.",
@@ -44,13 +50,6 @@ export default function FeaturesGrid({ items }) {
       title: "Excel → PDF",
       desc: "Excel (.xls, .xlsx) dosyalarını PDF'e dönüştür.",
       color: "from-green-500 to-emerald-600",
-      soon: true,
-    },
-    {
-      icon: HiSwitchHorizontal,
-      title: "Toplu Dönüştürme",
-      desc: "Birden çok dosyayı tek seferde işle.",
-      color: "from-purple-500 to-indigo-600",
       soon: true,
     },
     {
