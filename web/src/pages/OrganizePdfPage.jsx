@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import OrganizePdfCard from "../components/features/OrganizePdfCard";
+import OrganizePdfCard from "../components/organizePdf/OrganizePdfCard";
 import InfoCard from "../components/features/InfoCard";
 
 const CANONICAL = "https://www.dosyahub.com/organize-pdf";
@@ -100,17 +100,16 @@ export default function OrganizePdfPage() {
         <InfoCard />
 
         <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
-          <h2 className="text-xl font-semibold mb-3">
-            PDF Sıralama Neden Gerekir ?
-          </h2>
+          <h2 className="text-xl font-semibold mb-3">PDF Sayfalarını Sırala</h2>
           <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            PDF Sayfalarını Sıralama, karışık ya da yanlış sıradaki belgeleri
-            düzenli ve okunabilir hale getirmek için gereklidir.
+            PDF dosyanızı yükledikten sonra küçük önizlemeleri{" "}
+            <strong>sürükle-bırak</strong> ile yeniden sıralayın. Ardından tek
+            tıkla <strong>yeni sıralı PDF</strong>’i indirebilirsiniz.
           </p>
 
           <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
           <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-            <li>İstediğiniz sayfayı sürükle-bırak ile anında sıralayın.</li>
+            <li>Daha hızlı sıralama için sayfaları blok halinde sürükleyin.</li>
             <li>
               Önizlemeler büyük dosyalarda daha yavaş gelebilir; biraz bekleyin.
             </li>
