@@ -2,12 +2,13 @@ import {
   HiCollection,
   HiViewGrid,
   HiPhotograph,
-  HiSwitchHorizontal,
-  HiDocumentText,
-  HiLightningBolt,
+  HiArchive,
   HiRefresh,
   HiTable,
+  HiTrash,
 } from "react-icons/hi";
+
+import { HiArrowsUpDown } from "react-icons/hi2";
 
 export default function FeaturesGrid({ items }) {
   const defaultItems = [
@@ -26,25 +27,25 @@ export default function FeaturesGrid({ items }) {
       to: "/split-pdf",
     },
     {
-      icon: HiLightningBolt,
+      icon: HiArchive,
       title: "PDF Sıkıştırma",
       desc: "Kaliteyi koruyarak boyutu küçült.",
       color: "from-lime-500 to-emerald-600",
       to: "compress-pdf",
     },
     {
-      icon: HiSwitchHorizontal,
+      icon: HiArrowsUpDown,
       title: "PDF Sıralama",
       desc: "Pdf sayfalarını sürükle-bırak yöntemiyle kolayca yeniden sıralayın.",
       color: "from-purple-500 to-indigo-600",
       to: "organize-pdf",
     },
     {
-      icon: HiDocumentText,
-      title: "Word → PDF",
-      desc: ".doc/.docx dosyalarını PDF’e dönüştür.",
-      color: "from-amber-500 to-orange-600",
-      soon: true,
+      icon: HiTrash,
+      title: "PDF Sayfa Silme",
+      desc: "PDF içinden seçtiğin sayfaları kaldır, yeni dosyayı indir.",
+      color: "from-rose-500 to-red-600",
+      to: "remove-pages-pdf",
     },
     {
       icon: HiTable,
@@ -61,7 +62,7 @@ export default function FeaturesGrid({ items }) {
       soon: true,
     },
     {
-      icon: HiSwitchHorizontal,
+      icon: HiCollection,
       title: "PDF → Görsel",
       desc: "PDF’ini PNG/JPEG görsellere çevir.",
       color: "from-violet-500 to-fuchsia-600",
