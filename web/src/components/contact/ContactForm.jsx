@@ -63,7 +63,7 @@ export default function ContactForm() {
       onSubmit={handleSubmit}
       noValidate
       aria-busy={submitting ? "true" : "false"}
-      className="flex flex-col justify-between h-full relative border border-zinc-200/70 dark:border-zinc-800/70 bg-white/80 dark:bg-zinc-900/70 p-6 md:p-8 shadow-[0_10px_35px_-15px_rgba(0,0,0,0.3)] backdrop-blur rounded-b-2xl"
+      className="flex flex-col justify-between h-full relative border border-zinc-200/70 dark:border-zinc-800/70 bg-white/80 dark:bg-zinc-900/70 p-6 md:p-8 shadow-[0_10px_35px_-15px_rgba(0,0,0,0.3)] backdrop-blur rounded-2xl rounded-t-none"
     >
       <div>
         <div className="absolute inset-x-0 -top-px h-1 bg-gradient-to-r from-indigo-500 via-fuchsia-500 to-purple-600" />
