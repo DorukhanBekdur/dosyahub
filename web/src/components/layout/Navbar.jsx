@@ -81,6 +81,14 @@ export default function Navbar() {
             PDF Sıralama
           </NavLink>
           <NavLink
+            to="/remove-pages-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Sayfa Silme
+          </NavLink>
+          <NavLink
             to="/iletisim"
             className={({ isActive }) =>
               `${linkBase} ${isActive ? active : ""}`
@@ -156,6 +164,15 @@ export default function Navbar() {
             }
           >
             PDF Sıralama
+          </NavLink>
+          <NavLink
+            to="/remove-pages-pdf"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            PDF Sayfa Silme
           </NavLink>
           <NavLink
             to="/iletisim"
