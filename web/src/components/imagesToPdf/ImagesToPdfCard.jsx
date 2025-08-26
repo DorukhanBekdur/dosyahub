@@ -186,37 +186,47 @@ export default function ImagesToPdfCard() {
   };
 
   // PDF oluşturma kısmı (otomatik A4 yönü ayarı + 10mm margin verdim + sığdır özelliği kullandım)
+  // PDF oluşturma: hafif kenar boşluklu tam sayfa
   const buildPdf = async () => {
     if (files.length === 0) return setError("Lütfen en az bir görsel ekleyin.");
     setError("");
     setBuilding(true);
     setDownloadUrl("");
 
-    const marginPt = mmToPt(10);
-    const jpegQuality = 0.85;
+    // Hafif boşluk: 5mm
+    const marginPt = mmToPt(5);
+    const jpegQuality = 0.9;
 
     try {
       const doc = await PDFDocument.create();
+
       for (const it of files) {
         const isLandscape = it.w >= it.h;
         const pageW = isLandscape ? A4.h : A4.w;
         const pageH = isLandscape ? A4.w : A4.h;
 
         const page = doc.addPage([pageW, pageH]);
+
+        // Kullanılabilir alan (boşluklu)
         const availW = Math.max(1, pageW - marginPt * 2);
         const availH = Math.max(1, pageH - marginPt * 2);
 
+        // px → pt dönüşümü (96dpi varsayımı)
         const imgPtW = it.w * 0.75;
         const imgPtH = it.h * 0.75;
 
-        const scale = Math.min(availW / imgPtW, availH / imgPtH, 1);
+        // Artık 1 ile sınır yok → gerekirse büyüt
+        const scale = Math.min(availW / imgPtW, availH / imgPtH);
         const drawW = imgPtW * scale;
         const drawH = imgPtH * scale;
+
         const x = (pageW - drawW) / 2;
         const y = (pageH - drawH) / 2;
 
-        const targetPxW = Math.max(1, Math.min(it.w, Math.round(drawW / 0.75)));
-        const targetPxH = Math.max(1, Math.min(it.h, Math.round(drawH / 0.75)));
+        // Raster boyutlarını çizim boyutuna göre ayarla
+        const targetPxW = Math.max(1, Math.round(drawW / 0.75));
+        const targetPxH = Math.max(1, Math.round(drawH / 0.75));
+
         const jpgBytes = await rasterToJpegBytes(
           it.srcUrl,
           targetPxW,
