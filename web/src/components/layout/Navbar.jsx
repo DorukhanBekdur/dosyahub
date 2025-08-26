@@ -89,6 +89,14 @@ export default function Navbar() {
             PDF Sayfa Silme
           </NavLink>
           <NavLink
+            to="/images-to-pdf"
+            className={({ isActive }) =>
+              `${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            Görsel → PDF
+          </NavLink>
+          <NavLink
             to="/iletisim"
             className={({ isActive }) =>
               `${linkBase} ${isActive ? active : ""}`
@@ -173,6 +181,15 @@ export default function Navbar() {
             }
           >
             PDF Sayfa Silme
+          </NavLink>
+          <NavLink
+            to="/images-to-pdf"
+            onClick={closeMenu}
+            className={({ isActive }) =>
+              `py-2 rounded-lg px-1 ${linkBase} ${isActive ? active : ""}`
+            }
+          >
+            Görsel → PDF
           </NavLink>
           <NavLink
             to="/iletisim"

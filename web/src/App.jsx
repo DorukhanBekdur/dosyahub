@@ -15,6 +15,7 @@ import ContactPage from "./pages/ContactPage";
 import CompressPage from "./pages/CompressPdfPage";
 import OrganizePdfPage from "./pages/OrganizePdfPage";
 import RemovePagesPdf from "./pages/RemovePdfPage";
+import ImagesToPdfPage from "./pages/ImagesToPdfPage";
 
 export default function App() {
   return (
@@ -72,6 +73,15 @@ export default function App() {
               element={
                 <div className="mx-auto max-w-6xl w-full px-4 py-12">
                   <RemovePagesPdf />
+                </div>
+              }
+            />
+
+            <Route
+              path="/images-to-pdf"
+              element={
+                <div className="mx-auto max-w-6xl w-full px-4 py-12">
+                  <ImagesToPdfPage />
                 </div>
               }
             />
