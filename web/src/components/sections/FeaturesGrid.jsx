@@ -52,7 +52,7 @@ export default function FeaturesGrid({ items }) {
       title: "Görsel → PDF",
       desc: "PNG/JPEG görsellerini PDF'e dönüştür.",
       color: "from-pink-500 to-rose-600",
-      soon: true,
+      to: "images-to-pdf",
     },
     {
       icon: HiCollection,
