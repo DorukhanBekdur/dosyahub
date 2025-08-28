@@ -189,7 +189,7 @@ export default function Navbar() {
                       className="rounded-xl bg-zinc-50/70 dark:bg-zinc-900/40 p-3"
                     >
                       <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-2">
-                        {grp.title}
+                        PDF Düzenle
                       </div>
                       <ul className="space-y-1">
                         {grp.items.map((it, j) => (
