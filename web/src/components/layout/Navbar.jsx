@@ -64,7 +64,7 @@ export default function Navbar() {
 
   const toolGroups = [
     {
-      title: "Tüm PDF Araçları",
+      title: "PDF Düzenle",
       items: [
         {
           to: "/merge-pdf",
