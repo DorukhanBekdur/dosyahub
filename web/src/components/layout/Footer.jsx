@@ -5,8 +5,8 @@ export default function Footer() {
     <footer className="mt-auto border-t border-zinc-200/60 dark:border-zinc-800/60">
       <div className="mx-auto max-w-6xl px-4 h-14 text-xs text-zinc-500 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Logo size="sm" />
-          <span>Hızlı, Güvenli ve Basit — DosyaHub</span>
+          <Logo size="lg" />
+          <span>— Hızlı, Güvenli ve Basit </span>
         </div>
 
         <span>
