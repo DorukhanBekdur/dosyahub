@@ -2,6 +2,8 @@ import BackgroundOrbs from "../components/contact/BackgroundOrbs";
 import LeftPanel from "../components/contact/LeftPanel";
 import ContactForm from "../components/contact/ContactForm";
 
+const CANONICAL = "https://www.dosyahub.com/iletisim";
+
 export default function ContactPage() {
   return (
     <section className="relative mx-auto max-w-6xl px-4 py-16">
