@@ -290,7 +290,7 @@ export default function Navbar() {
             <summary
               className={`flex items-center justify-between ${linkBase} cursor-pointer py-2 px-1 rounded-lg list-none appearance-none marker:content-none`}
             >
-              <span className="font-normal">PDF Düzenle</span>
+              <span className="font-normal">Tüm PDF Araçları</span>
               <svg
                 className="h-4 w-4 transition group-open:rotate-180"
                 viewBox="0 0 24 24"
