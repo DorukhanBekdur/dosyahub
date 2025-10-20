@@ -1,21 +1,20 @@
 import {
-  BrowserRouter as Router,
+  Router,
   Routes,
   Route,
   Navigate,
-} from "react-router-dom";
-
-import Navbar from "./components/layout/Navbar";
-import Footer from "./components/layout/Footer";
-
-import LandingPage from "./pages/LandingPage";
-import MergePdfPage from "./pages/MergePdfPage";
-import SplitPage from "./pages/SplitPage";
-import ContactPage from "./pages/ContactPage";
-import CompressPage from "./pages/CompressPdfPage";
-import OrganizePdfPage from "./pages/OrganizePdfPage";
-import RemovePagesPdf from "./pages/RemovePdfPage";
-import ImagesToPdfPage from "./pages/ImagesToPdfPage";
+  Navbar,
+  Footer,
+  LandingPage,
+  MergePdfPage,
+  SplitPage,
+  ContactPage,
+  CompressPdfPage,
+  OrganizePdfPage,
+  RemovePdfPage,
+  ImagesToPdfPage,
+  RotatePdfPage,
+} from "./config/imports";
 
 export default function App() {
   return (
@@ -25,10 +24,10 @@ export default function App() {
 
         <main className="flex-1">
           <Routes>
-            {/* Landing */}
+            {/* Landing Page */}
             <Route path="/" element={<LandingPage />} />
 
-            {/* Merge */}
+            {/* Merge Tool */}
             <Route
               path="/merge-pdf"
               element={
@@ -38,7 +37,7 @@ export default function App() {
               }
             />
 
-            {/* Split */}
+            {/* Split Tool */}
             <Route
               path="/split-pdf"
               element={
@@ -48,17 +47,17 @@ export default function App() {
               }
             />
 
-            {/* Compress */}
+            {/* Compress Tool */}
             <Route
               path="/compress-pdf"
               element={
                 <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <CompressPage />
+                  <CompressPdfPage />
                 </div>
               }
             />
 
-            {/* Organize */}
+            {/* Organize Tool */}
             <Route
               path="/organize-pdf"
               element={
@@ -67,12 +66,12 @@ export default function App() {
                 </div>
               }
             />
-            {/* Remove Page */}
+            {/* Remove Page Tool */}
             <Route
               path="/remove-pages-pdf"
               element={
                 <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <RemovePagesPdf />
+                  <RemovePdfPage />
                 </div>
               }
             />
@@ -82,6 +81,15 @@ export default function App() {
               element={
                 <div className="mx-auto max-w-6xl w-full px-4 py-12">
                   <ImagesToPdfPage />
+                </div>
+              }
+            />
+
+            <Route
+              path="/rotate-pdf"
+              element={
+                <div className="mx-auto max-w-6xl w-full px-4 py-12">
+                  <RotatePdfPage />
                 </div>
               }
             />

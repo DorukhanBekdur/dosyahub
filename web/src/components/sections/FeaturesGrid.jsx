@@ -55,11 +55,11 @@ export default function FeaturesGrid({ items }) {
       to: "images-to-pdf",
     },
     {
-      icon: HiCollection,
-      title: "PDF → Görsel",
-      desc: "PDF’ini PNG/JPEG görsellere çevir.",
-      color: "from-violet-500 to-fuchsia-600",
-      soon: true,
+      icon: HiRefresh,
+      title: "PDF Döndürme",
+      desc: "PDF sayfalarını istediğin açıyla kolayca döndür.",
+      color: "from-amber-500 to-rose-500",
+      to: "rotate-pdf",
     },
     {
       icon: HiTable,

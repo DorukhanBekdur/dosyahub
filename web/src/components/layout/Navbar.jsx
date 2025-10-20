@@ -7,6 +7,7 @@ import {
   HiArchive,
   HiPhotograph,
   HiTrash,
+  HiRefresh,
 } from "react-icons/hi";
 
 import { HiArrowsUpDown } from "react-icons/hi2";
@@ -95,6 +96,11 @@ export default function Navbar() {
           to: "/images-to-pdf",
           label: "Görsel → PDF",
           icon: <HiPhotograph className="h-5 w-5" />,
+        },
+        {
+          to: "/rotate-pdf",
+          label: "PDF Döndürme",
+          icon: <HiRefresh className="h-5 w-5" />,
         },
       ],
     },

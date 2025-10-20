@@ -117,7 +117,7 @@ export default function HowItWorks() {
         </ol>
 
         <p className="mt-6 text-xs text-white/70">
-          * Daha fazla format, daha güçlü araçlar yolda...
+          * Daha fazla format, daha güçlü araçlar için çalışıyoruz.
         </p>
       </div>
     </section>
