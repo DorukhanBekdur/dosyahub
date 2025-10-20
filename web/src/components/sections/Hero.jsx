@@ -29,42 +29,55 @@ export default function Hero() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700">
       <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[radial-gradient(60rem_60rem_at_20%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(50rem_50rem_at_110%_10%,theme(colors.purple.400/35),transparent_55%)]" />
-
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center animate-heroReveal">
         <div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-white">
-            Dosyalarınızı{" "}
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white">
+            Dosya işlemlerini{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
-              hızla
+              saniyeler içinde
             </span>{" "}
-            dönüştürün, birleştirin ve yönetin.
+            tamamla.
           </h1>
-          <p className="mt-4 text-zinc-300 max-w-prose">
-            Modern arayüz, güvenli altyapı ve yüksek performans ile dosya
-            işlemlerinizi zahmetsizce tamamlayın.
+
+          <p className="mt-5 text-zinc-300 text-base md:text-lg leading-relaxed max-w-xl">
+            DosyaHub, PDF birleştirme, bölme, dönüştürme ve düzenleme
+            işlemlerini tek bir platformda toplar. Güvenli, hızlı ve modern bir
+            deneyim.
           </p>
-          <div className="mt-6 flex items-center gap-3">
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <Link
               to="/merge-pdf"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-4 py-2.5 text-white font-medium shadow hover:opacity-95 hover:scale-105 active:scale-95 transition-transform duration-200"
+              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:shadow-purple-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
             >
-              Dosya Yükle <HiCloudUpload className="h-5 w-5" />
+              Hemen Başla <HiCloudUpload className="h-5 w-5" />
             </Link>
             <a
               href="#features"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-4 py-2.5 text-white hover:bg-white/10"
+              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-base font-semibold text-white hover:bg-white/10 hover:border-white/40 transition-colors"
             >
-              Özellikler
+              Özellikleri Keşfet
             </a>
           </div>
 
-          <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-zinc-300">
-            <span className="inline-flex items-center gap-1">
-              <HiLockClosed className="h-4 w-4" /> Gizlilik Öncelikli
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-400">
+            <span className="inline-flex items-center gap-2">
+              <HiLockClosed className="h-4 w-4 text-purple-300" /> Güvenli İşlem
             </span>
-            <span className="inline-flex items-center gap-1">
-              <HiSparkles className="h-4 w-4" /> Hızlı & Basit
+            <span className="inline-flex items-center gap-2">
+              <HiSparkles className="h-4 w-4 text-indigo-300" /> Hızlı & Basit
             </span>
+          </div>
+
+          <div className="mt-8 flex items-center gap-3 text-xs text-zinc-400">
+            <div className="h-[1px] w-8 bg-zinc-500/40" />
+            <p>
+              Her gün{" "}
+              <span className="text-purple-200 font-semibold">
+                binlerce dosya
+              </span>{" "}
+              güvenle dönüştürülüyor.
+            </p>
           </div>
         </div>
 
