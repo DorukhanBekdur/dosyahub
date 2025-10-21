@@ -22,12 +22,11 @@ export default function HowItWorks() {
       id="how"
       aria-labelledby="how-title"
       className="relative overflow-hidden text-white
-             bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700"
+                 bg-gradient-to-b from-black via-[#1a0b2e] to-purple-700"
     >
-      {/* Hero/Features tarzı radial ışıklar */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.07]
-        bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/35),transparent_60%)]"
+                   bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/35),transparent_60%)]"
       />
 
       <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
@@ -47,7 +46,6 @@ export default function HowItWorks() {
             </p>
           </div>
 
-          {/* Masaüstü adım çubuğu */}
           <ol className="hidden md:flex items-center gap-4">
             {steps.map((s, i) => (
               <li key={s.k} className="flex items-center gap-3">
