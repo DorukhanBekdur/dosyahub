@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
   HiCollection,
   HiViewGrid,
@@ -7,7 +8,6 @@ import {
   HiTable,
   HiTrash,
 } from "react-icons/hi";
-
 import { HiArrowsUpDown } from "react-icons/hi2";
 
 export default function FeaturesGrid({ items }) {
@@ -31,35 +31,35 @@ export default function FeaturesGrid({ items }) {
       title: "PDF Sıkıştırma",
       desc: "Kaliteden ödün vermeden dosya boyutunu küçült.",
       color: "from-lime-500 to-emerald-600",
-      to: "compress-pdf",
+      to: "/compress-pdf",
     },
     {
       icon: HiArrowsUpDown,
       title: "PDF Sıralama",
       desc: "PDF sayfalarını sürükle-bırak ile istediğin gibi sırala.",
       color: "from-purple-500 to-indigo-600",
-      to: "organize-pdf",
+      to: "/organize-pdf",
     },
     {
       icon: HiTrash,
       title: "PDF Sayfa Silme",
       desc: "Seçtiğin sayfaları kaldır, yeni PDF’ini indir.",
       color: "from-rose-500 to-red-600",
-      to: "remove-pages-pdf",
+      to: "/remove-pages-pdf",
     },
     {
       icon: HiPhotograph,
       title: "Görsel → PDF",
       desc: "PNG/JPEG görsellerini PDF'e dönüştür.",
       color: "from-pink-500 to-rose-600",
-      to: "images-to-pdf",
+      to: "/images-to-pdf",
     },
     {
       icon: HiRefresh,
       title: "PDF Döndürme",
       desc: "PDF sayfalarını istediğin açıyla kolayca döndür.",
       color: "from-amber-500 to-rose-500",
-      to: "rotate-pdf",
+      to: "/rotate-pdf",
     },
     {
       icon: HiTable,
@@ -80,26 +80,19 @@ export default function FeaturesGrid({ items }) {
   const data = items?.length ? items : defaultItems;
 
   return (
-    <section
-      id="features"
-      className="relative border-t border-zinc-200/60 dark:border-zinc-800/60"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05] dark:opacity-[0.07]
-        bg-[radial-gradient(60rem_60rem_at_20%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(50rem_50rem_at_110%_10%,theme(colors.purple.400/35),transparent_55%)]"
-      />
-
+    <section id="features" className="relative overflow-hidden bg-black">
       <div className="relative mx-auto max-w-6xl px-4 py-12 md:py-16">
         <div className="text-center max-w-2xl mx-auto animate-fadeInUp">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
             Öne Çıkan Araçlar
           </h2>
-          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="mt-1 text-sm text-zinc-400">
             Belgeleriniz için en popüler ve kullanışlı araçlar.
           </p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-fr cursor-pointer">
+        {/* pointer grid yerine kart/linkte */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-fr">
           {data.map((it, i) => (
             <Card key={it.title} item={it} index={i} />
           ))}
@@ -111,12 +104,16 @@ export default function FeaturesGrid({ items }) {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out both;
-        }
+        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out both; }
+
         @keyframes cardFadeInUp {
           from { opacity: 0; transform: translateY(6px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .animate-fadeInUp { animation: none !important; }
+          .card-anim { animation: none !important; }
         }
       `}</style>
     </section>
@@ -128,13 +125,13 @@ function Card({ item, index }) {
 
   const Wrapper = ({ children }) =>
     to ? (
-      <a
-        href={to}
+      <Link
+        to={to}
         aria-label={title}
-        className="block h-full focus:outline-none"
+        className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 rounded-2xl cursor-pointer"
       >
         {children}
-      </a>
+      </Link>
     ) : (
       <div className="h-full" role="group" aria-label={title}>
         {children}
@@ -143,28 +140,27 @@ function Card({ item, index }) {
 
   return (
     <div
-      className="group relative overflow-hidden rounded-2xl border border-zinc-200/60
-                 dark:border-zinc-800/60 shadow-sm transition-all duration-300 transform-gpu 
+      className="group relative overflow-hidden rounded-2xl border border-white/10
+                 shadow-sm transition-all duration-300 transform-gpu 
                  hover:-translate-y-0.5 ring-1 ring-transparent hover:ring-indigo-500/30 
-                 focus-within:ring-indigo-500/40 isolation-isolate"
+                 focus-within:ring-indigo-500/40 isolation-isolate card-anim
+                 bg-white/5 backdrop-blur-sm"
       style={{
         animation: `cardFadeInUp 0.5s ease ${index * 100 + 300}ms both`,
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-[#1a0b2e]/85 to-purple-700/80 opacity-35" />
-
+      {/* hover parıltısı (kart içinde) */}
       <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/18 to-purple-500/18" />
+        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/12 to-purple-500/12" />
       </div>
 
-      <div className="relative z-10 p-5 md:p-6 h-full bg-white/50 dark:bg-zinc-900/40 backdrop-blur-sm rounded-2xl">
+      <div className="relative z-10 p-5 md:p-6 h-full">
         {soon && (
           <span
             className="absolute right-3 top-3 text-[10px] uppercase tracking-wide
                        rounded-full bg-zinc-900/80 text-zinc-100
-                       dark:bg-zinc-100/90 dark:text-zinc-900
                        backdrop-blur-sm px-2 py-[1px]
-                       shadow-sm ring-1 ring-white/20 dark:ring-black/20
+                       shadow-sm ring-1 ring-white/20
                        transition-colors duration-200
                        group-hover:bg-indigo-500/90 group-hover:text-white"
           >
@@ -175,17 +171,16 @@ function Card({ item, index }) {
         <Wrapper>
           <div className="flex items-start gap-4">
             <span
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl 
-                          bg-gradient-to-br ${color} text-white flex-none`}
+              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${color} text-white flex-none`}
             >
-              <Icon className="h-5 w-5" />
+              <Icon aria-hidden="true" className="h-5 w-5" />
             </span>
 
             <div className="min-w-0">
-              <h3 className="text-base md:text-[17px] font-medium text-zinc-100">
+              <h3 className="text-base md:text-[17px] font-medium text-white">
                 {title}
               </h3>
-              <p className="mt-1 text-xs md:text-sm text-zinc-400 line-clamp-2">
+              <p className="mt-1 text-xs md:text-sm text-zinc-300 line-clamp-2">
                 {desc}
               </p>
             </div>

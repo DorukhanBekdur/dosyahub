@@ -21,8 +21,15 @@ export default function HowItWorks() {
     <section
       id="how"
       aria-labelledby="how-title"
-      className="relative overflow-hidden border-zinc-200/10 bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700 text-white"
+      className="relative overflow-hidden text-white
+             bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700"
     >
+      {/* Hero/Features tarzı radial ışıklar */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.07]
+        bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/35),transparent_60%)]"
+      />
+
       <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
         <div className="flex items-end justify-between gap-6">
           <div>
@@ -30,29 +37,35 @@ export default function HowItWorks() {
               id="how-title"
               className="text-2xl md:text-3xl font-semibold tracking-tight"
             >
-              Nasıl Çalışır ?
+              Nasıl{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
+                Çalışır?
+              </span>
             </h2>
             <p className="mt-2 text-sm md:text-base text-white/80">
               Sadece 3 adımda işlemini tamamla.
             </p>
           </div>
 
+          {/* Masaüstü adım çubuğu */}
           <ol className="hidden md:flex items-center gap-4">
             {steps.map((s, i) => (
               <li key={s.k} className="flex items-center gap-3">
                 <span
-                  className="grid place-items-center h-9 w-9 rounded-xl 
-                             bg-gradient-to-r from-indigo-500 to-purple-600 
-                             text-white text-sm font-extrabold 
-                             shadow-[0_4px_12px_rgba(99,102,241,0.6)]"
+                  className="grid place-items-center h-9 w-9 rounded-xl
+                             bg-gradient-to-r from-indigo-500 to-purple-600
+                             text-white text-sm font-extrabold
+                             shadow-[0_4px_12px_rgba(99,102,241,0.55)]"
                 >
                   {s.k}
                 </span>
-                <span className="text-sm font-medium">{s.title}</span>
+                <span className="text-sm font-medium text-white/90">
+                  {s.title}
+                </span>
                 {i < steps.length - 1 && (
                   <span
-                    aria-hidden
-                    className="h-px w-10 bg-gradient-to-r from-white/50 to-transparent"
+                    aria-hidden="true"
+                    className="h-px w-10 bg-gradient-to-r from-white/40 to-transparent"
                   />
                 )}
               </li>
@@ -60,42 +73,45 @@ export default function HowItWorks() {
           </ol>
         </div>
 
+        {/* Kart listesi */}
         <ol className="relative mt-10 grid gap-5 md:grid-cols-3">
           <span
-            aria-hidden
+            aria-hidden="true"
             className="md:hidden absolute left-[18px] top-0 bottom-0 w-px bg-gradient-to-b from-purple-400 via-white/40 to-transparent"
           />
 
           {steps.map((s) => (
             <li
               key={s.k}
-              className="group relative rounded-2xl border border-white/15 bg-white/10 backdrop-blur 
-                         p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.25)] 
-                         transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_36px_rgba(0,0,0,0.35)]"
+              className="group relative rounded-2xl border border-white/15 bg-white/10 backdrop-blur
+                         p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.25)]
+                         transition-all duration-300 hover:-translate-y-0.5
+                         hover:shadow-[0_12px_36px_rgba(0,0,0,0.35)]
+                         focus-within:ring-2 focus-within:ring-white/30"
             >
               <div className="flex items-center gap-3">
                 <span
-                  className="grid place-items-center h-9 w-9 rounded-xl 
-                             bg-gradient-to-r from-indigo-500 to-purple-600 
-                             text-white text-sm font-extrabold 
-                             shadow-[0_4px_12px_rgba(99,102,241,0.6)]"
+                  className="grid place-items-center h-9 w-9 rounded-xl
+                             bg-gradient-to-r from-indigo-500 to-purple-600
+                             text-white text-sm font-extrabold
+                             shadow-[0_4px_12px_rgba(99,102,241,0.55)]"
                 >
                   {s.k}
                 </span>
-                <h3 className="font-semibold">{s.title}</h3>
+                <h3 className="font-semibold text-white/95">{s.title}</h3>
               </div>
 
               <p className="mt-2 text-sm leading-6 text-white/85">{s.desc}</p>
 
               <div className="mt-4 flex items-center justify-between">
-                <span className="h-px flex-1 bg-white/15" />
+                <span className="h-px flex-1 bg-gradient-to-r from-indigo-400/40 to-purple-400/40" />
                 <span className="ml-3 text-[11px] uppercase tracking-wide text-purple-300">
-                  Hızlı & Kolay
+                  Hızlı &amp; Kolay
                 </span>
               </div>
 
               <span
-                aria-hidden
+                aria-hidden="true"
                 className="pointer-events-none absolute right-4 top-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               >
                 <svg
