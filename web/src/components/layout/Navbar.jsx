@@ -183,32 +183,39 @@ export default function Navbar() {
               <div
                 ref={toolsMenuRef}
                 onMouseLeave={() => setOpenTools(false)}
-                className="absolute left-1/2 -translate-x-1/2 mt-3 w-fit min-w-[340px] max-w-[92vw]
-                           rounded-2xl border border-zinc-200/70 dark:border-zinc-800/70
-                           bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl shadow-xl p-3"
+                className="absolute left-1/2 -translate-x-1/2 mt-3 w-fit min-w-[360px] max-w-[92vw]
+                           rounded-2xl border border-white/15 dark:border-white/10
+                           bg-white/90 dark:bg-zinc-900/90 backdrop-blur-xl shadow-xl p-3
+                           [background-image:linear-gradient(to_bottom,rgba(255,255,255,.08),transparent)]"
                 role="menu"
               >
                 <div className="grid grid-cols-1 gap-3">
                   {toolGroups.map((grp, i) => (
                     <div
                       key={i}
-                      className="rounded-xl bg-zinc-50/70 dark:bg-zinc-900/40 p-3"
+                      className="rounded-xl border border-white/10 dark:border-white/5 bg-zinc-50/70 dark:bg-zinc-900/40 p-3"
                     >
                       <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-2">
                         PDF Düzenle
                       </div>
-                      <ul className="space-y-1">
+                      {/* 👇 UI only: daha taranabilir grid + mini rozet ikonlar */}
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                         {grp.items.map((it, j) => (
                           <li key={j}>
                             <NavLink
                               to={it.to}
                               onClick={closeAll}
                               className="flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm
-                                         text-zinc-700 dark:text-zinc-300 hover:bg-white/80 dark:hover:bg-zinc-800/60 transition"
+                                         text-zinc-700 dark:text-zinc-300
+                                         hover:bg-white/80 dark:hover:bg-zinc-800/60
+                                         border border-transparent hover:border-white/20 dark:hover:border-white/10
+                                         transition"
                               role="menuitem"
                             >
-                              <span className="[&>*]:h-4 [&>*]:w-4 text-indigo-600 dark:text-indigo-400">
-                                {it.icon}
+                              <span className="grid place-items-center rounded-md h-7 w-7 bg-indigo-500/10 text-indigo-500 dark:text-indigo-400">
+                                <span className="[&>*]:h-4 [&>*]:w-4">
+                                  {it.icon}
+                                </span>
                               </span>
                               <span>{it.label}</span>
                             </NavLink>
