@@ -127,7 +127,6 @@ export default function Navbar() {
           <Logo size="lg" />
         </Link>
 
-        {/* Masaüstü Navbar Kısmı */}
         <div className="hidden md:flex items-center gap-6">
           <NavLink
             to="/merge-pdf"
@@ -198,7 +197,6 @@ export default function Navbar() {
                       <div className="text-xs font-semibold text-zinc-500 dark:text-zinc-400 mb-2">
                         PDF Düzenle
                       </div>
-                      {/* 👇 UI only: daha taranabilir grid + mini rozet ikonlar */}
                       <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
                         {grp.items.map((it, j) => (
                           <li key={j}>
@@ -240,7 +238,6 @@ export default function Navbar() {
           </NavLink>
         </div>
 
-        {/* Mobil buton */}
         <button
           onClick={() => setOpenMobile((v) => !v)}
           aria-expanded={openMobile}
@@ -264,7 +261,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobil Menü Kısmı Responsive */}
       <div
         id="mobile-menu"
         hidden={!openMobile}
