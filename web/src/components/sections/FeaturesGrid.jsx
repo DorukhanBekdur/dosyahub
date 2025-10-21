@@ -91,7 +91,6 @@ export default function FeaturesGrid({ items }) {
           </p>
         </div>
 
-        {/* pointer grid yerine kart/linkte */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-fr">
           {data.map((it, i) => (
             <Card key={it.title} item={it} index={i} />
@@ -149,21 +148,13 @@ function Card({ item, index }) {
         animation: `cardFadeInUp 0.5s ease ${index * 100 + 300}ms both`,
       }}
     >
-      {/* hover parıltısı (kart içinde) */}
       <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/12 to-purple-500/12" />
       </div>
 
       <div className="relative z-10 p-5 md:p-6 h-full">
         {soon && (
-          <span
-            className="absolute right-3 top-3 text-[10px] uppercase tracking-wide
-                       rounded-full bg-zinc-900/80 text-zinc-100
-                       backdrop-blur-sm px-2 py-[1px]
-                       shadow-sm ring-1 ring-white/20
-                       transition-colors duration-200
-                       group-hover:bg-indigo-500/90 group-hover:text-white"
-          >
+          <span className="absolute right-3 top-3 text-[10px] uppercase tracking-wide rounded-full bg-zinc-900/80 text-zinc-100 backdrop-blur-sm px-2 py-[1px] shadow-sm ring-1 ring-white/20 transition-colors duration-200 group-hover:bg-indigo-500/90 group-hover:text-white">
             Yakında
           </span>
         )}

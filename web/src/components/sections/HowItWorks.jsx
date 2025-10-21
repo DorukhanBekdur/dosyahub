@@ -22,7 +22,7 @@ export default function HowItWorks() {
       id="how"
       aria-labelledby="how-title"
       className="relative isolate -mt-px overflow-hidden text-white
-                 bg-[linear-gradient(to_bottom,_#000_0%,_#06030a_16%,_#10091c_38%,_#1a0b2e_60%,_#6d28d9_100%)]"
+                 bg-gradient-to-b from-black via-[#110827] to-[#6d28d9]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.06]
@@ -49,12 +49,7 @@ export default function HowItWorks() {
           <ol className="hidden md:flex items-center gap-4">
             {steps.map((s, i) => (
               <li key={s.k} className="flex items-center gap-3">
-                <span
-                  className="grid place-items-center h-9 w-9 rounded-xl
-                             bg-gradient-to-r from-indigo-500 to-purple-600
-                             text-white text-sm font-extrabold
-                             shadow-[0_4px_12px_rgba(99,102,241,0.55)]"
-                >
+                <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-extrabold shadow-[0_4px_12px_rgba(99,102,241,0.55)]">
                   {s.k}
                 </span>
                 <span className="text-sm font-medium text-white/90">
@@ -78,7 +73,6 @@ export default function HowItWorks() {
             className="md:hidden absolute left-[18px] top-0 bottom-0 w-px
                        bg-gradient-to-b from-purple-400 via-white/40 to-transparent"
           />
-
           {steps.map((s) => (
             <li
               key={s.k}
@@ -89,12 +83,7 @@ export default function HowItWorks() {
                          focus-within:ring-2 focus-within:ring-white/30"
             >
               <div className="flex items-center gap-3">
-                <span
-                  className="grid place-items-center h-9 w-9 rounded-xl
-                             bg-gradient-to-r from-indigo-500 to-purple-600
-                             text-white text-sm font-extrabold
-                             shadow-[0_4px_12px_rgba(99,102,241,0.55)]"
-                >
+                <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-extrabold shadow-[0_4px_12px_rgba(99,102,241,0.55)]">
                   {s.k}
                 </span>
                 <h3 className="font-semibold text-white/95">{s.title}</h3>
