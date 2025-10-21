@@ -1,37 +1,44 @@
+import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   HiLockClosed,
-  HiArrowRight,
-  HiColorSwatch,
   HiSparkles,
   HiCloudUpload,
-  HiOutlineInformationCircle,
+  HiDocumentText,
+  HiDownload,
+  HiTrash,
+  HiCheckCircle,
 } from "react-icons/hi";
 import { Link } from "react-router-dom";
 
-function FeatureItem({ icon, title, desc, badgeBg, iconColor }) {
-  const Icon = icon;
-  return (
-    <li className="flex items-start gap-3">
-      <span
-        className={`mt-0.5 inline-flex h-6 w-6 items-center justify-center rounded-md ${badgeBg}`}
-      >
-        <Icon className={`h-4 w-4 ${iconColor}`} />
-      </span>
-      <div>
-        <p className="font-medium">{title}</p>
-        <p className="text-xs text-zinc-500 dark:text-zinc-400">{desc}</p>
-      </div>
-    </li>
-  );
-}
-
 export default function Hero() {
+  const reduce = useReducedMotion();
+  const [showGlow, setShowGlow] = useState(false);
+
+  const transition = {
+    duration: reduce ? 0 : 1.1,
+    ease: [0.25, 0.8, 0.25, 1],
+    fill: "forwards",
+  };
+
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700">
-      <div className="pointer-events-none absolute inset-0 opacity-[0.06] bg-[radial-gradient(60rem_60rem_at_20%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(50rem_50rem_at_110%_10%,theme(colors.purple.400/35),transparent_55%)]" />
-      <div className="relative z-10 mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center animate-heroReveal">
-        <div>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white">
+    <section
+      aria-labelledby="hero-title"
+      className="relative overflow-hidden bg-gradient-to-br from-black via-[#1a0b2e] to-purple-700"
+    >
+      <div className="pointer-events-none absolute inset-0 opacity-[0.07] bg-[radial-gradient(70rem_70rem_at_10%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(60rem_60rem_at_120%_10%,theme(colors.purple.400/35),transparent_55%)]" />
+
+      <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-14 px-6 py-20 md:grid-cols-2 md:py-28">
+        {/* SOL TARAF */}
+        <motion.div
+          initial={{ opacity: reduce ? 1 : 0, y: reduce ? 0 : 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ ...transition, delay: reduce ? 0 : 0.1 }}
+        >
+          <h1
+            id="hero-title"
+            className="text-4xl md:text-6xl font-bold leading-tight tracking-tight text-white max-w-3xl"
+          >
             Dosya işlemlerini{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
               saniyeler içinde
@@ -39,33 +46,55 @@ export default function Hero() {
             tamamla.
           </h1>
 
-          <p className="mt-5 text-zinc-300 text-base md:text-lg leading-relaxed max-w-xl">
+          <p className="mt-6 text-zinc-300 text-base md:text-lg leading-relaxed max-w-2xl">
             DosyaHub, PDF birleştirme, bölme, dönüştürme ve düzenleme
-            işlemlerini tek bir platformda toplar. Güvenli, hızlı ve modern bir
-            deneyim.
+            işlemlerini tek bir platformda toplar.{" "}
+            <span className="text-indigo-200 font-medium">
+              Güvenli, hızlı ve modern bir deneyim.
+            </span>
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              to="/merge-pdf"
-              className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:shadow-purple-500/40 hover:scale-105 active:scale-95 transition-all duration-200"
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <motion.div
+              whileHover={reduce ? undefined : { scale: 1.05 }}
+              whileTap={reduce ? undefined : { scale: 0.97 }}
             >
-              Hemen Başla <HiCloudUpload className="h-5 w-5" />
-            </Link>
-            <a
+              <Link
+                to="/merge-pdf"
+                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:shadow-purple-500/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
+                aria-label="PDF birleştirme aracına git"
+              >
+                Hemen Başla
+                <HiCloudUpload aria-hidden="true" className="h-5 w-5" />
+              </Link>
+            </motion.div>
+
+            <motion.a
               href="#features"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-base font-semibold text-white hover:bg-white/10 hover:border-white/40 transition-colors"
+              whileHover={reduce ? undefined : { scale: 1.05 }}
+              whileTap={reduce ? undefined : { scale: 0.97 }}
+              transition={transition}
+              className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-base font-semibold text-white hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
+              aria-label="Özellikler bölümüne git"
             >
               Özellikleri Keşfet
-            </a>
+            </motion.a>
           </div>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-400">
+          <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-300">
             <span className="inline-flex items-center gap-2">
-              <HiLockClosed className="h-4 w-4 text-purple-300" /> Güvenli İşlem
+              <HiLockClosed
+                aria-hidden="true"
+                className="h-4 w-4 text-purple-300"
+              />
+              Güvenli İşlem
             </span>
             <span className="inline-flex items-center gap-2">
-              <HiSparkles className="h-4 w-4 text-indigo-300" /> Hızlı & Basit
+              <HiSparkles
+                aria-hidden="true"
+                className="h-4 w-4 text-indigo-300"
+              />
+              Hızlı &amp; Basit
             </span>
           </div>
 
@@ -79,91 +108,189 @@ export default function Hero() {
               güvenle dönüştürülüyor.
             </p>
           </div>
-        </div>
+        </motion.div>
 
-        <aside className="h-full min-h-[420px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl border border-white/20 shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.7)] transition-shadow p-6 md:p-8 duration-300 animate-heroFadeSlow">
-          <h2 className="text-xl md:text-2xl font-semibold tracking-tight">
-            Neden Dosya
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-400">
-              Hub
-            </span>
-            ?
-          </h2>
-          <ul className="mt-5 space-y-4 text-sm text-zinc-700 dark:text-zinc-300">
-            <FeatureItem
-              icon={HiSparkles}
-              title="Hızlı ve Güvenilir İşlem"
-              desc="Dosyalarınızı saniyeler içinde dönüştürün ve yönetin"
-              badgeBg="bg-amber-100 dark:bg-amber-900/40"
-              iconColor="text-amber-600 dark:text-amber-400"
-            />
-            <FeatureItem
-              icon={HiColorSwatch}
-              title="Gelişmiş UI Tasarımı"
-              desc="Modern ve kullanıcı dostu arayüz ile kolay kullanım."
-              badgeBg="bg-pink-100 dark:bg-pink-900/40"
-              iconColor="text-pink-600 dark:text-pink-400"
-            />
-            <FeatureItem
-              icon={HiLockClosed}
-              title="Gizlilik Öncelikli"
-              desc="Dosyalarınız yalnızca kısa süreli tutulur, tamamen güvendedir."
-              badgeBg="bg-sky-100 dark:bg-sky-900/40"
-              iconColor="text-sky-600 dark:text-sky-400"
-            />
-            <FeatureItem
-              icon={HiArrowRight}
-              title="Geliştirme Sürecinde Olanlar"
-              desc="Yakında: Yeni dosya türleri ve güçlü dönüşüm araçları yolda."
-              badgeBg="bg-violet-100 dark:bg-violet-900/40"
-              iconColor="text-violet-600 dark:text-violet-400"
-            />
-          </ul>
+        <motion.aside
+          className="relative flex flex-col justify-center items-center"
+          initial={{
+            opacity: reduce ? 1 : 0,
+            y: reduce ? 0 : 40,
+            scale: reduce ? 1 : 0.96,
+          }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ ...transition, delay: reduce ? 0 : 0.3 }}
+        >
+          <motion.div
+            className="pointer-events-none absolute -top-28 -right-20 h-[26rem] w-[26rem] bg-purple-500/15 rounded-full blur-xl md:blur-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showGlow ? 1 : 0 }}
+            transition={{ duration: reduce ? 0 : 0.8, ease: "easeOut" }}
+            aria-hidden="true"
+          />
+          <motion.div
+            className="pointer-events-none absolute bottom-0 left-0 h-[22rem] w-[22rem] bg-indigo-400/15 rounded-full blur-xl md:blur-3xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: showGlow ? 1 : 0 }}
+            transition={{ duration: reduce ? 0 : 0.8, ease: "easeOut" }}
+            aria-hidden="true"
+          />
 
-          <div className="mt-6 rounded-xl border border-dashed border-zinc-200 dark:border-zinc-800 p-4">
-            <h3 className="font-medium flex items-center gap-2">
-              <HiOutlineInformationCircle className="text-zinc-500 dark:text-white" />
-              Bilgi
-            </h3>
-            <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-              Büyük dosyalarda yükleme süresi internet hızınıza bağlı
-              değişebilir. Sorun yaşarsanız dosya boyutunu küçültmeyi deneyin.
-            </p>
-          </div>
+          {/* Sağ Panel */}
+          <motion.div
+            className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(255,255,255,0.1)] overflow-hidden"
+            initial={{ y: reduce ? 0 : 60 }}
+            animate={{ y: 0 }}
+            transition={{ ...transition, delay: reduce ? 0 : 0.5 }}
+            onAnimationComplete={() => setShowGlow(true)}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2">
+                <HiDocumentText
+                  aria-hidden="true"
+                  className="h-5 w-5 text-indigo-300"
+                />
+                <h3 className="text-white font-medium text-lg">
+                  PDF Birleştirme
+                </h3>
+              </div>
+              <div className="flex gap-1" aria-hidden="true">
+                <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
+                <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
+                <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
+              </div>
+            </div>
 
-          <div className="mt-8 flex items-center justify-between text-xs text-zinc-500">
-            <span>
-              Version:{" "}
-              <span className="text-purple-400 font-semibold">MVP-1</span>
-            </span>
-            <span className="italic">
-              <span className="text-purple-400 font-semibold">+1000</span>
-              <span className="text-white">
-                ’den fazla belge güvenle işlendi
+            <div
+              className="mb-5 border-2 border-dashed border-white/15 rounded-xl p-4 text-center hover:border-indigo-400/50 transition cursor-pointer"
+              role="button"
+              tabIndex={0}
+              aria-label="Dosyaları sürükleyin veya yüklemek için tıklayın"
+            >
+              <HiCloudUpload
+                aria-hidden="true"
+                className="mx-auto h-6 w-6 text-indigo-300 mb-1"
+              />
+              <p className="text-sm text-zinc-400">
+                Dosyalarını buraya sürükle veya yükle
+              </p>
+            </div>
+
+            <div className="space-y-3">
+              {[
+                { name: "Dosya 1.pdf", progress: 100 },
+                { name: "Dosya 2.pdf", progress: 60 },
+              ].map((file, i) => (
+                <div
+                  key={i}
+                  className="group rounded-xl bg-white/5 border border-white/10 p-3 flex items-center justify-between hover:bg-white/10 transition"
+                >
+                  <div className="flex items-center gap-3">
+                    <HiDocumentText
+                      aria-hidden="true"
+                      className="h-5 w-5 text-indigo-300"
+                    />
+                    <div>
+                      <p className="text-white text-sm font-medium">
+                        {file.name}
+                      </p>
+                      <div className="h-1 mt-1 w-32 bg-white/10 rounded-full overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-indigo-400 to-purple-500"
+                          initial={
+                            reduce
+                              ? { width: `${file.progress}%` }
+                              : { width: 0 }
+                          }
+                          animate={{ width: `${file.progress}%` }}
+                          transition={{
+                            duration: reduce ? 0 : 2,
+                            ease: "easeOut",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-1 md:gap-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition">
+                    {file.progress === 100 ? (
+                      <span className="inline-flex">
+                        <HiCheckCircle
+                          aria-hidden="true"
+                          className="h-5 w-5 text-emerald-400"
+                        />
+                        <span className="sr-only">İşlem tamamlandı</span>
+                      </span>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          className="p-2 rounded-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                          aria-label={`${file.name} dosyasını sil`}
+                        >
+                          <HiTrash
+                            aria-hidden="true"
+                            className="h-5 w-5 text-zinc-400 hover:text-red-400 transition"
+                          />
+                        </button>
+                        <button
+                          type="button"
+                          className="p-2 rounded-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
+                          aria-label={`${file.name} dosyasını indir`}
+                        >
+                          <HiDownload
+                            aria-hidden="true"
+                            className="h-5 w-5 text-zinc-400 hover:text-indigo-300 transition"
+                          />
+                        </button>
+                      </>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <motion.button
+              whileHover={
+                reduce
+                  ? undefined
+                  : {
+                      scale: 1.03,
+                      transition: { type: "tween", duration: 0.12 },
+                    }
+              }
+              whileTap={
+                reduce
+                  ? undefined
+                  : {
+                      scale: 0.97,
+                      transition: { type: "tween", duration: 0.08 },
+                    }
+              }
+              className="w-full mt-6 flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 py-2.5 text-white font-medium hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30 transform-gpu will-change-transform"
+            >
+              <HiDownload aria-hidden="true" className="h-5 w-5" />{" "}
+              Birleştirilmiş PDF’i İndir
+            </motion.button>
+
+            <div className="mt-6 flex items-center justify-between text-[11px] text-zinc-400 border-t border-white/10 pt-3">
+              <span className="inline-flex items-center gap-1">
+                <HiLockClosed
+                  aria-hidden="true"
+                  className="h-3 w-3 text-emerald-300"
+                />
+                Şifreli İşlem
               </span>
-            </span>
-          </div>
-        </aside>
+              <span className="inline-flex items-center gap-1">
+                <HiSparkles
+                  aria-hidden="true"
+                  className="h-3 w-3 text-indigo-300"
+                />
+                0.8s Ortalama Süre
+              </span>
+            </div>
+          </motion.div>
+        </motion.aside>
       </div>
-
-      <style>{`
-        @keyframes heroReveal {
-          from { opacity: 0; transform: translateY(14px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-heroReveal { animation: heroReveal 1.1s cubic-bezier(.2,.7,.2,1) both; }
-
-        @keyframes heroFadeSlow {
-          from { opacity: 0; transform: translateY(10px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        .animate-heroFadeSlow { animation: heroFadeSlow .9s ease-out .15s both; }
-
-        @media (prefers-reduced-motion: reduce) {
-          .animate-heroReveal,
-          .animate-heroFadeSlow { animation: none !important; }
-        }
-      `}</style>
     </section>
   );
 }
