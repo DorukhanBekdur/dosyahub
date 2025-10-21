@@ -21,12 +21,12 @@ export default function HowItWorks() {
     <section
       id="how"
       aria-labelledby="how-title"
-      className="relative overflow-hidden text-white
-                 bg-gradient-to-b from-black via-[#1a0b2e] to-purple-700"
+      className="relative isolate -mt-px overflow-hidden text-white
+                 bg-[linear-gradient(to_bottom,_#000_0%,_#06030a_16%,_#10091c_38%,_#1a0b2e_60%,_#6d28d9_100%)]"
     >
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.07]
-                   bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/40),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/35),transparent_60%)]"
+        className="pointer-events-none absolute inset-0 opacity-[0.06]
+                   bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/35),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/30),transparent_60%)]"
       />
 
       <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
@@ -75,7 +75,8 @@ export default function HowItWorks() {
         <ol className="relative mt-10 grid gap-5 md:grid-cols-3">
           <span
             aria-hidden="true"
-            className="md:hidden absolute left-[18px] top-0 bottom-0 w-px bg-gradient-to-b from-purple-400 via-white/40 to-transparent"
+            className="md:hidden absolute left-[18px] top-0 bottom-0 w-px
+                       bg-gradient-to-b from-purple-400 via-white/40 to-transparent"
           />
 
           {steps.map((s) => (
