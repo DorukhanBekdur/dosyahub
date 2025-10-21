@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion, motion } from "framer-motion";
 import {
   HiLockClosed,
   HiSparkles,
@@ -13,7 +12,6 @@ import { Link } from "react-router-dom";
 
 export default function Hero() {
   const reduce = useReducedMotion();
-  const [showGlow, setShowGlow] = useState(false);
 
   const transition = {
     duration: reduce ? 0 : 1.1,
@@ -62,10 +60,9 @@ export default function Hero() {
               <Link
                 to="/merge-pdf"
                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 px-6 py-3 text-base font-semibold text-white shadow-md hover:shadow-purple-500/40 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
-                aria-label="PDF birleştirme aracına git"
               >
                 Hemen Başla
-                <HiCloudUpload aria-hidden="true" className="h-5 w-5" />
+                <HiCloudUpload className="h-5 w-5" />
               </Link>
             </motion.div>
 
@@ -75,7 +72,6 @@ export default function Hero() {
               whileTap={reduce ? undefined : { scale: 0.97 }}
               transition={transition}
               className="inline-flex items-center gap-2 rounded-xl border border-white/30 px-6 py-3 text-base font-semibold text-white hover:border-white/40 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
-              aria-label="Özellikler bölümüne git"
             >
               Özellikleri Keşfet
             </motion.a>
@@ -83,17 +79,11 @@ export default function Hero() {
 
           <div className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm text-zinc-300">
             <span className="inline-flex items-center gap-2">
-              <HiLockClosed
-                aria-hidden="true"
-                className="h-4 w-4 text-purple-300"
-              />
+              <HiLockClosed className="h-4 w-4 text-purple-300" />
               Güvenli İşlem
             </span>
             <span className="inline-flex items-center gap-2">
-              <HiSparkles
-                aria-hidden="true"
-                className="h-4 w-4 text-indigo-300"
-              />
+              <HiSparkles className="h-4 w-4 text-indigo-300" />
               Hızlı &amp; Basit
             </span>
           </div>
@@ -110,6 +100,7 @@ export default function Hero() {
           </div>
         </motion.div>
 
+        {/* SAĞ PANEL */}
         <motion.aside
           className="relative flex flex-col justify-center items-center"
           initial={{
@@ -121,55 +112,27 @@ export default function Hero() {
           transition={{ ...transition, delay: reduce ? 0 : 0.3 }}
         >
           <motion.div
-            className="pointer-events-none absolute -top-28 -right-20 h-[26rem] w-[26rem] bg-purple-500/15 rounded-full blur-xl md:blur-3xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: showGlow ? 1 : 0 }}
-            transition={{ duration: reduce ? 0 : 0.8, ease: "easeOut" }}
-            aria-hidden="true"
-          />
-          <motion.div
-            className="pointer-events-none absolute bottom-0 left-0 h-[22rem] w-[22rem] bg-indigo-400/15 rounded-full blur-xl md:blur-3xl"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: showGlow ? 1 : 0 }}
-            transition={{ duration: reduce ? 0 : 0.8, ease: "easeOut" }}
-            aria-hidden="true"
-          />
-
-          {/* Sağ Panel */}
-          <motion.div
             className="relative w-full max-w-md rounded-3xl border border-white/10 bg-white/10 backdrop-blur-xl p-6 shadow-[0_0_60px_rgba(255,255,255,0.1)] overflow-hidden"
             initial={{ y: reduce ? 0 : 60 }}
             animate={{ y: 0 }}
             transition={{ ...transition, delay: reduce ? 0 : 0.5 }}
-            onAnimationComplete={() => setShowGlow(true)}
           >
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2">
-                <HiDocumentText
-                  aria-hidden="true"
-                  className="h-5 w-5 text-indigo-300"
-                />
+                <HiDocumentText className="h-5 w-5 text-indigo-300" />
                 <h3 className="text-white font-medium text-lg">
                   PDF Birleştirme
                 </h3>
               </div>
-              <div className="flex gap-1" aria-hidden="true">
+              <div className="flex gap-1">
                 <span className="h-2.5 w-2.5 rounded-full bg-red-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-yellow-400" />
                 <span className="h-2.5 w-2.5 rounded-full bg-green-400" />
               </div>
             </div>
 
-            <div
-              className="mb-5 border-2 border-dashed border-white/15 rounded-xl p-4 text-center hover:border-indigo-400/50 transition cursor-pointer"
-              role="button"
-              tabIndex={0}
-              aria-label="Dosyaları sürükleyin veya yüklemek için tıklayın"
-            >
-              <HiCloudUpload
-                aria-hidden="true"
-                className="mx-auto h-6 w-6 text-indigo-300 mb-1"
-              />
+            <div className="mb-5 border-2 border-dashed border-white/15 rounded-xl p-4 text-center hover:border-indigo-400/50 transition cursor-pointer">
+              <HiCloudUpload className="mx-auto h-6 w-6 text-indigo-300 mb-1" />
               <p className="text-sm text-zinc-400">
                 Dosyalarını buraya sürükle veya yükle
               </p>
@@ -185,10 +148,7 @@ export default function Hero() {
                   className="group rounded-xl bg-white/5 border border-white/10 p-3 flex items-center justify-between hover:bg-white/10 transition"
                 >
                   <div className="flex items-center gap-3">
-                    <HiDocumentText
-                      aria-hidden="true"
-                      className="h-5 w-5 text-indigo-300"
-                    />
+                    <HiDocumentText className="h-5 w-5 text-indigo-300" />
                     <div>
                       <p className="text-white text-sm font-medium">
                         {file.name}
@@ -202,45 +162,22 @@ export default function Hero() {
                               : { width: 0 }
                           }
                           animate={{ width: `${file.progress}%` }}
-                          transition={{
-                            duration: reduce ? 0 : 2,
-                            ease: "easeOut",
-                          }}
+                          transition={{ duration: reduce ? 0 : 2 }}
                         />
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-1 md:gap-2 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition">
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition">
                     {file.progress === 100 ? (
-                      <span className="inline-flex">
-                        <HiCheckCircle
-                          aria-hidden="true"
-                          className="h-5 w-5 text-emerald-400"
-                        />
-                        <span className="sr-only">İşlem tamamlandı</span>
-                      </span>
+                      <HiCheckCircle className="h-5 w-5 text-emerald-400" />
                     ) : (
                       <>
-                        <button
-                          type="button"
-                          className="p-2 rounded-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                          aria-label={`${file.name} dosyasını sil`}
-                        >
-                          <HiTrash
-                            aria-hidden="true"
-                            className="h-5 w-5 text-zinc-400 hover:text-red-400 transition"
-                          />
+                        <button className="p-2 rounded-lg hover:bg-white/10">
+                          <HiTrash className="h-5 w-5 text-zinc-400 hover:text-red-400" />
                         </button>
-                        <button
-                          type="button"
-                          className="p-2 rounded-lg hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30"
-                          aria-label={`${file.name} dosyasını indir`}
-                        >
-                          <HiDownload
-                            aria-hidden="true"
-                            className="h-5 w-5 text-zinc-400 hover:text-indigo-300 transition"
-                          />
+                        <button className="p-2 rounded-lg hover:bg-white/10">
+                          <HiDownload className="h-5 w-5 text-zinc-400 hover:text-indigo-300" />
                         </button>
                       </>
                     )}
@@ -255,7 +192,7 @@ export default function Hero() {
                   ? undefined
                   : {
                       scale: 1.03,
-                      transition: { type: "tween", duration: 0.12 },
+                      transition: { duration: 0.12 },
                     }
               }
               whileTap={
@@ -263,28 +200,21 @@ export default function Hero() {
                   ? undefined
                   : {
                       scale: 0.97,
-                      transition: { type: "tween", duration: 0.08 },
+                      transition: { duration: 0.08 },
                     }
               }
-              className="w-full mt-6 flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 py-2.5 text-white font-medium hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30 transform-gpu will-change-transform"
+              className="w-full mt-6 flex items-center justify-center gap-2 rounded-xl bg-white/10 border border-white/20 py-2.5 text-white font-medium hover:bg-white/20 transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-white/30"
             >
-              <HiDownload aria-hidden="true" className="h-5 w-5" />{" "}
-              Birleştirilmiş PDF’i İndir
+              <HiDownload className="h-5 w-5" /> Birleştirilmiş PDF’i İndir
             </motion.button>
 
             <div className="mt-6 flex items-center justify-between text-[11px] text-zinc-400 border-t border-white/10 pt-3">
               <span className="inline-flex items-center gap-1">
-                <HiLockClosed
-                  aria-hidden="true"
-                  className="h-3 w-3 text-emerald-300"
-                />
+                <HiLockClosed className="h-3 w-3 text-emerald-300" />
                 Şifreli İşlem
               </span>
               <span className="inline-flex items-center gap-1">
-                <HiSparkles
-                  aria-hidden="true"
-                  className="h-3 w-3 text-indigo-300"
-                />
+                <HiSparkles className="h-3 w-3 text-indigo-300" />
                 0.8s Ortalama Süre
               </span>
             </div>
