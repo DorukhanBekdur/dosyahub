@@ -21,8 +21,8 @@ export default function HowItWorks() {
     <section
       id="how"
       aria-labelledby="how-title"
-      className="relative isolate -mt-px overflow-hidden text-white
-                 bg-gradient-to-b from-black via-[#110827] to-[#6d28d9]"
+      className="relative isolate overflow-hidden text-white
+                 bg-[linear-gradient(to_bottom,_#000_0%,_#0b0318_25%,_#1a0b2e_50%,_#32116b_75%,_#6d28d9_100%)]"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.06]
