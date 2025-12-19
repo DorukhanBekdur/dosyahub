@@ -1,5 +1,3 @@
-// src/config/imports.js
-
 import {
   BrowserRouter as Router,
   Routes,
