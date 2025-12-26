@@ -13,7 +13,7 @@ import { HiArrowsUpDown } from "react-icons/hi2";
 
 const TOOLS = [
   {
-    title: "PDF Düzenle",
+    title: "PDF ARAÇLARI",
     items: [
       { to: "/merge-pdf", label: "PDF Birleştirme", icon: HiCollection },
       { to: "/split-pdf", label: "PDF Parçalama", icon: HiViewGrid },
@@ -26,13 +26,6 @@ const TOOLS = [
   },
 ];
 
-const linkBase =
-  "relative text-sm transition-colors text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100";
-const active = "text-zinc-900 dark:text-zinc-100 after:w-full";
-
-const underline =
-  "after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:w-0 after:transition-[width] after:duration-300 after:bg-gradient-to-r after:from-indigo-500 after:to-purple-500 hover:after:w-full";
-
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
@@ -42,8 +35,7 @@ export default function Navbar() {
   const toolsMenuRef = useRef(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 6);
-    onScroll();
+    const onScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -79,113 +71,108 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 transition-all duration-300
-        ${
-          scrolled
-            ? "bg-white/90 dark:bg-zinc-900/90 shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
-            : "bg-white/60 dark:bg-zinc-900/50"
-        }
-        backdrop-blur-md border-b border-white/20 dark:border-white/10`}
-      aria-label="Ana Menü"
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#0f0a1e]/85 backdrop-blur-xl border-b border-white/10 py-2"
+          : "bg-transparent py-3"
+      }`}
     >
-      <div className="mx-auto max-w-6xl px-4 h-14 flex items-center justify-between">
-        {/* LOGO */}
-        <Link
-          to="/"
-          onClick={closeAll}
-          className="flex flex-col leading-tight focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500/60 rounded-lg"
-        >
-          <Logo size="lg" />
-        </Link>
-
-        {/* DESKTOP MENU */}
-        <div className="hidden md:flex items-center gap-6">
-          <NavItem to="/merge-pdf" label="PDF Birleştirme" />
-          <NavItem to="/split-pdf" label="PDF Parçalama" />
-          <NavItem to="/compress-pdf" label="PDF Sıkıştırma" />
-
-          {/* TOOLS MEGA MENU */}
-          <div className="relative">
-            <button
-              ref={toolsBtnRef}
-              onMouseEnter={() => setToolsOpen(true)}
-              onClick={() => setToolsOpen((v) => !v)}
-              aria-expanded={toolsOpen}
-              className={`${linkBase} ${underline} flex items-center gap-1`}
-            >
-              Tüm PDF Araçları
-              <Chevron />
-            </button>
-
-            {toolsOpen && (
-              <div
-                ref={toolsMenuRef}
-                onMouseLeave={() => setToolsOpen(false)}
-                className="absolute left-1/2 -translate-x-1/2 mt-3 w-[420px]
-                rounded-2xl bg-white/95 dark:bg-zinc-900/95 backdrop-blur-xl
-                border border-white/15 dark:border-white/10 shadow-xl p-4"
+      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
+        {/* LOGO VE LİNKLER */}
+        <div className="flex items-center gap-24">
+          {" "}
+          <Link
+            to="/"
+            onClick={closeAll}
+            className="flex items-center shrink-0"
+          >
+            <Logo size="lg" />
+          </Link>
+          <div className="hidden lg:flex items-center gap-8">
+            {" "}
+            <div className="relative">
+              <button
+                ref={toolsBtnRef}
+                onMouseEnter={() => setToolsOpen(true)}
+                className="flex items-center gap-1.5 text-[15px] font-medium text-zinc-300 hover:text-white transition"
               >
-                {TOOLS.map((group) => (
-                  <div key={group.title}>
-                    <div className="text-xs font-semibold text-zinc-500 mb-3">
-                      {group.title}
+                Tüm Araçlar <Chevron />
+              </button>
+
+              {toolsOpen && (
+                <div
+                  ref={toolsMenuRef}
+                  onMouseLeave={() => setToolsOpen(false)}
+                  className="absolute top-full -left-10 pt-4 w-[480px]"
+                >
+                  <div className="bg-[#1a142e] rounded-2xl shadow-2xl border border-white/10 p-5 grid grid-cols-2 gap-3 backdrop-blur-2xl">
+                    <div className="col-span-2 text-[10px] font-bold text-zinc-500 tracking-widest pb-2 border-b border-white/5 mb-2">
+                      PDF İŞLEMLERİ
                     </div>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {group.items.map(({ to, label, icon: Icon }) => (
-                        <NavLink
-                          key={to}
-                          to={to}
-                          onClick={closeAll}
-                          className="flex items-center gap-3 rounded-lg px-3 py-2
-                          text-sm text-zinc-700 dark:text-zinc-300
-                          hover:bg-zinc-100/70 dark:hover:bg-zinc-800/60
-                          transition"
-                        >
-                          <span className="grid h-8 w-8 place-items-center rounded-md bg-indigo-500/10 text-indigo-500">
-                            <Icon className="h-4 w-4" />
-                          </span>
-                          {label}
-                        </NavLink>
-                      ))}
-                    </ul>
+                    {TOOLS[0].items.map((item) => (
+                      <NavLink
+                        key={item.to}
+                        to={item.to}
+                        onClick={closeAll}
+                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 group transition"
+                      >
+                        <div className="bg-indigo-500/10 p-2 rounded-lg group-hover:bg-indigo-500/20">
+                          <item.icon className="text-indigo-400 w-5 h-5" />
+                        </div>
+                        <span className="text-[14px] font-medium text-zinc-300 group-hover:text-white">
+                          {item.label}
+                        </span>
+                      </NavLink>
+                    ))}
                   </div>
-                ))}
-              </div>
-            )}
+                </div>
+              )}
+            </div>
+            <NavItem to="/merge-pdf" label="PDF Birleştir" />
+            <NavItem to="/compress-pdf" label="Sıkıştır" />
+            <NavItem to="/iletisim" label="İletişim" />
           </div>
-
-          <NavItem to="/iletisim" label="İletişim" />
-
-          <span className="text-xs px-2 py-1 rounded-full bg-emerald-500/10 text-emerald-600">
-            Dosyalar otomatik silinir
-          </span>
         </div>
 
-        {/* MOBILE BUTTON */}
-        <button
-          onClick={() => setMobileOpen((v) => !v)}
-          className="md:hidden h-9 w-9 rounded-lg border border-zinc-300/70
-          dark:border-zinc-700/70 flex items-center justify-center"
-          aria-label="Menüyü Aç/Kapat"
-        >
-          <Burger open={mobileOpen} />
-        </button>
+        {/* BUTONLAR */}
+        <div className="flex items-center gap-5">
+          <div className="hidden md:flex items-center gap-6">
+            <Link
+              to="/login"
+              className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
+            >
+              Giriş Yap
+            </Link>
+            <Link
+              to="/signup"
+              className="bg-[#7c3aed] hover:bg-[#8b5cf6] text-white px-5 py-2 rounded-full text-[14px] font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95"
+            >
+              Kayıt Ol
+            </Link>
+          </div>
+
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="lg:hidden h-9 w-9 rounded-lg border border-white/10 flex items-center justify-center text-white"
+          >
+            {mobileOpen ? <CloseIcon /> : <MenuIcon />}
+          </button>
+        </div>
       </div>
 
-      {/* MOBILE MENU */}
+      {/* MOBİL PANEL */}
       {mobileOpen && (
-        <div className="md:hidden border-t border-white/15 bg-white/90 dark:bg-zinc-900/90 backdrop-blur">
-          <div className="px-4 py-3 space-y-2">
-            {TOOLS[0].items.map(({ to, label, icon: Icon }) => (
+        <div className="lg:hidden absolute top-full left-0 w-full bg-[#0f0a1e] border-t border-white/10 p-6 space-y-4 shadow-2xl">
+          <div className="grid grid-cols-1 gap-2">
+            {TOOLS[0].items.map((item) => (
               <NavLink
-                key={to}
-                to={to}
+                key={item.to}
+                to={item.to}
                 onClick={closeAll}
-                className="flex items-center gap-3 py-3 px-2 rounded-lg
-                hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className="flex items-center gap-4 p-4 rounded-xl bg-white/5 text-zinc-300"
               >
-                <Icon className="text-indigo-500" />
-                {label}
+                <item.icon className="text-indigo-400" />
+                {item.label}
               </NavLink>
             ))}
           </div>
@@ -199,9 +186,10 @@ function NavItem({ to, label }) {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) =>
-        `${linkBase} ${underline} ${isActive ? active : ""}`
-      }
+      className={({ isActive }) => `
+        text-[14px] font-medium transition-all
+        ${isActive ? "text-[#a78bfa]" : "text-zinc-400 hover:text-white"}
+      `}
     >
       {label}
     </NavLink>
@@ -211,29 +199,49 @@ function NavItem({ to, label }) {
 function Chevron() {
   return (
     <svg
-      className="h-4 w-4"
-      viewBox="0 0 24 24"
+      className="w-3.5 h-3.5 opacity-50"
       fill="none"
+      viewBox="0 0 24 24"
       stroke="currentColor"
+      strokeWidth="3"
     >
-      <path d="M6 9l6 6 6-6" strokeWidth="2" />
+      <path d="M19 9l-7 7-7-7" />
     </svg>
   );
 }
 
-function Burger({ open }) {
+function MenuIcon() {
   return (
     <svg
-      className="h-5 w-5"
-      viewBox="0 0 24 24"
+      className="w-5 h-5"
       fill="none"
       stroke="currentColor"
+      viewBox="0 0 24 24"
     >
-      {open ? (
-        <path d="M6 18L18 6M6 6l12 12" strokeWidth="2" />
-      ) : (
-        <path d="M3 6h18M3 12h18M3 18h18" strokeWidth="2" />
-      )}
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M4 6h16M4 12h16M4 18h16"
+      />
+    </svg>
+  );
+}
+
+function CloseIcon() {
+  return (
+    <svg
+      className="w-5 h-5"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M6 18L18 6M6 6l12 12"
+      />
     </svg>
   );
 }
