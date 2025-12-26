@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   HiCollection,
   HiViewGrid,
@@ -7,72 +8,112 @@ import {
   HiRefresh,
   HiTable,
   HiTrash,
+  HiDocumentText,
+  HiOutlinePhotograph,
+  HiScissors,
+  HiPencilAlt,
 } from "react-icons/hi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 
 export default function FeaturesGrid({ items }) {
   const defaultItems = [
+    // --- AKTİF ARAÇLAR ---
+    {
+      icon: HiDocumentText,
+      title: "Word → PDF",
+      desc: "Word dosyalarını hızlıca PDF'e dönüştür.",
+      color: "text-blue-500",
+      bg: "bg-blue-500/10",
+      to: "/word-to-pdf",
+    },
     {
       icon: HiCollection,
       title: "PDF Birleştirme",
       desc: "Birden fazla PDF’i tek dosyada birleştir.",
-      color: "from-emerald-500 to-teal-600",
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10",
       to: "/merge-pdf",
     },
     {
       icon: HiViewGrid,
       title: "PDF Parçalama",
       desc: "PDF’i sayfalara ayır ve hızlıca indir.",
-      color: "from-sky-500 to-indigo-600",
+      color: "text-sky-500",
+      bg: "bg-sky-500/10",
       to: "/split-pdf",
     },
     {
       icon: HiArchive,
       title: "PDF Sıkıştırma",
-      desc: "Kaliteden ödün vermeden dosya boyutunu küçült.",
-      color: "from-lime-500 to-emerald-600",
+      desc: "Kaliteden ödün vermeden boyutu küçült.",
+      color: "text-purple-500",
+      bg: "bg-purple-500/10",
       to: "/compress-pdf",
     },
     {
       icon: HiArrowsUpDown,
       title: "PDF Sıralama",
-      desc: "PDF sayfalarını sürükle-bırak ile istediğin gibi sırala.",
-      color: "from-purple-500 to-indigo-600",
+      desc: "Sayfaları sürükle-bırak ile düzenle.",
+      color: "text-indigo-500",
+      bg: "bg-indigo-500/10",
       to: "/organize-pdf",
     },
     {
       icon: HiTrash,
-      title: "PDF Sayfa Silme",
-      desc: "Seçtiğin sayfaları kaldır, yeni PDF’ini indir.",
-      color: "from-rose-500 to-red-600",
+      title: "Sayfa Silme",
+      desc: "Gereksiz sayfaları PDF'ten temizle.",
+      color: "text-rose-500",
+      bg: "bg-rose-500/10",
       to: "/remove-pages-pdf",
     },
     {
       icon: HiPhotograph,
       title: "Görsel → PDF",
-      desc: "PNG/JPEG görsellerini PDF'e dönüştür.",
-      color: "from-pink-500 to-rose-600",
+      desc: "PNG/JPG görsellerini PDF'e aktar.",
+      color: "text-pink-500",
+      bg: "bg-pink-500/10",
       to: "/images-to-pdf",
+    },
+    {
+      icon: HiOutlinePhotograph,
+      title: "PDF → Görsel",
+      desc: "PDF sayfalarını resim olarak kaydet.",
+      color: "text-orange-500",
+      bg: "bg-orange-500/10",
+      to: "/pdf-to-images",
     },
     {
       icon: HiRefresh,
       title: "PDF Döndürme",
-      desc: "PDF sayfalarını istediğin açıyla kolayca döndür.",
-      color: "from-amber-500 to-rose-500",
+      desc: "Ters sayfaları kolayca düzelt.",
+      color: "text-cyan-500",
+      bg: "bg-cyan-500/10",
       to: "/rotate-pdf",
     },
+
+    // --- YAKINDA GELECEK ARAÇLAR ---
     {
       icon: HiTable,
       title: "Excel → PDF",
-      desc: "Excel (.xls, .xlsx) dosyalarını PDF'e dönüştür.",
-      color: "from-green-500 to-emerald-600",
+      desc: "Excel tablolarını PDF'e dönüştür.",
+      color: "text-green-500",
+      bg: "bg-green-500/10",
       soon: true,
     },
     {
-      icon: HiRefresh,
-      title: "Sayfa Döndür/Çıkar",
-      desc: "Seçili sayfaları döndür veya kaldır.",
-      color: "from-slate-500 to-zinc-600",
+      icon: HiPencilAlt,
+      title: "PDF Düzenle",
+      desc: "PDF üzerine yazı veya çizim ekle.",
+      color: "text-yellow-500",
+      bg: "bg-yellow-500/10",
+      soon: true,
+    },
+    {
+      icon: HiScissors,
+      title: "PDF Böl",
+      desc: "Belirli sayfa aralıklarını ayıkla.",
+      color: "text-red-500",
+      bg: "bg-red-500/10",
       soon: true,
     },
   ];
@@ -80,104 +121,92 @@ export default function FeaturesGrid({ items }) {
   const data = items?.length ? items : defaultItems;
 
   return (
-    <section id="features" className="relative overflow-hidden bg-black">
-      <div className="relative mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="text-center max-w-2xl mx-auto animate-fadeInUp">
-          <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-white">
-            Öne Çıkan Araçlar
-          </h2>
-          <p className="mt-1 text-sm text-zinc-400">
-            Belgeleriniz için en popüler ve kullanışlı araçlar.
-          </p>
+    <section id="features" className="relative bg-[#0f0a1e] py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="text-center mb-16">
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-5xl font-bold text-white tracking-tight"
+          >
+            En Popüler PDF Araçları
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="mt-4 text-zinc-400 text-lg"
+          >
+            İş akışınızı hızlandıracak profesyonel dosya çözümleri.
+          </motion.p>
         </div>
 
-        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 auto-rows-fr">
-          {data.map((it, i) => (
-            <Card key={it.title} item={it} index={i} />
+        {/* Grid Yapısı */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {data.map((item, i) => (
+            <Card key={item.title} item={item} index={i} />
           ))}
         </div>
       </div>
-
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeInUp { animation: fadeInUp 0.6s ease-out both; }
-
-        @keyframes cardFadeInUp {
-          from { opacity: 0; transform: translateY(6px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          .animate-fadeInUp { animation: none !important; }
-          .card-anim { animation: none !important; }
-        }
-      `}</style>
     </section>
   );
 }
 
 function Card({ item, index }) {
-  const { icon: Icon, title, desc, color, to, soon } = item;
-
-  const Wrapper = ({ children }) =>
-    to ? (
-      <Link
-        to={to}
-        aria-label={title}
-        className="block h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 rounded-2xl cursor-pointer"
-      >
-        {children}
-      </Link>
-    ) : (
-      <div className="h-full" role="group" aria-label={title}>
-        {children}
-      </div>
-    );
+  const { icon: Icon, title, desc, color, bg, to, soon } = item;
 
   return (
-    <div
-      className="group relative overflow-hidden rounded-2xl border border-white/10
-                 shadow-sm transition-all duration-300 transform-gpu 
-                 hover:-translate-y-0.5 ring-1 ring-transparent hover:ring-indigo-500/30 
-                 focus-within:ring-indigo-500/40 isolation-isolate card-anim
-                 bg-white/5 backdrop-blur-sm"
-      style={{
-        animation: `cardFadeInUp 0.5s ease ${index * 100 + 300}ms both`,
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.05 }}
     >
-      <div className="pointer-events-none absolute inset-0 z-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-indigo-500/12 to-purple-500/12" />
-      </div>
-
-      <div className="relative z-10 p-5 md:p-6 h-full">
+      <Link
+        to={soon ? "#" : to || "#"}
+        className={`group relative flex flex-col h-full p-6 rounded-2xl border border-white/5 bg-white/[0.03] 
+                   hover:bg-white/[0.07] hover:border-white/10 transition-all duration-300
+                   ${
+                     soon
+                       ? "cursor-default opacity-60 grayscale-[0.3]"
+                       : "cursor-pointer"
+                   }`}
+      >
         {soon && (
-          <span className="absolute right-3 top-3 text-[10px] uppercase tracking-wide rounded-full bg-zinc-900/80 text-zinc-100 backdrop-blur-sm px-2 py-[1px] shadow-sm ring-1 ring-white/20 transition-colors duration-200 group-hover:bg-indigo-500/90 group-hover:text-white">
+          <span className="absolute top-3 right-3 text-[10px] font-bold uppercase tracking-widest text-indigo-400 bg-indigo-400/10 px-2 py-0.5 rounded-md border border-indigo-400/20 shadow-sm">
             Yakında
           </span>
         )}
 
-        <Wrapper>
-          <div className="flex items-start gap-4">
-            <span
-              className={`inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${color} text-white flex-none`}
-            >
-              <Icon aria-hidden="true" className="h-5 w-5" />
-            </span>
-
-            <div className="min-w-0">
-              <h3 className="text-base md:text-[17px] font-medium text-white">
-                {title}
-              </h3>
-              <p className="mt-1 text-xs md:text-sm text-zinc-300 line-clamp-2">
-                {desc}
-              </p>
-            </div>
+        <div className="flex items-start gap-4">
+          <div
+            className={`flex-none w-12 h-12 rounded-xl ${bg} flex items-center justify-center transition-transform duration-300 ${
+              !soon && "group-hover:scale-110"
+            }`}
+          >
+            <Icon className={`w-6 h-6 ${color}`} />
           </div>
-        </Wrapper>
-      </div>
-    </div>
+
+          <div className="flex-grow">
+            <h3
+              className={`text-[16px] font-semibold text-white transition-colors ${
+                !soon && "group-hover:text-indigo-400"
+              }`}
+            >
+              {title}
+            </h3>
+            <p className="mt-1.5 text-sm text-zinc-500 leading-relaxed line-clamp-2">
+              {desc}
+            </p>
+          </div>
+        </div>
+
+        {!soon && (
+          <div className="absolute bottom-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-indigo-500/0 to-transparent group-hover:via-indigo-500/40 transition-all duration-500" />
+        )}
+      </Link>
+    </motion.div>
   );
 }
