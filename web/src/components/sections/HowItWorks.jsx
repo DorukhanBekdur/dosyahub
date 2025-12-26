@@ -1,128 +1,88 @@
+import { HiCursorClick, HiCloudUpload, HiDownload } from "react-icons/hi";
+
 export default function HowItWorks() {
   const steps = [
     {
       k: 1,
       title: "İşlemi Seç",
-      desc: "Birleştirme, parçalama araçlarından birini seç.",
+      desc: "İhtiyacın olan PDF aracını listeden belirle ve tıkla.",
+      icon: HiCursorClick,
+      color: "from-blue-500 to-indigo-600",
     },
     {
       k: 2,
       title: "Dosyalarını Yükle",
-      desc: "Dosyalarını sürükle-bırak veya cihazından yükle.",
+      desc: "Dosyalarını sürükle-bırak yaparak veya seçerek yükle.",
+      icon: HiCloudUpload,
+      color: "from-purple-500 to-pink-600",
     },
     {
       k: 3,
       title: "Tek Tuşla İndir",
-      desc: "İşlem tamamlanınca çıktıyı tek tıkla indir.",
+      desc: "İşlemin saniyeler içinde tamamlansın ve dosyanı indir.",
+      icon: HiDownload,
+      color: "from-emerald-500 to-teal-600",
     },
   ];
 
   return (
-    <section
-      id="how"
-      aria-labelledby="how-title"
-      className="relative isolate overflow-hidden text-white
-                 bg-[linear-gradient(to_bottom,_#000_0%,_#0b0318_25%,_#1a0b2e_50%,_#32116b_75%,_#6d28d9_100%)]"
-    >
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.06]
-                   bg-[radial-gradient(80rem_80rem_at_15%_-10%,theme(colors.indigo.400/35),transparent_60%),radial-gradient(70rem_70rem_at_110%_90%,theme(colors.purple.400/30),transparent_60%)]"
-      />
+    <section id="how" className="relative bg-[#0f0a1e] py-24 overflow-hidden">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-4xl bg-indigo-600/5 blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="relative mx-auto max-w-6xl px-4 py-14 md:py-20">
-        <div className="flex items-end justify-between gap-6">
-          <div>
-            <h2
-              id="how-title"
-              className="text-2xl md:text-3xl font-semibold tracking-tight"
-            >
-              Nasıl{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-300 to-purple-300">
-                Çalışır?
-              </span>
-            </h2>
-            <p className="mt-2 text-sm md:text-base text-white/80">
-              Sadece 3 adımda işlemini tamamla.
-            </p>
-          </div>
-
-          <ol className="hidden md:flex items-center gap-4">
-            {steps.map((s, i) => (
-              <li key={s.k} className="flex items-center gap-3">
-                <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-extrabold shadow-[0_4px_12px_rgba(99,102,241,0.55)]">
-                  {s.k}
-                </span>
-                <span className="text-sm font-medium text-white/90">
-                  {s.title}
-                </span>
-                {i < steps.length - 1 && (
-                  <span
-                    aria-hidden="true"
-                    className="h-px w-10 bg-gradient-to-r from-white/40 to-transparent"
-                  />
-                )}
-              </li>
-            ))}
-          </ol>
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="text-center mb-20">
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+            Nasıl{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+              Çalışır?
+            </span>
+          </h2>
+          <p className="mt-4 text-zinc-400 text-lg">
+            Belgelerini yönetmek sadece 3 basit adımdan ibaret.
+          </p>
         </div>
 
-        {/* Kart listesi */}
-        <ol className="relative mt-10 grid gap-5 md:grid-cols-3">
-          <span
-            aria-hidden="true"
-            className="md:hidden absolute left-[18px] top-0 bottom-0 w-px
-                       bg-gradient-to-b from-purple-400 via-white/40 to-transparent"
-          />
+        {/* ADIMLAR */}
+        <div className="relative grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8">
+          <div className="hidden md:block absolute top-[40px] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent z-0" />
+
           {steps.map((s) => (
-            <li
-              key={s.k}
-              className="group relative rounded-2xl border border-white/15 bg-white/10 backdrop-blur
-                         p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.25)]
-                         transition-all duration-300 hover:-translate-y-0.5
-                         hover:shadow-[0_12px_36px_rgba(0,0,0,0.35)]
-                         focus-within:ring-2 focus-within:ring-white/30"
-            >
-              <div className="flex items-center gap-3">
-                <span className="grid place-items-center h-9 w-9 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-sm font-extrabold shadow-[0_4px_12px_rgba(99,102,241,0.55)]">
-                  {s.k}
-                </span>
-                <h3 className="font-semibold text-white/95">{s.title}</h3>
+            <div key={s.k} className="relative z-10 flex flex-col items-center">
+              <div className="group flex flex-col items-center text-center cursor-default">
+                <div className="relative mb-8">
+                  <div
+                    className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${s.color} p-[1px] shadow-2xl transition-all duration-300 group-hover:shadow-indigo-500/20 group-hover:-translate-y-1`}
+                  >
+                    <div className="w-full h-full bg-[#0f0a1e] rounded-2xl flex items-center justify-center relative overflow-hidden">
+                      <span className="absolute -bottom-2 -right-1 text-white/5 text-5xl font-black italic select-none">
+                        {s.k}
+                      </span>
+                      <s.icon className="w-8 h-8 text-white relative z-10" />
+                    </div>
+                  </div>
+
+                  <div className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-white text-[#0f0a1e] font-bold text-sm flex items-center justify-center shadow-lg border-4 border-[#0f0a1e] z-20">
+                    {s.k}
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold text-white mb-3 group-hover:text-indigo-400 transition-colors">
+                  {s.title}
+                </h3>
+                <p className="text-zinc-400 leading-relaxed max-w-[280px]">
+                  {s.desc}
+                </p>
               </div>
-
-              <p className="mt-2 text-sm leading-6 text-white/85">{s.desc}</p>
-
-              <div className="mt-4 flex items-center justify-between">
-                <span className="h-px flex-1 bg-gradient-to-r from-indigo-400/40 to-purple-400/40" />
-                <span className="ml-3 text-[11px] uppercase tracking-wide text-purple-300">
-                  Hızlı &amp; Kolay
-                </span>
-              </div>
-
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute right-4 top-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  strokeWidth="1.6"
-                  stroke="currentColor"
-                  className="h-4 w-4 text-white/60"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M7 17 17 7M9 7h8v8"
-                  />
-                </svg>
-              </span>
-            </li>
+            </div>
           ))}
-        </ol>
+        </div>
 
-        <p className="mt-6 text-xs text-white/70">
-          * Daha fazla format, daha güçlü araçlar için çalışıyoruz.
-        </p>
+        <div className="mt-20 text-center">
+          <p className="inline-block px-5 py-2 rounded-full border border-white/5 bg-white/[0.02] text-xs text-zinc-500">
+            * Dosyalarınız işlemden 15 dakika sonra sunucularımızdan kalıcı
+            olarak silinir.
+          </p>
+        </div>
       </div>
     </section>
   );
