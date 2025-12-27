@@ -130,6 +130,7 @@ export default function Navbar() {
             </div>
             <NavItem to="/merge-pdf" label="PDF Birleştir" />
             <NavItem to="/compress-pdf" label="Sıkıştır" />
+            <NavItem to="/about" label="Hakkımızda" />
             <NavItem to="/iletisim" label="İletişim" />
           </div>
         </div>

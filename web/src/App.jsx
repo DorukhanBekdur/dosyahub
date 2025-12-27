@@ -15,6 +15,7 @@ import {
   ImagesToPdfPage,
   RotatePdfPage,
 } from "./config/imports";
+import AboutPage from "./pages/AboutPage";
 
 export default function App() {
   return (
@@ -96,6 +97,9 @@ export default function App() {
 
             {/* İletişim */}
             <Route path="/iletisim" element={<ContactPage />} />
+
+            {/* Hakkımızda */}
+            <Route path="/about" element={<AboutPage />} />
 
             {/* Not Found */}
             <Route path="*" element={<Navigate to="/" replace />} />
