@@ -36,9 +36,6 @@ export default function InfoCard() {
 
   return (
     <aside className="relative h-full min-h-[500px] flex flex-col bg-white/[0.03] backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-8 shadow-2xl transition-all duration-500 group overflow-hidden">
-      {/* Dekoratif Gradient Işığı */}
-      <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px] bg-purple-500/10 pointer-events-none group-hover:bg-purple-500/20 transition-all duration-700" />
-
       <div className="relative z-10">
         <h2 className="text-2xl font-bold text-white tracking-tight mb-8">
           Neden{" "}
