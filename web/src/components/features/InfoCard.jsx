@@ -7,76 +7,83 @@ import {
 } from "react-icons/hi2";
 
 export default function InfoCard() {
+  const features = [
+    {
+      title: "Hızlı ve Basit Kullanım",
+      desc: "Karmaşık adımlar yok. Saniyeler içinde sonuç alın.",
+      icon: <HiCheck className="h-5 w-5 text-emerald-400" />,
+      bg: "bg-emerald-500/10",
+    },
+    {
+      title: "Gelişmiş UI Tasarımı",
+      desc: "Modern, sezgisel ve göz yormayan arayüz.",
+      icon: <HiPaintBrush className="h-5 w-5 text-pink-400" />,
+      bg: "bg-pink-500/10",
+    },
+    {
+      title: "Gizlilik Öncelikli",
+      desc: "Dosyalarınız işlem sonrası otomatik olarak silinir.",
+      icon: <HiLockClosed className="h-5 w-5 text-sky-400" />,
+      bg: "bg-sky-500/10",
+    },
+    {
+      title: "Gelişen Altyapı",
+      desc: "Yeni formatlar ve araçlar sürekli ekleniyor.",
+      icon: <HiArrowTopRightOnSquare className="h-5 w-5 text-violet-400" />,
+      bg: "bg-violet-500/10",
+    },
+  ];
+
   return (
-    <aside className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg hover:scale-[1.01]">
-      <h2 className="text-2xl font-semibold tracking-tight">
-        Neden DosyaHub ?
-      </h2>
+    <aside className="relative h-full min-h-[500px] flex flex-col bg-white/[0.03] backdrop-blur-xl rounded-[2.5rem] border border-white/10 p-8 shadow-2xl transition-all duration-500 group overflow-hidden">
+      {/* Dekoratif Gradient Işığı */}
+      <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px] bg-purple-500/10 pointer-events-none group-hover:bg-purple-500/20 transition-all duration-700" />
 
-      <ul className="mt-5 space-y-3 text-sm text-zinc-700 dark:text-zinc-300">
-        <li className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-md bg-emerald-100 dark:bg-emerald-900/40">
-            <HiCheck className="h-5 w-5 text-emerald-600 dark:text-emerald-400" />
+      <div className="relative z-10">
+        <h2 className="text-2xl font-bold text-white tracking-tight mb-8">
+          Neden{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+            DosyaHub?
           </span>
-          <div>
-            <p className="font-medium">Hızlı ve Basit Kullanım</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Dosyalarınızı karmaşık adımlar olmadan saniyeler içinde işleyin.
-            </p>
-          </div>
-        </li>
+        </h2>
 
-        <li className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-md bg-pink-100 dark:bg-pink-900/40">
-            <HiPaintBrush className="h-5 w-5 text-pink-600 dark:text-pink-400" />
-          </span>
-          <div>
-            <p className="font-medium">Gelişmiş UI Tasarımı</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Modern, kullanıcı dostu ve sezgisel arayüz.
-            </p>
-          </div>
-        </li>
+        <ul className="space-y-6">
+          {features.map((f, i) => (
+            <li key={i} className="flex items-start gap-4 group/item">
+              <span
+                className={`mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${f.bg} border border-white/5 transition-transform duration-300 group-hover/item:scale-110`}
+              >
+                {f.icon}
+              </span>
+              <div>
+                <p className="font-semibold text-zinc-100 group-hover/item:text-white transition-colors">
+                  {f.title}
+                </p>
+                <p className="text-xs text-zinc-500 leading-relaxed mt-0.5">
+                  {f.desc}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ul>
 
-        <li className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-md bg-sky-100 dark:bg-sky-900/40">
-            <HiLockClosed className="h-5 w-5 text-sky-600 dark:text-sky-400" />
-          </span>
-          <div>
-            <p className="font-medium">Gizlilik Öncelikli</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              Dosyalar kısa süreli geçici depolanır.
-            </p>
-          </div>
-        </li>
-
-        <li className="flex items-start gap-3">
-          <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-md bg-violet-100 dark:bg-violet-900/40">
-            <HiArrowTopRightOnSquare className="h-5 w-5 text-violet-600 dark:text-violet-400" />
-          </span>
-          <div>
-            <p className="font-medium">Geliştirme Sürecinde Olanlar</p>
-            <p className="text-xs text-zinc-500 dark:text-zinc-400">
-              PNG/JPG/WEBP, PDF merge/split, MP4→MP3
-            </p>
-          </div>
-        </li>
-      </ul>
-
-      <div className="mt-6 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4">
-        <h3 className="font-medium flex items-center gap-2 underline">
-          <HiMiniInformationCircle className="text-zinc-500 dark:text-zinc-400 w-5 h-5" />
-          Hatırlatma
-        </h3>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-1">
-          Büyük dosyalarda yükleme süresi internet hızınıza bağlı değişebilir.
-          Sorun yaşarsanız dosya boyutunu küçültmeyi deneyin.
-        </p>
+        {/* Hatırlatma Kutusu */}
+        <div className="mt-10 rounded-3xl border border-white/5 bg-white/[0.02] p-5 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-1 h-full bg-indigo-500/50" />
+          <h3 className="font-bold text-white flex items-center gap-2 text-sm uppercase tracking-wider">
+            <HiMiniInformationCircle className="text-indigo-400 w-5 h-5" />
+            Önemli Hatırlatma
+          </h3>
+          <p className="text-xs text-zinc-400 mt-2 leading-relaxed">
+            Büyük dosyalarda yükleme süresi internet hızınıza bağlıdır. İşlem
+            takılırsa sayfayı yenilemeden bekleyin.
+          </p>
+        </div>
       </div>
 
-      <div className="mt-auto flex items-center justify-between text-xs text-zinc-500">
-        <span>Version: MVP-1</span>
-        <span className="italic">Hızlı. Güvenli. Basit.</span>
+      <div className="mt-auto pt-8 flex items-center justify-between text-[10px] uppercase tracking-[0.2em] text-zinc-600 font-bold">
+        <span>Build: 1.0.2</span>
+        <span className="text-indigo-500/50">Safe & Fast</span>
       </div>
     </aside>
   );
