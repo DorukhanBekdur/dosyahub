@@ -16,6 +16,8 @@ import {
   RotatePdfPage,
 } from "./config/imports";
 import AboutPage from "./pages/AboutPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import TermsPage from "./pages/TermsPage";
 
 export default function App() {
   return (
@@ -100,6 +102,12 @@ export default function App() {
 
             {/* Hakkımızda */}
             <Route path="/about" element={<AboutPage />} />
+
+            {/* Gizlilik */}
+            <Route path="/privacy" element={<PrivacyPage />} />
+
+            {/* Kullanım */}
+            <Route path="/terms" element={<TermsPage />} />
 
             {/* Not Found */}
             <Route path="*" element={<Navigate to="/" replace />} />
