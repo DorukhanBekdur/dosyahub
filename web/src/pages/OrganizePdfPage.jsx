@@ -97,13 +97,10 @@ export default function OrganizePdfPage() {
 
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
-          {/* Sol Kolon: Organize Kartı */}
           <OrganizePdfCard />
 
-          {/* Sağ Kolon: Bilgi Kartı */}
           <InfoCard />
 
-          {/* Alt Kısım: SEO ve Bilgilendirme Metni */}
           <div className="lg:col-span-2 mt-12 p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
               PDF Sayfalarını Sıralamak Neden Gerekli?
