@@ -9,9 +9,9 @@ import {
   RotatePdfPage,
   ContactPage,
 } from "./imports";
-import AboutPage from "../pages/AboutPage";
-import PrivacyPage from "../pages/PrivacyPage";
-import TermsPage from "../pages/TermsPage";
+import AboutPage from "../pages/corporate/AboutPage";
+import PrivacyPage from "../pages/corporate/PrivacyPage";
+import TermsPage from "../pages/corporate/TermsPage";
 
 export const APP_ROUTES = [
   { path: "/", element: LandingPage },

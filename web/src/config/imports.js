@@ -13,7 +13,7 @@ export { default as Footer } from "../components/layout/Footer";
 export { default as LandingPage } from "../pages/LandingPage";
 export { default as MergePdfPage } from "../pages/MergePdfPage";
 export { default as SplitPage } from "../pages/SplitPage";
-export { default as ContactPage } from "../pages/ContactPage";
+export { default as ContactPage } from "../pages/corporate/ContactPage";
 export { default as CompressPdfPage } from "../pages/CompressPdfPage";
 export { default as OrganizePdfPage } from "../pages/OrganizePdfPage";
 export { default as RemovePdfPage } from "../pages/RemovePdfPage";

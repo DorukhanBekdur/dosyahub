@@ -1,6 +1,5 @@
-import BackgroundOrbs from "../components/contact/BackgroundOrbs";
-import LeftPanel from "../components/contact/LeftPanel";
-import ContactForm from "../components/contact/ContactForm";
+import LeftPanel from "../../components/contact/LeftPanel";
+import ContactForm from "../../components/contact/ContactForm";
 
 export default function ContactPage() {
   return (
