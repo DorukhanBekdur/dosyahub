@@ -25,6 +25,14 @@ export default function CompressPdfPage() {
     f &&
     (f.type === "application/pdf" || f.name?.toLowerCase().endsWith(".pdf"));
 
+  const resetAll = () => {
+    setFile(null);
+    setDownUrl("");
+    setStats(null);
+    setError("");
+    if (inputRef.current) inputRef.current.value = "";
+  };
+
   const pickFile = (filesLike) => {
     const picked = Array.from(filesLike || [])[0];
     if (!picked) return;
@@ -32,9 +40,7 @@ export default function CompressPdfPage() {
     if (picked.size > 100 * 1024 * 1024)
       return setError("PDF en fazla 100MB olabilir.");
 
-    setError("");
-    setDownUrl("");
-    setStats(null);
+    resetAll();
     setFile(picked);
   };
 
@@ -81,6 +87,7 @@ export default function CompressPdfPage() {
       });
     } catch (e) {
       setError("PDF optimize edilirken bir hata oluştu.");
+      console.error(e);
     } finally {
       setLoading(false);
     }
@@ -98,15 +105,16 @@ export default function CompressPdfPage() {
 
       <div className="max-w-7xl mx-auto">
         <section className="grid lg:grid-cols-2 gap-10 items-start">
-          <div className="relative overflow-hidden bg-white/[0.02] backdrop-blur-2xl rounded-[2.5rem] border border-white/10 p-8 md:p-12 shadow-2xl flex flex-col group">
+          <div className="relative overflow-hidden bg-white/[0.02] backdrop-blur-2xl rounded-[2.5rem] border border-white/10 p-8 md:p-12 shadow-2xl flex flex-col group text-white">
             <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px] bg-indigo-500/10 pointer-events-none" />
 
             <header className="mb-8 relative z-10">
               <h1 className="text-3xl md:text-4xl font-bold text-white tracking-tight">
                 PDF Sıkıştırma
               </h1>
-              <p className="text-zinc-400 mt-3 text-sm">
-                Dosya boyutunu kaliteyi bozmadan optimize edin.
+              <p className="text-zinc-400 mt-3 text-sm leading-relaxed">
+                Hassas belgeleriniz cihazınızdan ayrılmadan boyutları optimize
+                edilir.
               </p>
             </header>
 
@@ -125,6 +133,7 @@ export default function CompressPdfPage() {
                 <p className="text-xl text-white font-semibold">
                   PDF'i buraya bırakın
                 </p>
+                <p className="text-zinc-500 text-sm mt-2">Maksimum 100MB</p>
                 <input
                   ref={inputRef}
                   type="file"
@@ -139,16 +148,20 @@ export default function CompressPdfPage() {
                   <div className="h-14 w-14 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500 shrink-0">
                     <HiDocumentText className="h-8 w-8" />
                   </div>
-                  <div className="flex-1 min-w-0">
+                  <div className="flex-1 min-w-0 text-left">
                     <p className="text-sm text-white font-medium truncate">
                       {file.name}
                     </p>
-                    <p className="text-[10px] text-zinc-500 uppercase">
+                    <p className="text-[10px] text-zinc-500 uppercase tracking-widest">
                       {(file.size / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
+
                   <button
-                    onClick={() => setFile(null)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      resetAll();
+                    }}
                     className="p-3 text-zinc-600 hover:text-rose-500 transition-colors"
                   >
                     <HiTrash className="h-6 w-6" />
@@ -158,7 +171,8 @@ export default function CompressPdfPage() {
             )}
 
             {error && (
-              <div className="mt-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs">
+              <div className="mt-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs flex items-center gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
                 {error}
               </div>
             )}
@@ -169,23 +183,23 @@ export default function CompressPdfPage() {
                 disabled={!file || loading}
                 className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 shadow-lg shadow-indigo-500/20"
               >
-                {loading ? "Optimize Ediliyor..." : "PDF'i Sıkıştır"}
+                {loading ? "Sıkıştırılıyor..." : "PDF'i Sıkıştır"}
               </button>
             </div>
 
-            {downUrl && stats && (
+            {file && downUrl && stats && !loading && (
               <div className="mt-6 p-6 rounded-[2rem] bg-emerald-500/5 border border-emerald-500/10 animate-in zoom-in-95">
                 <div className="flex justify-between items-end mb-6">
-                  <div>
-                    <p className="text-emerald-400 text-xs font-bold uppercase tracking-wider mb-1">
-                      Başarılı!
+                  <div className="text-left">
+                    <p className="text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mb-1">
+                      Optimizasyon Tamam
                     </p>
                     <p className="text-white text-lg font-bold">
                       Yeni Boyut: {(stats.after / 1024 / 1024).toFixed(2)} MB
                     </p>
                   </div>
                   <div className="text-right">
-                    <p className="text-emerald-500 text-2xl font-black">
+                    <p className="text-emerald-500 text-3xl font-black">
                       -%{stats.ratio}
                     </p>
                   </div>
@@ -202,6 +216,26 @@ export default function CompressPdfPage() {
           </div>
 
           <InfoCard />
+
+          {/* Alt Bilgi Alanı */}
+          <div className="lg:col-span-2 mt-12 p-10 md:p-16 rounded-[3rem] border border-white/5 bg-white/[0.01] backdrop-blur-sm">
+            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
+              Güvenli PDF Sıkıştırma
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 text-zinc-400 text-sm leading-relaxed">
+              <p>
+                Geleneksel araçların aksine DosyaHub, dosyalarınızı sunucuya
+                yüklemez. İşlem tamamen{" "}
+                <strong className="text-white text-base">web-worker</strong>{" "}
+                teknolojisi kullanılarak tarayıcınızda gerçekleşir.
+              </p>
+              <p>
+                Bu yaklaşım, belgelerinizin gizliliğini %100 korurken, internet
+                upload hızınıza bağlı kalmadan çok daha hızlı sonuçlar almanızı
+                sağlar.
+              </p>
+            </div>
+          </div>
         </section>
       </div>
     </div>
