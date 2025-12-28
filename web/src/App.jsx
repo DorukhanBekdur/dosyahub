@@ -5,19 +5,8 @@ import {
   Navigate,
   Navbar,
   Footer,
-  LandingPage,
-  MergePdfPage,
-  SplitPage,
-  ContactPage,
-  CompressPdfPage,
-  OrganizePdfPage,
-  RemovePdfPage,
-  ImagesToPdfPage,
-  RotatePdfPage,
 } from "./config/imports";
-import AboutPage from "./pages/AboutPage";
-import PrivacyPage from "./pages/PrivacyPage";
-import TermsPage from "./pages/TermsPage";
+import { APP_ROUTES } from "./config/routes";
 
 export default function App() {
   return (
@@ -27,47 +16,14 @@ export default function App() {
 
         <main className="flex-1">
           <Routes>
-            {/* Landing Page */}
-            <Route path="/" element={<LandingPage />} />
+            {APP_ROUTES.map((route) => (
+              <Route
+                key={route.path}
+                path={route.path}
+                element={<route.element />}
+              />
+            ))}
 
-            {/* Merge Tool */}
-            <Route path="/merge-pdf" element={<MergePdfPage />} />
-
-            {/* Split Tool */}
-            <Route path="/split-pdf" element={<SplitPage />} />
-
-            {/* Compress Tool */}
-            <Route path="/compress-pdf" element={<CompressPdfPage />} />
-
-            {/* Organize Tool */}
-            <Route path="/organize-pdf" element={<OrganizePdfPage />} />
-            {/* Remove Page Tool */}
-            <Route path="/remove-pages-pdf" element={<RemovePdfPage />} />
-
-            <Route
-              path="/images-to-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <ImagesToPdfPage />
-                </div>
-              }
-            />
-            {/* Rotate Tool */}
-            <Route path="/rotate-pdf" element={<RotatePdfPage />} />
-
-            {/* İletişim */}
-            <Route path="/iletisim" element={<ContactPage />} />
-
-            {/* Hakkımızda */}
-            <Route path="/about" element={<AboutPage />} />
-
-            {/* Gizlilik */}
-            <Route path="/privacy" element={<PrivacyPage />} />
-
-            {/* Kullanım */}
-            <Route path="/terms" element={<TermsPage />} />
-
-            {/* Not Found */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

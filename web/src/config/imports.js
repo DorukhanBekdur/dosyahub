@@ -1,4 +1,5 @@
-import {
+// React Router
+export {
   BrowserRouter as Router,
   Routes,
   Route,
@@ -6,34 +7,16 @@ import {
 } from "react-router-dom";
 
 // Layout
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
+export { default as Navbar } from "../components/layout/Navbar";
+export { default as Footer } from "../components/layout/Footer";
 
 // Pages
-import LandingPage from "../pages/LandingPage";
-import MergePdfPage from "../pages/MergePdfPage";
-import SplitPage from "../pages/SplitPage";
-import ContactPage from "../pages/ContactPage";
-import CompressPdfPage from "../pages/CompressPdfPage";
-import OrganizePdfPage from "../pages/OrganizePdfPage";
-import RemovePdfPage from "../pages/RemovePdfPage";
-import ImagesToPdfPage from "../pages/ImagesToPdfPage";
-import RotatePdfPage from "../pages/RotatePdfPages";
-
-export {
-  Router,
-  Routes,
-  Route,
-  Navigate,
-  Navbar,
-  Footer,
-  LandingPage,
-  MergePdfPage,
-  SplitPage,
-  ContactPage,
-  CompressPdfPage,
-  OrganizePdfPage,
-  RemovePdfPage,
-  ImagesToPdfPage,
-  RotatePdfPage,
-};
+export { default as LandingPage } from "../pages/LandingPage";
+export { default as MergePdfPage } from "../pages/MergePdfPage";
+export { default as SplitPage } from "../pages/SplitPage";
+export { default as ContactPage } from "../pages/ContactPage";
+export { default as CompressPdfPage } from "../pages/CompressPdfPage";
+export { default as OrganizePdfPage } from "../pages/OrganizePdfPage";
+export { default as RemovePdfPage } from "../pages/RemovePdfPage";
+export { default as ImagesToPdfPage } from "../pages/ImagesToPdfPage";
+export { default as RotatePdfPage } from "../pages/RotatePdfPages";
