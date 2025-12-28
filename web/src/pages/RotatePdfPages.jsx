@@ -15,88 +15,115 @@ export default function RotatePdfPage() {
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-[#0f0a1e] py-12 px-6 lg:px-12 md:py-20">
       <Helmet>
         <title>PDF Döndürme | DosyaHub</title>
         <meta
           name="description"
-          content="PDF sayfalarını 90°, 180° veya 270° olacak şekilde seçip döndürün. Önizlemeden sayfaları işaretleyin ve tek tıkla yeni PDF’i indirin."
+          content="PDF sayfalarını 90°, 180° veya 270° olacak şekilde seçip döndürün. Hızlı, güvenli ve ücretsiz PDF yönü düzeltme aracı."
         />
         <link rel="canonical" href={CANONICAL} />
         <script type="application/ld+json">{JSON.stringify(appLd)}</script>
       </Helmet>
 
-      <section className="grid md:grid-cols-2 gap-6 md:gap-8">
-        <RotatePdfCard />
-        <InfoCard />
+      <div className="max-w-7xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-10 items-start">
+          <RotatePdfCard />
 
-        <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
-          <h2 className="text-xl font-semibold mb-3">PDF Döndürme Nedir ?</h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Taranmış veya yanlış yönlenmiş sayfaları{" "}
-            <strong>90°, 180° veya 270°</strong> açıyla hızlıca
-            düzeltebilirsiniz. Araç, <strong>seçtiğiniz sayfaları</strong>{" "}
-            döndürür ve yeni bir PDF olarak indirmenizi sağlar.
-          </p>
+          <InfoCard />
 
-          <h2 className="text-xl font-semibold mt-8 mb-3">
-            DosyaHub ile PDF Nasıl Döndürülür ?
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            PDF’i yükleyin, döndürmek istediğiniz sayfaları{" "}
-            <strong>önizlemelerden seçin</strong>, açıyı{" "}
-            <strong>90° / 180° / 270°</strong> olarak belirleyin ve{" "}
-            <strong>“Döndür & Yeni PDF’i İndir”</strong> butonuna tıklayın.
-          </p>
+          <div className="lg:col-span-2 mt-12 p-8 md:p-12 rounded-[2.5rem] border border-white/10 bg-white/[0.02] backdrop-blur-2xl shadow-2xl text-left">
+            <div className="max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                PDF Döndürme Nedir?
+              </h2>
+              <p className="text-base text-zinc-400 leading-relaxed mb-8">
+                Taranmış veya yanlış yönlenmiş sayfaları{" "}
+                <strong className="text-indigo-400">90°, 180° veya 270°</strong>{" "}
+                açıyla hızlıca düzeltebilirsiniz. DosyaHub PDF döndürme aracı,
+                seçtiğiniz sayfaları anında istediğiniz yöne çevirir ve yüksek
+                kalitede indirmenizi sağlar.
+              </p>
 
-          <h2 className="text-xl font-semibold mt-8 mb-3">
-            Sık Sorulan Sorular
-          </h2>
-          <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
-            <div>
-              <p className="font-medium">
-                Tüm sayfaları tek seferde döndürebilir miyim ?
-              </p>
-              <p>
-                Yalnızca <strong>seçtiğiniz sayfalar</strong> döndürülür. Tümünü
-                döndürmek isterseniz önizlemede tüm sayfaları
-                işaretleyebilirsiniz.
-              </p>
-            </div>
+              <hr className="my-10 border-white/5" />
 
-            <div>
-              <p className="font-medium">
-                Mevcut rotasyon üzerine ekleme yapıyor mu ?
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                DosyaHub ile PDF Nasıl Döndürülür?
+              </h2>
+              <p className="text-base text-zinc-400 leading-relaxed">
+                PDF’i yükleyin, döndürmek istediğiniz sayfaları{" "}
+                <span className="font-semibold text-white underline underline-offset-4 decoration-indigo-500/50">
+                  önizlemelerden seçin
+                </span>
+                , açıyı kontrol panelinden belirleyin ve{" "}
+                <span className="text-indigo-400 font-bold italic">
+                  “Döndür & Yeni PDF’i İndir”
+                </span>{" "}
+                butonuna tıklayın. İşlem tamamlandığında dosyanız otomatik
+                olarak hazır hale gelecektir.
               </p>
-              <p>
-                Hayır. Seçtiğiniz sayfalar doğrudan{" "}
-                <strong>seçtiğiniz açıya sabitlenir </strong>
-                (ör. 270° seçerseniz sayfa saat yönünde 270° dönmüş olur).
-              </p>
-            </div>
 
-            <div>
-              <p className="font-medium">
-                Dosya boyutu ve sayfa sınırı var mı ?
-              </p>
-              <p>
-                Maksimum <strong>50&nbsp;MB</strong> ve yaklaşık{" "}
-                <strong>50 sayfa </strong>
-                önerilir. Çok büyük dosyalarda tarayıcı belleği sınırlı
-                olabilir.
-              </p>
-            </div>
+              <div className="grid md:grid-cols-2 gap-10 mt-16">
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-white">
+                    Teknik Detaylar
+                  </h3>
+                  <ul className="space-y-4 text-sm text-zinc-400">
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
+                      Mevcut rotasyon üzerine ekleme yapılmaz, seçtiğiniz açıya
+                      sabitlenir.
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
+                      Maksimum 50 MB ve 50 sayfa önerilir.
+                    </li>
+                  </ul>
+                </div>
 
-            <div>
-              <p className="font-medium">Orijinal dosyam değişir mi ?</p>
-              <p>
-                Hayır. İşlem sonucunda <strong>yeni bir PDF</strong>{" "}
-                oluşturulur; orijinal dosyanız değişmez.
-              </p>
+                <div className="space-y-6">
+                  <h3 className="text-xl font-bold text-white">
+                    Güvenlik ve Gizlilik
+                  </h3>
+                  <div className="p-6 rounded-2xl bg-indigo-500/5 border border-indigo-500/10">
+                    <p className="text-sm text-zinc-400 leading-relaxed italic">
+                      "Tüm işlemler tarayıcınızda (yerel olarak) yapılır. PDF
+                      verileriniz sunucularımıza yüklenmez, gizliliğiniz %100
+                      korunur."
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <hr className="my-10 border-white/5" />
+
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
+                Sık Sorulan Sorular
+              </h2>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5">
+                  <p className="font-bold text-white mb-2">
+                    Tüm sayfaları aynı anda döndürebilir miyim?
+                  </p>
+                  <p className="text-sm text-zinc-500">
+                    Evet, varsayılan olarak tüm sayfalar seçili gelir. Tek tıkla
+                    tüm dökümanı döndürebilirsiniz.
+                  </p>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/[0.03] border border-white/5">
+                  <p className="font-bold text-white mb-2">
+                    Orijinal dosyam zarar görür mü?
+                  </p>
+                  <p className="text-sm text-zinc-500">
+                    Hayır, orijinal dosyanıza dokunulmaz. Sistem yeni bir PDF
+                    dosyası üretir.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </div>
   );
 }

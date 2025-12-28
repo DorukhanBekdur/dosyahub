@@ -52,15 +52,8 @@ export default function App() {
                 </div>
               }
             />
-
-            <Route
-              path="/rotate-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <RotatePdfPage />
-                </div>
-              }
-            />
+            {/* Rotate Tool */}
+            <Route path="/rotate-pdf" element={<RotatePdfPage />} />
 
             {/* İletişim */}
             <Route path="/iletisim" element={<ContactPage />} />
