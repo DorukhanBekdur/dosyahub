@@ -1,6 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { HiOutlineCloudUpload, HiDownload } from "react-icons/hi";
-import { HiTrash, HiCheckCircle, HiXCircle } from "react-icons/hi2";
+import {
+  HiOutlineCloudUpload,
+  HiDownload,
+  HiDocumentText,
+  HiTrash,
+  HiCheckCircle,
+  HiXCircle,
+} from "react-icons/hi";
 import * as pdfjs from "pdfjs-dist";
 import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?worker&url";
 import { PDFDocument } from "pdf-lib";
@@ -47,14 +53,16 @@ export default function RemovePagesPdfCard() {
     e.preventDefault();
     e.stopPropagation();
     onFiles(e.dataTransfer.files);
-    dropRef.current?.classList.remove("ring-2", "ring-indigo-500");
+    dropRef.current?.classList.remove("border-indigo-500", "bg-indigo-500/5");
   }, []);
+
   const onDragOver = useCallback((e) => {
     e.preventDefault();
-    dropRef.current?.classList.add("ring-2", "ring-indigo-500");
+    dropRef.current?.classList.add("border-indigo-500", "bg-indigo-500/5");
   }, []);
+
   const onDragLeave = useCallback(() => {
-    dropRef.current?.classList.remove("ring-2", "ring-indigo-500");
+    dropRef.current?.classList.remove("border-indigo-500", "bg-indigo-500/5");
   }, []);
 
   useEffect(() => {
@@ -81,25 +89,18 @@ export default function RemovePagesPdfCard() {
           canvas.width = Math.ceil(viewport.width);
           canvas.height = Math.ceil(viewport.height);
           await page.render({ canvasContext: ctx, viewport }).promise;
-          const dataUrl = canvas.toDataURL("image/jpeg", 0.6);
           out.push({
             id: `${i}`,
             index: i - 1,
-            thumbDataUrl: dataUrl,
+            thumbDataUrl: canvas.toDataURL("image/jpeg", 0.6),
             selected: false,
           });
         }
         if (!cancelled) setPages(out);
       } catch (e) {
-        console.error(e);
         setError("PDF önizlemeleri oluşturulamadı.");
       } finally {
-        try {
-          await pdf?.destroy();
-        } catch {}
-        try {
-          await loadingTask?.destroy();
-        } catch {}
+        pdf?.destroy();
         setLoading(false);
       }
     };
@@ -117,208 +118,175 @@ export default function RemovePagesPdfCard() {
     });
   };
 
-  const selectAll = () =>
-    setPages((p) => p.map((x) => ({ ...x, selected: true })));
-  const clearAll = () =>
-    setPages((p) => p.map((x) => ({ ...x, selected: false })));
-  const invert = () =>
-    setPages((p) => p.map((x) => ({ ...x, selected: !x.selected })));
-
   const resetAll = () => {
     setFile(null);
     setPdfBytes(null);
     setPages([]);
     setError("");
     setDownloadUrl("");
-    inputRef.current && (inputRef.current.value = "");
+    if (inputRef.current) inputRef.current.value = "";
   };
 
   const buildPdf = async () => {
-    if (!pdfBytes || pages.length === 0)
-      return setError("Lütfen bir PDF yükleyin.");
-    const keepIndices = pages
-      .filter((p) => !p.selected)
-      .map((p) => {
-        const n = parseInt(p.id, 10);
-        return Number.isNaN(n) ? p.index : n - 1;
-      });
-
+    if (!pdfBytes || pages.length === 0) return;
+    const keepIndices = pages.filter((p) => !p.selected).map((p) => p.index);
     if (keepIndices.length === 0)
       return setError("En az bir sayfa bırakmalısınız.");
 
     setBuilding(true);
     setError("");
-    setDownloadUrl("");
-
     try {
       const srcDoc = await PDFDocument.load(pdfBytes);
       const outDoc = await PDFDocument.create();
       const copied = await outDoc.copyPages(srcDoc, keepIndices);
       copied.forEach((pg) => outDoc.addPage(pg));
       const newBytes = await outDoc.save();
-      const url = URL.createObjectURL(
-        new Blob([newBytes], { type: "application/pdf" })
+      setDownloadUrl(
+        URL.createObjectURL(new Blob([newBytes], { type: "application/pdf" }))
       );
-      setDownloadUrl(url);
     } catch (e) {
-      console.error("PDF oluşturma hatası:", e);
-      setError("Yeni PDF oluşturulamadı. Dosya şifreli/bozuk olabilir.");
+      setError("Yeni PDF oluşturulamadı.");
     } finally {
       setBuilding(false);
     }
   };
 
   return (
-    <section className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
-      <h1 className="text-3xl font-semibold tracking-tight">PDF Sayfa Silme</h1>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-        PDF’i yükleyin, silmek istediğiniz sayfaları{" "}
-        <strong>tıklayarak seçin</strong>. Yeni dosyadan kaldırılır.
-      </p>
+    <div className="relative overflow-hidden bg-white dark:bg-zinc-900/50 backdrop-blur-xl rounded-[2.5rem] border border-zinc-200 dark:border-white/10 p-8 md:p-10 shadow-2xl flex flex-col min-h-[550px] transition-all">
+      <div className="absolute -top-24 -right-24 w-64 h-64 bg-indigo-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-      {!file && (
+      <header className="mb-8 relative z-10 text-left">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight dark:text-white">
+          PDF Sayfa Silme
+        </h1>
+        <p className="text-zinc-500 dark:text-zinc-400 mt-2 text-sm leading-relaxed">
+          Silmek istediğiniz sayfaları tıklayarak işaretleyin, ardından dökümanı
+          sadeleştirin.
+        </p>
+      </header>
+
+      {!file ? (
         <div
           ref={dropRef}
           onDrop={onDrop}
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
-          className="relative mt-6 rounded-xl border-2 border-dashed border-zinc-300 dark:border-zinc-700 p-10 flex flex-col items-center justify-center text-center transition-all overflow-hidden
-                     bg-gradient-to-b from-zinc-50/80 to-zinc-100/60 dark:from-zinc-800/40 dark:to-zinc-800/20"
+          onClick={() => inputRef.current?.click()}
+          className="group relative rounded-[2.5rem] border-2 border-dashed border-zinc-300 dark:border-white/10 p-16 flex flex-col items-center justify-center text-center transition-all hover:bg-zinc-50 dark:hover:bg-white/[0.03] cursor-pointer"
         >
-          <div className="pointer-events-none absolute inset-0 opacity-30">
-            <div className="absolute -top-24 -left-24 h-56 w-56 rounded-full blur-3xl bg-indigo-500/30"></div>
-            <div className="absolute -bottom-24 -right-24 h-56 w-56 rounded-full blur-3xl bg-purple-500/20"></div>
+          <div className="p-5 rounded-full bg-indigo-500/10 text-indigo-500 mb-6 group-hover:scale-110 transition-transform duration-300">
+            <HiOutlineCloudUpload className="h-10 w-10" />
           </div>
-
-          <HiOutlineCloudUpload className="h-12 w-12 text-indigo-500 opacity-80 animate-[float_3s_ease-in-out_infinite]" />
-          <p className="mt-4 text-sm">
-            PDF’i bu alana sürükleyip bırakın
-            <br />
-            <span className="text-zinc-500">veya</span>
+          <p className="font-medium text-lg dark:text-white">
+            PDF Yükle veya Sürükle
           </p>
-
+          <p className="text-zinc-500 text-xs mt-2 uppercase tracking-widest font-bold">
+            Maksimum 50MB
+          </p>
           <input
             ref={inputRef}
-            id="remove-input"
             type="file"
-            accept="application/pdf,.pdf"
-            onChange={(e) => e.target.files && onFiles(e.target.files)}
+            accept=".pdf"
+            onChange={(e) => onFiles(e.target.files)}
             className="hidden"
           />
-
-          <button
-            type="button"
-            onClick={() => inputRef.current?.click()}
-            aria-controls="remove-input"
-            className="mt-4 inline-flex items-center gap-2 rounded-lg px-5 py-2.5 text-sm font-medium text-white
-                       bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 transition-colors cursor-pointer"
-          >
-            PDF Yükle
-          </button>
-
-          <p className="mt-3 text-xs text-zinc-500">Yalnızca PDF • Maks 50MB</p>
-          <style>{`@keyframes float {0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}`}</style>
         </div>
-      )}
-
-      {file && (
-        <>
-          <div className="mt-6 rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 bg-white/70 dark:bg-zinc-900/70">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-zinc-500 mb-1">Seçilen PDF</p>
-                <p className="truncate font-medium">{file.name}</p>
-                <p className="text-xs text-zinc-500">
-                  {(file.size / 1024 / 1024).toFixed(2)} MB
-                </p>
-              </div>
-              <button
-                onClick={resetAll}
-                className="px-3 py-2 rounded-lg border border-zinc-300 dark:border-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800 text-xs transition-colors cursor-pointer"
-              >
-                Değiştir
-              </button>
+      ) : (
+        <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          {/* Seçili Dosya Bilgisi */}
+          <div className="flex items-center gap-4 p-5 rounded-3xl bg-zinc-50 dark:bg-white/[0.03] border border-zinc-200 dark:border-white/10 text-left">
+            <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-500">
+              <HiDocumentText className="h-6 w-6" />
             </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium truncate dark:text-white">
+                {file.name}
+              </p>
+              <p className="text-[10px] text-zinc-500 uppercase font-bold tracking-wider">
+                {pages.length} SAYFA • {(file.size / 1024 / 1024).toFixed(2)} MB
+              </p>
+            </div>
+            <button
+              onClick={resetAll}
+              className="p-2 text-zinc-400 hover:text-rose-500 transition-colors cursor-pointer"
+              title="Dosyayı Değiştir"
+            >
+              <HiTrash className="h-6 w-6" />
+            </button>
           </div>
 
           {error && (
-            <div className="mt-4 rounded-lg border border-red-300/60 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-sm p-3">
+            <div className="p-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-600 dark:text-rose-400 text-xs text-center font-medium">
               {error}
             </div>
           )}
 
-          <div
-            className="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6
-             rounded-xl border border-zinc-200 dark:border-zinc-800 p-4 bg-white/60 dark:bg-zinc-900/50"
-          >
+          {/* Sayfa Önizleme Alanı */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-h-[380px] overflow-y-auto pr-2 custom-scrollbar p-1">
             {loading && pages.length === 0 && (
-              <p className="col-span-full text-sm text-zinc-500">
-                Önizlemeler hazırlanıyor…
+              <p className="col-span-full text-center py-12 text-zinc-500 animate-pulse text-sm font-medium">
+                Sayfalar taranıyor...
               </p>
             )}
 
             {pages.map((p, idx) => (
               <button
                 key={p.id ?? idx}
-                type="button"
                 onClick={() => toggleSelect(idx)}
-                className={`relative text-left rounded-lg border shadow-sm overflow-hidden transition cursor-pointer
-                  ${
-                    p.selected
-                      ? "border-rose-400 ring-2 ring-rose-300/60"
-                      : "border-zinc-200 dark:border-zinc-800 hover:shadow-md"
-                  }
-                `}
+                className={`group relative rounded-2xl border-2 transition-all duration-300 overflow-hidden outline-none shadow-sm ${
+                  p.selected
+                    ? "border-rose-500 ring-4 ring-rose-500/10 scale-[0.98]"
+                    : "border-zinc-200 dark:border-white/5 hover:border-indigo-500/50"
+                }`}
               >
                 <img
                   src={p.thumbDataUrl}
-                  alt={`Sayfa ${idx + 1}`}
-                  className="w-full h-auto block select-none pointer-events-none"
+                  alt=""
+                  className={`w-full h-auto transition-all duration-500 ${
+                    p.selected
+                      ? "grayscale opacity-25 scale-110"
+                      : "group-hover:scale-105"
+                  }`}
                 />
                 <div className="absolute top-2 right-2">
                   {p.selected ? (
-                    <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md bg-rose-600 text-white">
-                      <HiXCircle className="w-4 h-4" />
-                    </span>
+                    <HiXCircle className="w-8 h-8 text-rose-500 bg-white rounded-full shadow-lg" />
                   ) : (
-                    <span className="inline-flex items-center gap-1 text-xs px-2 py-1 rounded-md bg-emerald-600 text-white opacity-80">
-                      <HiCheckCircle className="w-4 h-4" />
-                    </span>
+                    <HiCheckCircle className="w-8 h-8 text-emerald-500/40 group-hover:text-emerald-500 transition-colors" />
                   )}
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-zinc-900/80 backdrop-blur-md py-1.5 text-[10px] font-black text-white text-center uppercase tracking-tighter">
+                  SAYFA {idx + 1}
                 </div>
               </button>
             ))}
           </div>
 
-          <div className="mt-6 flex gap-3">
+          {/* Alt Aksiyon Butonları */}
+          <div className="flex flex-col sm:flex-row gap-3">
             <button
               onClick={buildPdf}
-              disabled={building || pages.every((p) => p.selected)}
-              className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-white font-medium disabled:opacity-50 transition-all
-                         bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 hover:shadow-md active:scale-[0.99] cursor-pointer"
+              disabled={
+                building || pages.length === 0 || pages.every((p) => p.selected)
+              }
+              className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-rose-600 to-pink-600 text-white font-bold hover:brightness-110 transition-all active:scale-[0.98] disabled:opacity-30 shadow-lg shadow-rose-500/20 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <HiTrash className="text-lg" />
-              {building
-                ? "Oluşturuluyor…"
-                : "Seçilenleri Sil & Yeni PDF’i İndir"}
+              <HiTrash className="text-xl" />
+              {building ? "Düzenleniyor..." : "Seçilenleri Sil & Hazırla"}
             </button>
 
             {downloadUrl && !building && (
               <a
                 href={downloadUrl}
-                download={`${(file?.name || "trimmed").replace(
-                  /\.pdf$/i,
-                  ""
-                )}-trimmed.pdf`}
-                className="px-4 py-2 rounded-xl border border-emerald-300 bg-emerald-600 text-white hover:bg-emerald-700 text-sm transition-colors inline-flex items-center gap-2"
+                download={`${file?.name.replace(/\.pdf$/i, "")}-dosyahub.pdf`}
+                className="flex-1 py-4 rounded-2xl bg-emerald-600 text-white font-bold hover:bg-emerald-500 transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 animate-in zoom-in-95"
               >
-                <HiDownload className="text-lg" />
-                İndir
+                <HiDownload className="text-xl" /> İndir
               </a>
             )}
           </div>
-        </>
+        </div>
       )}
-    </section>
+    </div>
   );
 }
