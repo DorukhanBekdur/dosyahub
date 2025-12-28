@@ -1,16 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import {
+  HiOutlineCloudUpload,
+  HiDocumentText,
+  HiTrash,
+  HiDownload,
+  HiSparkles,
+} from "react-icons/hi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 import * as pdfjs from "pdfjs-dist";
 import workerSrc from "pdfjs-dist/build/pdf.worker.min.mjs?worker&url";
 import { PDFDocument } from "pdf-lib";
 
-import DropZone from "./DropZone";
-import FileInfo from "./FileInfo";
-import ThumbnailsGrid from "./ThumbnailsGrid";
-import DownloadBar from "./DownloadBar";
-
 pdfjs.GlobalWorkerOptions.workerSrc = workerSrc;
-if (pdfjs.LogManager) pdfjs.LogManager.setLevel("error");
 
 export default function OrganizePdfCard() {
   const [file, setFile] = useState(null);
@@ -21,18 +22,14 @@ export default function OrganizePdfCard() {
   const [error, setError] = useState("");
   const [downloadUrl, setDownloadUrl] = useState("");
 
-  const dropRef = useRef(null);
   const inputRef = useRef(null);
-
-  const isPdf = (f) =>
-    f &&
-    (f.type === "application/pdf" || f.name?.toLowerCase().endsWith(".pdf"));
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
 
   const onFiles = async (filesLike) => {
     const f = Array.from(filesLike || [])[0];
-    if (!f) return;
-    if (!isPdf(f)) return setError("Yalnızca PDF yükleyin.");
-    if (f.size > 50 * 1024 * 1024) return setError("Maksimum 50MB.");
+    if (!f || f.type !== "application/pdf")
+      return setError("Yalnızca PDF yükleyin.");
     setError("");
     setDownloadUrl("");
     setPages([]);
@@ -43,41 +40,20 @@ export default function OrganizePdfCard() {
       setPdfBytes(new Uint8Array(ab));
     } catch {
       setError("Dosya okunamadı.");
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
-
-  const onDrop = useCallback((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    onFiles(e.dataTransfer.files);
-    dropRef.current?.classList.remove("ring-2", "ring-indigo-500");
-  }, []);
-  const onDragOver = useCallback((e) => {
-    e.preventDefault();
-    dropRef.current?.classList.add("ring-2", "ring-indigo-500");
-  }, []);
-  const onDragLeave = useCallback(() => {
-    dropRef.current?.classList.remove("ring-2", "ring-indigo-500");
-  }, []);
 
   useEffect(() => {
     let cancelled = false;
-    const renderThumbs = async () => {
+    const render = async () => {
       if (!pdfBytes) return;
       setLoading(true);
-      let loadingTask, pdf;
       try {
-        loadingTask = pdfjs.getDocument({ data: new Uint8Array(pdfBytes) });
-        pdf = await loadingTask.promise;
-        const total = pdf.numPages;
-        if (total > 200) {
-          setError("Maksimum 200 sayfa desteklenir.");
-          return;
-        }
+        const pdf = await pdfjs.getDocument({ data: new Uint8Array(pdfBytes) })
+          .promise;
         const out = [];
-        for (let i = 1; i <= total; i++) {
+        for (let i = 1; i <= pdf.numPages; i++) {
           if (cancelled) break;
           const page = await pdf.getPage(i);
           const viewport = page.getViewport({ scale: 0.35 });
@@ -86,146 +62,175 @@ export default function OrganizePdfCard() {
           canvas.width = Math.ceil(viewport.width);
           canvas.height = Math.ceil(viewport.height);
           await page.render({ canvasContext: ctx, viewport }).promise;
-          const dataUrl = canvas.toDataURL("image/jpeg", 0.6);
-          out.push({ id: `${i}`, index: i - 1, thumbDataUrl: dataUrl });
+          out.push({
+            id: `${i}`,
+            thumbDataUrl: canvas.toDataURL("image/jpeg", 0.6),
+          });
         }
         if (!cancelled) setPages(out);
-      } catch (e) {
-        console.error(e);
-        setError("PDF önizlemeleri oluşturulamadı.");
-      } finally {
-        try {
-          await pdf?.destroy();
-        } catch {}
-        try {
-          await loadingTask?.destroy();
-        } catch {}
-        setLoading(false);
+      } catch {
+        setError("Önizleme hatası.");
       }
+      setLoading(false);
     };
-    renderThumbs();
+    render();
     return () => {
       cancelled = true;
     };
   }, [pdfBytes]);
 
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
-  const handleDragStart = (position, e) => {
-    dragItem.current = position;
-  };
-  const handleDragEnter = (position) => {
-    dragOverItem.current = position;
-  };
-  const handleDragEnd = () => {
-    const from = dragItem.current,
-      to = dragOverItem.current;
-    if (from == null || to == null || from === to) {
-      dragItem.current = null;
-      dragOverItem.current = null;
-      return;
-    }
-    setPages((prev) => {
-      const arr = [...prev];
-      const [moved] = arr.splice(from, 1);
-      arr.splice(to, 0, moved);
-      return arr.map((p, idx) => ({ ...p, index: idx }));
-    });
-    dragItem.current = null;
-    dragOverItem.current = null;
-  };
-
-  const resetAll = () => {
-    setFile(null);
-    setPdfBytes(null);
-    setPages([]);
-    setError("");
-    setDownloadUrl("");
-    inputRef.current && (inputRef.current.value = "");
+  const handleSort = () => {
+    if (dragItem.current === null || dragOverItem.current === null) return;
+    const _pages = [...pages];
+    const draggedItemContent = _pages.splice(dragItem.current, 1)[0];
+    _pages.splice(dragOverItem.current, 0, draggedItemContent);
+    dragItem.current = dragOverItem.current;
+    setPages(_pages);
   };
 
   const buildPdf = async () => {
-    if (!pdfBytes || pages.length === 0)
-      return setError("Lütfen bir PDF yükleyin.");
+    if (!pdfBytes || pages.length === 0) return;
     setBuilding(true);
-    setError("");
-    setDownloadUrl("");
     try {
       const srcDoc = await PDFDocument.load(pdfBytes);
       const outDoc = await PDFDocument.create();
-      const ordered = pages.map((p) => {
-        const n = parseInt(p.id, 10);
-        return Number.isNaN(n) ? p.index : n - 1;
-      });
-      const copied = await outDoc.copyPages(srcDoc, ordered);
+      const indices = pages.map((p) => parseInt(p.id) - 1);
+      const copied = await outDoc.copyPages(srcDoc, indices);
       copied.forEach((pg) => outDoc.addPage(pg));
-      const newBytes = await outDoc.save();
-      const url = URL.createObjectURL(
-        new Blob([newBytes], { type: "application/pdf" })
+      const res = await outDoc.save();
+      setDownloadUrl(
+        URL.createObjectURL(new Blob([res], { type: "application/pdf" }))
       );
-      setDownloadUrl(url);
-    } catch (e) {
-      console.error("PDF oluşturma hatası:", e);
-      setError("Yeni PDF oluşturulamadı. Dosya şifreli/bozuk olabilir.");
-    } finally {
-      setBuilding(false);
+    } catch {
+      setError("Hata oluştu.");
     }
+    setBuilding(false);
   };
 
   return (
-    <section className="h-full min-h-[460px] flex flex-col bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm rounded-2xl shadow-sm border border-zinc-200 dark:border-zinc-800 p-8 transition-all duration-300 hover:shadow-lg">
-      <h1 className="text-3xl font-semibold tracking-tight">PDF Sıralama</h1>
-      <p className="text-sm text-zinc-600 dark:text-zinc-400 mt-2">
-        Küçük önizlemeleri <strong>sürükle-bırak</strong> ile yeniden
-        düzenleyin, yeni oluşan <strong>sıralı</strong> PDF’i indirin.
-      </p>
+    <div className="relative overflow-hidden bg-white/[0.02] backdrop-blur-2xl rounded-[2.5rem] border border-white/10 p-8 md:p-12 shadow-2xl transition-all">
+      <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full blur-[100px] bg-indigo-500/10 pointer-events-none" />
 
-      {!file && (
-        <DropZone
-          dropRef={dropRef}
-          onDrop={onDrop}
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          inputRef={inputRef}
-          onPick={(e) => e.target.files && onFiles(e.target.files)}
-        />
-      )}
+      <div className="relative z-10 text-left">
+        <header className="mb-8 text-white text-left">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+            PDF Sıralama
+          </h1>
+          <p className="text-zinc-400 mt-3 text-sm">
+            Sayfaları sürükleyerek yerlerini değiştirin.
+          </p>
+        </header>
 
-      {file && (
-        <>
-          <FileInfo file={file} onReset={resetAll} />
-
-          {error && (
-            <div className="mt-4 rounded-lg border border-red-300/60 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 text-sm p-3">
-              {error}
+        {!file ? (
+          <div
+            onClick={() => inputRef.current?.click()}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => {
+              e.preventDefault();
+              onFiles(e.dataTransfer.files);
+            }}
+            className="group/drop rounded-[2.5rem] border-2 border-dashed border-white/10 p-16 min-h-[300px] flex flex-col items-center justify-center transition-all bg-white/[0.01] hover:bg-white/[0.04] hover:border-indigo-500/50 cursor-pointer"
+          >
+            <div className="p-6 rounded-3xl bg-indigo-500/10 text-indigo-400 mb-6 group-hover/drop:scale-110 transition-transform">
+              <HiOutlineCloudUpload className="h-14 w-14" />
             </div>
-          )}
-
-          <div className="mt-6 flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">
-            <HiArrowsUpDown className="w-5 h-5" />
-            <span>Sayfaları sürükleyip bırakın.</span>
+            <p className="text-xl text-white font-semibold text-center">
+              PDF'i buraya sürükleyin
+            </p>
+            <p className="text-zinc-500 text-sm mt-3 tracking-wide uppercase font-bold">
+              Maksimum 50MB
+            </p>
+            <input
+              ref={inputRef}
+              type="file"
+              accept=".pdf"
+              onChange={(e) => onFiles(e.target.files)}
+              className="hidden"
+            />
           </div>
+        ) : (
+          <div className="flex flex-col gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/[0.03] border border-white/5 text-white">
+              <div className="h-10 w-10 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-xl">
+                <HiDocumentText />
+              </div>
+              <div className="flex-1 truncate text-sm font-medium">
+                {file.name}
+              </div>
+              <button
+                onClick={() => setFile(null)}
+                className="p-2 text-zinc-500 hover:text-rose-500 transition-colors cursor-pointer"
+              >
+                <HiTrash className="text-xl" />
+              </button>
+            </div>
 
-          <ThumbnailsGrid
-            pages={pages}
-            loading={loading}
-            onDragStart={handleDragStart}
-            onDragEnter={handleDragEnter}
-            onDragEnd={handleDragEnd}
-          />
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-black/20 p-4 rounded-[2rem] border border-white/5 max-h-[400px] overflow-y-auto custom-scrollbar">
+              {pages.map((page, index) => (
+                <div
+                  key={page.id}
+                  draggable
+                  onDragStart={(e) => {
+                    dragItem.current = index;
+                    e.currentTarget.style.opacity = "0.4";
+                  }}
+                  onDragEnd={(e) => {
+                    e.currentTarget.style.opacity = "1";
+                  }}
+                  onDragEnter={() => {
+                    dragOverItem.current = index;
+                    handleSort();
+                  }}
+                  onDragOver={(e) => e.preventDefault()}
+                  className="group relative cursor-move rounded-xl border border-white/10 overflow-hidden bg-zinc-900 transition-all duration-300 active:scale-95 active:rotate-2 shadow-lg hover:border-indigo-500/50"
+                >
+                  <img
+                    src={page.thumbDataUrl}
+                    className="w-full aspect-[3/4] object-cover pointer-events-none"
+                    alt=""
+                  />
+                  <div className="absolute bottom-0 inset-x-0 bg-black/70 backdrop-blur-sm py-1.5 text-[10px] text-center text-white font-bold uppercase tracking-tighter">
+                    {index + 1}. Sayfa
+                  </div>
+                  <div className="absolute inset-0 bg-indigo-600/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <div className="p-2 rounded-lg bg-indigo-600 shadow-xl scale-75 group-hover:scale-100 transition-transform">
+                      <HiArrowsUpDown className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-          <DownloadBar
-            canBuild={pages.length > 0}
-            building={building}
-            onBuild={buildPdf}
-            downloadUrl={downloadUrl}
-            downloadName={`${(file?.name || "organized").replace(
-              /\.pdf$/i,
-              ""
-            )}-reordered.pdf`}
-          />
-        </>
-      )}
-    </section>
+            <div className="flex gap-4">
+              <button
+                onClick={buildPdf}
+                disabled={loading || building}
+                className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:brightness-110 transition-all active:scale-[0.98] shadow-lg shadow-indigo-500/20 disabled:opacity-30"
+              >
+                {building ? "İşleniyor..." : "Sıralamayı Kaydet"}
+              </button>
+              <button
+                onClick={() => setFile(null)}
+                className="flex-1 py-4 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
+              >
+                Sıfırla
+              </button>
+            </div>
+
+            {downloadUrl && (
+              <div className="p-1 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 animate-in zoom-in-95">
+                <a
+                  href={downloadUrl}
+                  download="sirali-dosyahub.pdf"
+                  className="flex items-center justify-center gap-3 rounded-[calc(1rem+4px)] py-4 bg-[#0f0a1e] text-emerald-400 font-bold transition-all hover:bg-transparent hover:text-white"
+                >
+                  <HiDownload className="text-xl" /> Dosyayı İndir
+                </a>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
   );
 }
