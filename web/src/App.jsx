@@ -42,14 +42,7 @@ export default function App() {
             {/* Organize Tool */}
             <Route path="/organize-pdf" element={<OrganizePdfPage />} />
             {/* Remove Page Tool */}
-            <Route
-              path="/remove-pages-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <RemovePdfPage />
-                </div>
-              }
-            />
+            <Route path="/remove-pages-pdf" element={<RemovePdfPage />} />
 
             <Route
               path="/images-to-pdf"
