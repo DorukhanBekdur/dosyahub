@@ -37,14 +37,7 @@ export default function App() {
             <Route path="/split-pdf" element={<SplitPage />} />
 
             {/* Compress Tool */}
-            <Route
-              path="/compress-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <CompressPdfPage />
-                </div>
-              }
-            />
+            <Route path="/compress-pdf" element={<CompressPdfPage />} />
 
             {/* Organize Tool */}
             <Route
