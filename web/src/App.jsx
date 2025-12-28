@@ -31,14 +31,7 @@ export default function App() {
             <Route path="/" element={<LandingPage />} />
 
             {/* Merge Tool */}
-            <Route
-              path="/merge-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <MergePdfPage />
-                </div>
-              }
-            />
+            <Route path="/merge-pdf" element={<MergePdfPage />} />
 
             {/* Split Tool */}
             <Route
