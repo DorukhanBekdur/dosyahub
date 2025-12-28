@@ -47,7 +47,7 @@ export default function SplitPage() {
         name: "PDF nasıl sayfalara bölünür?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "PDF dosyanızı yükleyin, ardından 'PDF’i Parçala' butonuna tıklayın. Tüm sayfalar ZIP içinde ayrı PDF'ler olarak iner.",
+          text: "PDF dosyanızı yükleyin, ardından 'PDF’i Parçala' butonuna tıklayın. Sayfalar saniyeler içinde ayrılır ve tek tek indirebilirsiniz.",
         },
       },
       {
@@ -55,47 +55,22 @@ export default function SplitPage() {
         name: "Dosyalarım güvende mi?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Dosyalar yalnızca işlem sırasında işlenir ve kısa süre içinde sistemden silinir.",
+          text: "Evet, DosyaHub sunucusuz teknoloji kullanır. Dosyalarınız cihazınızdan çıkmadan tarayıcınızda işlenir.",
         },
       },
     ],
   };
 
   return (
-    <>
+    <div className="min-h-screen bg-[#0f0a1e] py-12 px-6 lg:px-12 md:py-20">
       <Helmet>
         <title>PDF Parçalama | DosyaHub</title>
         <meta
           name="description"
-          content="PDF dosyalarını sayfalara bölün. DosyaHub PDF Parçalama aracı ile tüm sayfaları tek tıkla ayırın veya ZIP olarak indirin. Hızlı, güvenli, ücretsiz."
+          content="PDF dosyalarını sayfalara bölün. Sunucuya yüklemeden, tarayıcınızda %100 güvenli ve hızlı PDF parçalama aracı."
         />
         <link rel="canonical" href={CANONICAL} />
         <link rel="alternate" hrefLang="tr" href={CANONICAL} />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="PDF Parçalama | DosyaHub" />
-        <meta
-          property="og:description"
-          content="PDF dosyalarını saniyeler içinde sayfalara bölün. Hızlı, güvenli, ücretsiz."
-        />
-        <meta property="og:url" content={CANONICAL} />
-        <meta property="og:site_name" content="DosyaHub" />
-        <meta
-          property="og:image"
-          content="https://www.dosyahub.com/og/split-pdf.png"
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="PDF Parçalama | DosyaHub" />
-        <meta
-          name="twitter:description"
-          content="PDF dosyalarını hızlıca sayfalara bölün. Ücretsiz DosyaHub aracı."
-        />
-        <meta
-          name="twitter:image"
-          content="https://www.dosyahub.com/og/split-pdf.png"
-        />
 
         <script type="application/ld+json">{JSON.stringify(appLd)}</script>
         <script type="application/ld+json">
@@ -104,77 +79,98 @@ export default function SplitPage() {
         <script type="application/ld+json">{JSON.stringify(faqLd)}</script>
       </Helmet>
 
-      <section className="grid md:grid-cols-2 gap-6 md:gap-8">
-        <SplitPdfCard />
-        <InfoCard />
+      <div className="max-w-7xl mx-auto">
+        <section className="grid lg:grid-cols-2 gap-10 items-start">
+          <SplitPdfCard />
+          <InfoCard />
 
-        <div className="md:col-span-2 mt-6 p-6 rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white/70 dark:bg-zinc-900/70 shadow-sm">
-          <h2 className="text-xl font-semibold mb-3">
-            PDF Parçalama Neden Gerekli ?
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Çok sayfalı dosyalarda belirli sayfaları ayırmak, gereksiz sayfaları
-            çıkarmak veya bölümleri ayrı paylaşmak için{" "}
-            <strong>PDF parçalama</strong> en pratik çözümdür. Eğitim
-            materyalleri, sözleşmeler ya da raporları bölüm bölüm göndermek
-            istediğinizde tek tıkla sayfalara ayırabilirsiniz.
-          </p>
-
-          <h2 className="text-xl font-semibold mt-8 mb-3">
-            DosyaHub ile PDF’i Nasıl Parçalarsınız ?
-          </h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            PDF dosyanızı yükleyin ve <strong>“PDF’i Parçala”</strong> butonuna
-            tıklayın. Tüm sayfalar otomatik olarak ayrı PDF’lere dönüştürülür ve
-            bir <strong>ZIP</strong> dosyası içinde indirilir. İhtiyacınız varsa{" "}
-            <a href="/merge-pdf" className="underline hover:opacity-80">
-              PDF birleştirme
-            </a>{" "}
-            veya{" "}
-            <a href="/compress-pdf" className="underline hover:opacity-80">
-              PDF sıkıştırma
-            </a>{" "}
-            araçlarımızla işlem sonrası düzenlemeye devam edebilirsiniz.
-          </p>
-
-          <h2 className="text-xl font-semibold mt-8 mb-3">
-            Kimler Kullanabilir ?
-          </h2>
-          <ul className="list-disc pl-5 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-            <li>Öğrenciler: notların yalnızca gerekli sayfalarını paylaşmak</li>
-            <li>İş dünyası: sözleşme/raporların ilgili bölümlerini ayırmak</li>
-            <li>Serbest çalışanlar: sadece onay sayfalarını göndermek</li>
-          </ul>
-
-          <h2 className="text-xl font-semibold mt-8 mb-3">İpuçları</h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-            Büyük dosyalarda daha hızlı indirme için parçalama sonrası ZIP’i
-            bilgisayarınızda açıp yalnızca gerekli sayfaları saklayın. Gizlilik
-            açısından dosyalar işlem sürecinde geçici olarak işlenir ve kısa
-            süre içinde sistemden silinir.
-          </p>
-
-          <h2 className="text-xl font-semibold mt-8 mb-3">
-            Sık Sorulan Sorular
-          </h2>
-          <div className="space-y-3 text-sm text-zinc-600 dark:text-zinc-400">
-            <div>
-              <p className="font-medium">Herhangi bir program gerekir mi ?</p>
+          <div className="lg:col-span-2 mt-12 p-10 md:p-16 rounded-[3rem] border border-white/5 bg-white/[0.01] backdrop-blur-sm">
+            <h2 className="text-3xl font-bold text-white mb-8 tracking-tight">
+              PDF Parçalama Neden Gerekli?
+            </h2>
+            <div className="grid md:grid-cols-2 gap-12 text-zinc-400 text-sm leading-relaxed">
               <p>
-                Gerekmez. DosyaHub doğrudan tarayıcıda çalışır, kurulum yapmadan
-                kullanabilirsiniz.
+                Çok sayfalı dosyalarda belirli sayfaları ayırmak, gereksiz
+                sayfaları çıkarmak veya bölümleri ayrı paylaşmak için{" "}
+                <strong className="text-white font-medium">
+                  PDF parçalama
+                </strong>{" "}
+                en pratik çözümdür. Eğitim materyalleri, sözleşmeler ya da
+                raporları bölüm bölüm göndermek istediğinizde tek tıkla
+                sayfalara ayırabilirsiniz.
+              </p>
+              <p>
+                DosyaHub'ın farkı, bu işlemi{" "}
+                <strong className="text-indigo-400">
+                  sunucusuz (client-side)
+                </strong>
+                olarak yapmasıdır. Dosyanız internete yüklenmez, böylece hem
+                internet paketinizden tasarruf edersiniz hem de belgelerinizin
+                gizliliğini en üst seviyede tutarsınız.
               </p>
             </div>
-            <div>
-              <p className="font-medium">Çıktılar nasıl teslim edilir ?</p>
-              <p>
-                Her sayfa ayrı PDF olarak oluşturulur ve tek bir ZIP dosyası
-                halinde indirilir.
-              </p>
+
+            <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-12" />
+
+            <div className="grid md:grid-cols-3 gap-12">
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-4">
+                  Kimler Kullanabilir?
+                </h3>
+                <ul className="space-y-3 text-zinc-400 text-sm">
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-indigo-500" />{" "}
+                    Öğrenciler: Notların gerekli sayfalarını ayırmak.
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-indigo-500" /> İş
+                    Dünyası: Sözleşme bölümlerini ayırmak.
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="w-1 h-1 rounded-full bg-indigo-500" />{" "}
+                    Freelance: Onay sayfalarını göndermek.
+                  </li>
+                </ul>
+              </div>
+
+              <div>
+                <h3 className="text-white font-semibold text-lg mb-4">
+                  Sık Sorulan Sorular
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-zinc-200 font-medium text-sm">
+                      Program gerekir mi?
+                    </p>
+                    <p className="text-zinc-500 text-xs mt-1">
+                      Hayır, tamamen tarayıcı tabanlı çalışır.
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-zinc-200 font-medium text-sm">
+                      Hız sınırı var mı?
+                    </p>
+                    <p className="text-zinc-500 text-xs mt-1">
+                      İşlem gücü cihazınıza bağlıdır, genelde saniyeler sürer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-indigo-500/5 rounded-3xl p-6 border border-indigo-500/10">
+                <h3 className="text-indigo-400 font-semibold text-lg mb-2">
+                  İpucu
+                </h3>
+                <p className="text-zinc-400 text-xs leading-relaxed">
+                  Büyük dosyalarda işlem bittikten sonra sayfaları tek tek
+                  indirebilir, ardından ihtiyacınız olmayanları cihazınızdan
+                  silerek yer kazanabilirsiniz.
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </>
+        </section>
+      </div>
+    </div>
   );
 }

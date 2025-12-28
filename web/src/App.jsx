@@ -34,14 +34,7 @@ export default function App() {
             <Route path="/merge-pdf" element={<MergePdfPage />} />
 
             {/* Split Tool */}
-            <Route
-              path="/split-pdf"
-              element={
-                <div className="mx-auto max-w-6xl w-full px-4 py-12">
-                  <SplitPage />
-                </div>
-              }
-            />
+            <Route path="/split-pdf" element={<SplitPage />} />
 
             {/* Compress Tool */}
             <Route
