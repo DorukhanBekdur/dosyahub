@@ -53,7 +53,6 @@ export default function CompressPdfPage() {
     dropRef.current?.classList.remove("border-indigo-500", "bg-white/[0.05]");
   }, []);
 
-  // --- SUNUCUSUZ OPTİMİZASYON MANTIĞI ---
   const handleCompress = async () => {
     if (!file) return setError("Lütfen bir PDF seçin.");
     setLoading(true);
@@ -63,10 +62,6 @@ export default function CompressPdfPage() {
       const fileBytes = await file.arrayBuffer();
       const pdfDoc = await PDFDocument.load(fileBytes);
 
-      /* Not: Tarayıcı tabanlı pdf-lib ile görsel bazlı sıkıştırma sınırlıdır.
-         Burada PDF'in iç yapısını optimize ederek (saveIncremental: false) 
-         ve metadata temizliği yaparak boyut kazanıyoruz.
-      */
       const compressedPdfBytes = await pdfDoc.save({
         useObjectStreams: true,
         addDefaultPage: false,
