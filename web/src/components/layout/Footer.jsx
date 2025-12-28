@@ -1,29 +1,14 @@
 import { Link } from "react-router-dom";
 import Logo from "../common/Logo";
 import { HiHeart } from "react-icons/hi";
+import { NAV_LINKS } from "../../config/navigation";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const footerLinks = [
-    {
-      title: "Araçlar",
-      links: [
-        { name: "PDF Birleştir", href: "/merge-pdf" },
-        { name: "PDF Sıkıştır", href: "/compress-pdf" },
-        { name: "Word -> PDF", href: "/word-to-pdf" },
-        { name: "Görsel -> PDF", href: "/images-to-pdf" },
-      ],
-    },
-    {
-      title: "Kurumsal",
-      links: [
-        { name: "Hakkımızda", href: "/about" },
-        { name: "Gizlilik Politikası", href: "/privacy" },
-        { name: "Kullanım Şartları", href: "/terms" },
-        { name: "İletişim", href: "/contact" },
-      ],
-    },
+    { title: "Araçlar", links: NAV_LINKS.tools },
+    { title: "Kurumsal", links: NAV_LINKS.corporate },
   ];
 
   return (

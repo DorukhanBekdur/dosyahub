@@ -1,4 +1,3 @@
-// React Router
 export {
   BrowserRouter as Router,
   Routes,
