@@ -8,6 +8,7 @@ import {
   HiPhotograph,
   HiTrash,
   HiRefresh,
+  HiBadgeCheck,
 } from "react-icons/hi";
 import { HiArrowsUpDown } from "react-icons/hi2";
 
@@ -22,6 +23,7 @@ const TOOLS = [
       { to: "/remove-pages-pdf", label: "PDF Sayfa Silme", icon: HiTrash },
       { to: "/images-to-pdf", label: "Görsel → PDF", icon: HiPhotograph },
       { to: "/rotate-pdf", label: "PDF Döndürme", icon: HiRefresh },
+      { to: "/watermark-pdf", label: "PDF Filigranı", icon: HiBadgeCheck },
     ],
   },
 ];

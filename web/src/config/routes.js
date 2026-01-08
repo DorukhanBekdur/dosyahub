@@ -8,6 +8,7 @@ import {
   ImagesToPdfPage,
   RotatePdfPage,
   ContactPage,
+  WatermarkPage,
 } from "./imports";
 import AboutPage from "../pages/corporate/AboutPage";
 import PrivacyPage from "../pages/corporate/PrivacyPage";
@@ -22,6 +23,7 @@ export const APP_ROUTES = [
   { path: "/remove-pages-pdf", element: RemovePdfPage },
   { path: "/images-to-pdf", element: ImagesToPdfPage },
   { path: "/rotate-pdf", element: RotatePdfPage },
+  { path: "/watermark-pdf", element: WatermarkPage },
   { path: "/contact", element: ContactPage },
   { path: "/about", element: AboutPage },
   { path: "/privacy", element: PrivacyPage },

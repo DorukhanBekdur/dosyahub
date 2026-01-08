@@ -19,3 +19,4 @@ export { default as OrganizePdfPage } from "../pages/OrganizePdfPage";
 export { default as RemovePdfPage } from "../pages/RemovePdfPage";
 export { default as ImagesToPdfPage } from "../pages/ImagesToPdfPage";
 export { default as RotatePdfPage } from "../pages/RotatePdfPages";
+export { default as WatermarkPage } from "../pages/WatermarkPage";
