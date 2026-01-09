@@ -117,7 +117,8 @@ export default function OrganizePdfCard() {
             PDF Sıralama
           </h1>
           <p className="text-zinc-400 mt-3 text-sm">
-            Sayfaları sürükleyerek yerlerini değiştirin.
+            PDF sayfalarınızı sürükleyip bırakarak dilediğiniz sıraya dizin ve
+            kaydedin
           </p>
         </header>
 
@@ -129,16 +130,16 @@ export default function OrganizePdfCard() {
               e.preventDefault();
               onFiles(e.dataTransfer.files);
             }}
-            className="group/drop rounded-[2.5rem] border-2 border-dashed border-white/10 p-16 min-h-[300px] flex flex-col items-center justify-center transition-all bg-white/[0.01] hover:bg-white/[0.04] hover:border-indigo-500/50 cursor-pointer"
+            className="group/drop rounded-[2.5rem] border-2 border-dashed border-white/10 p-12 min-h-[280px] flex flex-col items-center justify-center transition-all bg-white/[0.01] hover:bg-white/[0.04] hover:border-indigo-500/50 cursor-pointer"
           >
-            <div className="p-6 rounded-3xl bg-indigo-500/10 text-indigo-400 mb-6 group-hover/drop:scale-110 transition-transform">
-              <HiOutlineCloudUpload className="h-14 w-14" />
+            <div className="p-5 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-4 group-hover/drop:scale-110 transition-transform">
+              <HiOutlineCloudUpload className="h-12 w-12" />
             </div>
-            <p className="text-xl text-white font-semibold text-center">
-              PDF'i buraya sürükleyin
+            <p className="text-lg text-white font-medium text-center">
+              PDF dosyalarınızı buraya sürükleyin
             </p>
-            <p className="text-zinc-500 text-sm mt-3 tracking-wide uppercase font-bold">
-              Maksimum 50MB
+            <p className="text-zinc-500 text-xs mt-2 tracking-wide uppercase font-bold">
+              veya seçmek için tıklayın
             </p>
             <input
               ref={inputRef}
@@ -205,13 +206,13 @@ export default function OrganizePdfCard() {
               <button
                 onClick={buildPdf}
                 disabled={loading || building}
-                className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:brightness-110 transition-all active:scale-[0.98] shadow-lg shadow-indigo-500/20 disabled:opacity-30"
+                className="flex-[2] py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:brightness-110 transition-all active:scale-[0.98] shadow-lg shadow-indigo-500/20 disabled:opacity-30 cursor-pointer"
               >
                 {building ? "İşleniyor..." : "Sıralamayı Kaydet"}
               </button>
               <button
                 onClick={() => setFile(null)}
-                className="flex-1 py-4 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
+                className="flex-1 py-4 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
               >
                 Sıfırla
               </button>
@@ -222,7 +223,7 @@ export default function OrganizePdfCard() {
                 <a
                   href={downloadUrl}
                   download="sirali-dosyahub.pdf"
-                  className="flex items-center justify-center gap-3 rounded-[calc(1rem+4px)] py-4 bg-[#0f0a1e] text-emerald-400 font-bold transition-all hover:bg-transparent hover:text-white"
+                  className="flex items-center justify-center gap-3 rounded-[calc(1rem+4px)] py-4 bg-[#0f0a1e] text-emerald-400 font-bold transition-all hover:bg-transparent hover:text-white cursor-pointer"
                 >
                   <HiDownload className="text-xl" /> Dosyayı İndir
                 </a>
