@@ -122,7 +122,8 @@ export default function MergePdfPage() {
                   PDF Birleştirme
                 </h1>
                 <p className="text-zinc-400 mt-3 text-sm leading-relaxed">
-                  Dosyalarınız tarayıcınızdan çıkmadan, anında birleştirilir.
+                  PDF dosyalarınızı sürükleyin ya da yükleyin ardından anında
+                  birleştirin.
                 </p>
               </header>
 
@@ -141,7 +142,8 @@ export default function MergePdfPage() {
                   Dosyalarınızı buraya sürükleyin
                 </p>
                 <p className="text-zinc-500 text-sm mt-3 font-light">
-                  Maksimum 2 PDF • Her biri 50MB
+                  Lütfen yükleyeceğiniz dosyanın 50 MB'dan küçük olduğundan emin
+                  olun.
                 </p>
                 <input
                   ref={inputRef}
@@ -176,7 +178,7 @@ export default function MergePdfPage() {
                           e.stopPropagation();
                           removeFile(i);
                         }}
-                        className="p-2 text-zinc-600 hover:text-rose-500 transition-colors"
+                        className="p-2 text-zinc-600 hover:text-rose-500 transition-colors cursor-pointer"
                       >
                         <HiTrash className="h-5 w-5" />
                       </button>
@@ -198,9 +200,9 @@ export default function MergePdfPage() {
                 <button
                   onClick={mergeFilesLocally}
                   disabled={files.length !== 2 || loading}
-                  className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 shadow-lg shadow-indigo-500/20"
+                  className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 shadow-lg shadow-indigo-500/20 cursor-pointer"
                 >
-                  {loading ? "İşleniyor..." : "PDF'leri Birleştir"}
+                  {loading ? "İşleniyor..." : "Dosyaları Birleştir"}
                 </button>
                 <button
                   onClick={() => {
@@ -208,7 +210,7 @@ export default function MergePdfPage() {
                     setDownUrl("");
                     setError("");
                   }}
-                  className="px-6 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
+                  className="px-6 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
                 >
                   Sıfırla
                 </button>
@@ -221,7 +223,8 @@ export default function MergePdfPage() {
                     download="birlesmis-dosyahub.pdf"
                     className="flex items-center justify-center gap-3 rounded-[calc(1rem+4px)] px-6 py-4 bg-[#0f0a1e] text-emerald-400 font-bold hover:bg-transparent hover:text-white transition-all"
                   >
-                    <HiDownload className="text-xl" /> İşlem Tamam! İndir
+                    <HiDownload className="text-xl" /> Birleştirilmiş PDF'i
+                    İndir
                   </a>
                 </div>
               )}
