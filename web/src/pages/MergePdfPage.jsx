@@ -133,17 +133,16 @@ export default function MergePdfPage() {
                 onDragOver={onDragOver}
                 onDragLeave={onDragLeave}
                 onClick={() => inputRef.current?.click()}
-                className="group/drop relative rounded-[2.5rem] border-2 border-dashed border-white/10 p-16 min-h-[300px] flex flex-col items-center justify-center text-center transition-all bg-white/[0.01] hover:bg-white/[0.04] hover:border-indigo-500/50 cursor-pointer"
+                className="group/drop relative rounded-[2.5rem] border-2 border-dashed border-white/10 p-12 min-h-[280px] flex flex-col items-center justify-center text-center transition-all bg-white/[0.01] hover:bg-white/[0.04] hover:border-indigo-500/50 cursor-pointer"
               >
-                <div className="p-6 rounded-3xl bg-indigo-500/10 text-indigo-400 mb-6 transition-transform duration-500 group-hover/drop:scale-110">
-                  <HiOutlineCloudUpload className="h-14 w-14" />
+                <div className="p-5 rounded-2xl bg-indigo-500/10 text-indigo-400 mb-4 transition-transform duration-500 group-hover/drop:scale-110">
+                  <HiOutlineCloudUpload className="h-12 w-12" />
                 </div>
-                <p className="text-xl text-white font-semibold">
-                  Dosyalarınızı buraya sürükleyin
+                <p className="text-white font-medium text-lg">
+                  PDF dosyalarınızı buraya sürükleyin
                 </p>
-                <p className="text-zinc-500 text-sm mt-3 font-light">
-                  Lütfen yükleyeceğiniz dosyanın 50 MB'dan küçük olduğundan emin
-                  olun.
+                <p className="text-zinc-500 text-xs mt-2">
+                  veya seçmek için tıklayın
                 </p>
                 <input
                   ref={inputRef}
@@ -202,7 +201,7 @@ export default function MergePdfPage() {
                   disabled={files.length !== 2 || loading}
                   className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 shadow-lg shadow-indigo-500/20 cursor-pointer"
                 >
-                  {loading ? "İşleniyor..." : "Dosyaları Birleştir"}
+                  {loading ? "İşleniyor..." : "PDF'leri Birleştir"}
                 </button>
                 <button
                   onClick={() => {

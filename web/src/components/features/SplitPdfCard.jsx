@@ -96,8 +96,8 @@ export default function SplitPdfCard() {
             PDF Parçalama
           </h1>
           <p className="text-zinc-400 mt-3 text-sm leading-relaxed">
-            PDF dökümanınızdaki her sayfayı ayrı birer PDF dosyası olarak dışa
-            aktarın.
+            Her sayfayı ayrı bir PDF'e dönüştürün ve ZIP formatında topluca
+            indirin.
           </p>
         </header>
 
@@ -142,7 +142,7 @@ export default function SplitPdfCard() {
             </div>
             <button
               onClick={resetAll}
-              className="p-3 text-zinc-600 hover:text-rose-500 transition-colors"
+              className="p-3 text-zinc-600 hover:text-rose-500 transition-colors cursor-pointer"
             >
               <HiTrash className="h-6 w-6" />
             </button>
@@ -162,26 +162,26 @@ export default function SplitPdfCard() {
           <button
             onClick={handleSplit}
             disabled={!file || loading}
-            className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
+            className="flex-1 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold hover:from-indigo-500 hover:to-purple-500 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20 cursor-pointer"
           >
-            {loading ? "Sayfalar Ayrılıyor..." : "PDF'i Parçala (ZIP)"}
+            {loading ? "Sayfalar Ayrılıyor..." : "PDF'i Parçala"}
           </button>
           <button
             onClick={resetAll}
-            className="px-6 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
+            className="px-6 rounded-2xl border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all cursor-pointer"
           >
             Sıfırla
           </button>
         </div>
 
         {downloadUrl && !loading && (
-          <div className="mt-6 p-1 rounded-2xl bg-gradient-to-r from-emerald-500/50 to-teal-500/50">
+          <div className="mt-6 p-1 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500">
             <a
               href={downloadUrl}
               download={`${file.name.replace(".pdf", "")}_dosyahub_zip.zip`}
-              className="flex items-center justify-center gap-3 rounded-[calc(1.5rem-4px)] px-6 py-4 bg-[#0f0a1e] text-emerald-400 font-bold hover:bg-transparent hover:text-white transition-all"
+              className="flex items-center justify-center gap-3 rounded-[calc(1.5rem-4px)] px-6 py-4 bg-[#0f0a1e] text-emerald-400 font-bold hover:bg-transparent hover:text-white transition-all cursor-pointer"
             >
-              <HiDownload className="text-xl" /> İşlem Tamam! ZIP'i İndir
+              <HiDownload className="text-xl" /> Parçalanmış PDF'leri İndir
             </a>
           </div>
         )}
