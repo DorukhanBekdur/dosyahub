@@ -20,3 +20,5 @@ export { default as RemovePdfPage } from "../pages/RemovePdfPage";
 export { default as ImagesToPdfPage } from "../pages/ImagesToPdfPage";
 export { default as RotatePdfPage } from "../pages/RotatePdfPages";
 export { default as WatermarkPage } from "../pages/WatermarkPage";
+export { default as LoginPage } from "../pages/auth/LoginPage";
+export { default as SignupPage } from "../pages/auth/SignupPage";

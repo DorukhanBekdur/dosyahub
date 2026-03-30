@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import Logo from "../common/Logo";
 import {
   HiCollection,
@@ -28,13 +28,28 @@ const TOOLS = [
   },
 ];
 
+function readSession() {
+  try {
+    const raw = sessionStorage.getItem("dosyahub_session");
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
 export default function Navbar() {
+  const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [session, setSession] = useState(null);
 
   const toolsBtnRef = useRef(null);
   const toolsMenuRef = useRef(null);
+
+  useEffect(() => {
+    setSession(readSession());
+  }, [location.pathname]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -70,6 +85,18 @@ export default function Navbar() {
     setMobileOpen(false);
     setToolsOpen(false);
   };
+
+  function logout() {
+    sessionStorage.removeItem("dosyahub_session");
+    setSession(null);
+    closeAll();
+  }
+
+  const sessionLabel = session
+    ? session.name?.trim() ||
+      (session.email && String(session.email).split("@")[0]) ||
+      "Hesap"
+    : null;
 
   return (
     <nav
@@ -137,26 +164,48 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* BUTONLAR */}
-        <div className="flex items-center gap-5">
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              to="/login"
-              className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
-            >
-              Giriş Yap
-            </Link>
-            <Link
-              to="/signup"
-              className="bg-[#7c3aed] hover:bg-[#8b5cf6] text-white px-5 py-2 rounded-full text-[14px] font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95"
-            >
-              Kayıt Ol
-            </Link>
+        <div className="flex items-center gap-4 sm:gap-5">
+          <div className="hidden md:flex items-center gap-5">
+            {session ? (
+              <>
+                <span
+                  className="text-[13px] text-zinc-400 max-w-[140px] truncate"
+                  title={session.email || sessionLabel}
+                >
+                  {sessionLabel}
+                </span>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
+                >
+                  Çıkış
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
+                >
+                  Giriş Yap
+                </Link>
+                <Link
+                  to="/signup"
+                  className="bg-[#7c3aed] hover:bg-[#8b5cf6] text-white px-5 py-2 rounded-full text-[14px] font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95"
+                >
+                  Kayıt Ol
+                </Link>
+              </>
+            )}
           </div>
 
           <button
+            type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
             className="lg:hidden h-9 w-9 rounded-lg border border-white/10 flex items-center justify-center text-white"
+            aria-expanded={mobileOpen}
+            aria-label={mobileOpen ? "Menüyü kapat" : "Menüyü aç"}
           >
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
@@ -178,6 +227,39 @@ export default function Navbar() {
                 {item.label}
               </NavLink>
             ))}
+            <div className="pt-4 mt-2 border-t border-white/10 space-y-2">
+              {session ? (
+                <>
+                  <p className="text-zinc-500 text-xs px-1 truncate">
+                    {sessionLabel}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={logout}
+                    className="w-full text-left p-4 rounded-xl bg-white/5 text-zinc-300 text-sm font-medium"
+                  >
+                    Çıkış yap
+                  </button>
+                </>
+              ) : (
+                <>
+                  <NavLink
+                    to="/login"
+                    onClick={closeAll}
+                    className="flex items-center justify-center p-4 rounded-xl border border-white/10 text-zinc-300 text-sm font-medium"
+                  >
+                    Giriş Yap
+                  </NavLink>
+                  <NavLink
+                    to="/signup"
+                    onClick={closeAll}
+                    className="flex items-center justify-center p-4 rounded-xl bg-[#7c3aed] text-white text-sm font-bold"
+                  >
+                    Kayıt Ol
+                  </NavLink>
+                </>
+              )}
+            </div>
           </div>
         </div>
       )}
