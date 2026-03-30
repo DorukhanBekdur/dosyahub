@@ -8,13 +8,14 @@ import {
   HiShieldCheck,
 } from "react-icons/hi";
 import Field from "../../components/contact/Field";
+import { setSession } from "../../lib/authSession";
 
 const CANONICAL = "https://www.dosyahub.com/login";
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+  const from = location.state?.from?.pathname || "/dashboard";
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -43,14 +44,10 @@ export default function LoginPage() {
     setLoading(true);
     try {
       await new Promise((r) => setTimeout(r, 700));
-      if (remember) {
-        sessionStorage.setItem(
-          "dosyahub_session",
-          JSON.stringify({ email: trimmed, at: Date.now() })
-        );
-      } else {
-        sessionStorage.removeItem("dosyahub_session");
-      }
+      setSession(
+        { email: trimmed, at: Date.now() },
+        { persistent: remember }
+      );
       navigate(from, { replace: true });
     } catch {
       setError("Giriş sırasında bir sorun oluştu. Tekrar deneyin.");

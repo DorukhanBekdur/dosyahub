@@ -1,41 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import Logo from "../common/Logo";
-import {
-  HiCollection,
-  HiViewGrid,
-  HiArchive,
-  HiPhotograph,
-  HiTrash,
-  HiRefresh,
-  HiBadgeCheck,
-} from "react-icons/hi";
-import { HiArrowsUpDown } from "react-icons/hi2";
-
-const TOOLS = [
-  {
-    title: "PDF ARAÇLARI",
-    items: [
-      { to: "/merge-pdf", label: "PDF Birleştirme", icon: HiCollection },
-      { to: "/split-pdf", label: "PDF Parçalama", icon: HiViewGrid },
-      { to: "/compress-pdf", label: "PDF Sıkıştırma", icon: HiArchive },
-      { to: "/organize-pdf", label: "PDF Sıralama", icon: HiArrowsUpDown },
-      { to: "/remove-pages-pdf", label: "PDF Sayfa Silme", icon: HiTrash },
-      { to: "/images-to-pdf", label: "Görsel → PDF", icon: HiPhotograph },
-      { to: "/rotate-pdf", label: "PDF Döndürme", icon: HiRefresh },
-      { to: "/watermark-pdf", label: "PDF Filigranı", icon: HiBadgeCheck },
-    ],
-  },
-];
-
-function readSession() {
-  try {
-    const raw = sessionStorage.getItem("dosyahub_session");
-    return raw ? JSON.parse(raw) : null;
-  } catch {
-    return null;
-  }
-}
+import { NAV_TOOL_GROUPS } from "../../config/toolsCatalog";
+import { getSession, clearSession } from "../../lib/authSession";
 
 export default function Navbar() {
   const location = useLocation();
@@ -48,7 +15,7 @@ export default function Navbar() {
   const toolsMenuRef = useRef(null);
 
   useEffect(() => {
-    setSession(readSession());
+    setSession(getSession());
   }, [location.pathname]);
 
   useEffect(() => {
@@ -87,7 +54,7 @@ export default function Navbar() {
   };
 
   function logout() {
-    sessionStorage.removeItem("dosyahub_session");
+    clearSession();
     setSession(null);
     closeAll();
   }
@@ -138,7 +105,7 @@ export default function Navbar() {
                     <div className="col-span-2 text-[10px] font-bold text-zinc-500 tracking-widest pb-2 border-b border-white/5 mb-2">
                       PDF İŞLEMLERİ
                     </div>
-                    {TOOLS[0].items.map((item) => (
+                    {NAV_TOOL_GROUPS[0].items.map((item) => (
                       <NavLink
                         key={item.to}
                         to={item.to}
@@ -157,6 +124,7 @@ export default function Navbar() {
                 </div>
               )}
             </div>
+            {session && <NavItem to="/dashboard" label="Panel" />}
             <NavItem to="/merge-pdf" label="PDF Birleştir" />
             <NavItem to="/compress-pdf" label="Sıkıştır" />
             <NavItem to="/about" label="Hakkımızda" />
@@ -168,6 +136,12 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-5">
             {session ? (
               <>
+                <Link
+                  to="/dashboard"
+                  className="text-[14px] font-medium text-indigo-300 hover:text-white transition lg:hidden"
+                >
+                  Panel
+                </Link>
                 <span
                   className="text-[13px] text-zinc-400 max-w-[140px] truncate"
                   title={session.email || sessionLabel}
@@ -216,7 +190,16 @@ export default function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden absolute top-full left-0 w-full bg-[#0f0a1e] border-t border-white/10 p-6 space-y-4 shadow-2xl">
           <div className="grid grid-cols-1 gap-2">
-            {TOOLS[0].items.map((item) => (
+            {session && (
+              <NavLink
+                to="/dashboard"
+                onClick={closeAll}
+                className="flex items-center gap-4 p-4 rounded-xl border border-indigo-500/25 bg-indigo-500/10 text-indigo-200 font-medium"
+              >
+                Panel — tüm araçlar
+              </NavLink>
+            )}
+            {NAV_TOOL_GROUPS[0].items.map((item) => (
               <NavLink
                 key={item.to}
                 to={item.to}

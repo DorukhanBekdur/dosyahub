@@ -9,6 +9,7 @@ import {
   HiShieldCheck,
 } from "react-icons/hi";
 import Field from "../../components/contact/Field";
+import { setSession } from "../../lib/authSession";
 
 const CANONICAL = "https://www.dosyahub.com/signup";
 
@@ -57,11 +58,12 @@ export default function SignupPage() {
     setLoading(true);
     try {
       await new Promise((r) => setTimeout(r, 800));
-      sessionStorage.setItem(
-        "dosyahub_session",
-        JSON.stringify({ email: trimmed, name: name.trim(), at: Date.now() })
-      );
-      navigate("/", { replace: true });
+      setSession({
+        email: trimmed,
+        name: name.trim(),
+        at: Date.now(),
+      });
+      navigate("/dashboard", { replace: true });
     } catch {
       setError("Kayıt sırasında bir sorun oluştu. Tekrar deneyin.");
     } finally {
