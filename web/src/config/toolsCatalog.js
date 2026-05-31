@@ -75,6 +75,15 @@ export const PDF_TOOLS = [
 /** Navbar mega menü */
 export const NAV_TOOL_GROUPS = [{ title: "PDF ARAÇLARI", items: PDF_TOOLS }];
 
+/** Tüm araçlar sayfası — kategori filtreleri */
+export const TOOL_FILTER_CATEGORIES = [
+  { id: "all", label: "Tümü" },
+  { id: "combine", label: "Birleştir ve böl" },
+  { id: "optimize", label: "Optimize et" },
+  { id: "edit", label: "Düzenle" },
+  { id: "convert", label: "Dönüştür" },
+];
+
 const DASH_SECTIONS = [
   {
     id: "combine",

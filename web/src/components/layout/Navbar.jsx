@@ -1,50 +1,99 @@
 import { useEffect, useRef, useState } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
+import { HiChevronDown, HiOutlineViewGrid } from "react-icons/hi";
 import Logo from "../common/Logo";
-import { NAV_TOOL_GROUPS } from "../../config/toolsCatalog";
-import { getSession, clearSession } from "../../lib/authSession";
+import { NavToolsDropdown, NAV_TOOLS_MENU_ID } from "../nav/NavToolsDropdown";
+import { PDF_TOOLS } from "../../config/toolsCatalog";
+import {
+  NAV_AUTH_LABELS,
+  NAV_MOBILE_EXTRA_LINKS,
+  NAV_PRIMARY_LINKS,
+  isLightNavPath,
+} from "../../config/navConfig";
+import {
+  getSession,
+  clearSession,
+  hasValidAuthSession,
+  SESSION_KEY,
+} from "../../lib/authSession";
+
+const MOBILE_PANEL_ID = "mobile-nav-panel";
+const TOOLS_MENU_ID = NAV_TOOLS_MENU_ID;
+
+/** Hero ile aynı container; yükseklik ~68–72px */
+const NAV_BAR_HEIGHT = "h-[4.25rem]";
+const NAV_MOBILE_TOP = "top-[4.25rem]";
 
 export default function Navbar() {
-  const location = useLocation();
+  const { pathname } = useLocation();
+  const isLight = isLightNavPath(pathname);
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [toolsOpen, setToolsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [session, setSession] = useState(null);
+  const [session, setSession] = useState(() => getSession());
 
-  const toolsBtnRef = useRef(null);
-  const toolsMenuRef = useRef(null);
+  const toolsWrapRef = useRef(null);
 
-  useEffect(() => {
-    setSession(getSession());
-  }, [location.pathname]);
+  const refreshSession = () => setSession(getSession());
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
+    refreshSession();
+  }, [pathname]);
+
+  useEffect(() => {
+    setMobileOpen(false);
+    setToolsOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 4);
     window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    function handleClick(e) {
-      if (
-        toolsOpen &&
-        !toolsMenuRef.current?.contains(e.target) &&
-        !toolsBtnRef.current?.contains(e.target)
-      ) {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    function onStorage(e) {
+      if (e.key === SESSION_KEY || e.key === null) refreshSession();
+    }
+    function onAuthChanged() {
+      refreshSession();
+    }
+    window.addEventListener("storage", onStorage);
+    window.addEventListener("dosyahub-auth-changed", onAuthChanged);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("dosyahub-auth-changed", onAuthChanged);
+    };
+  }, []);
+
+  useEffect(() => {
+    function onDocClick(e) {
+      if (toolsOpen && !toolsWrapRef.current?.contains(e.target)) {
         setToolsOpen(false);
       }
     }
-    function handleKey(e) {
+    function onKey(e) {
       if (e.key === "Escape") {
         setToolsOpen(false);
         setMobileOpen(false);
       }
     }
-    document.addEventListener("mousedown", handleClick);
-    document.addEventListener("keydown", handleKey);
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("keydown", onKey);
     return () => {
-      document.removeEventListener("mousedown", handleClick);
-      document.removeEventListener("keydown", handleKey);
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("keydown", onKey);
     };
   }, [toolsOpen]);
 
@@ -59,116 +108,182 @@ export default function Navbar() {
     closeAll();
   }
 
-  const sessionLabel = session
-    ? session.name?.trim() ||
-      (session.email && String(session.email).split("@")[0]) ||
+  const loggedIn = hasValidAuthSession(session);
+  const sessionLabel = loggedIn
+    ? session.user.name?.trim() ||
+      (session.user.email && String(session.user.email).split("@")[0]) ||
       "Hesap"
     : null;
 
+  const headerClass = isLight
+    ? scrolled
+      ? "border-violet-100/60 bg-[#FDFBFF] shadow-[0_1px_12px_rgba(124,58,237,0.05)]"
+      : "border-violet-100/60 bg-[#FDFBFF]"
+    : scrolled
+      ? "border-violet-500/[0.06] bg-[#070A13]/95 backdrop-blur-xl shadow-[0_1px_12px_rgba(0,0,0,0.25)]"
+      : "border-violet-500/[0.04] bg-[#070A13]/85 backdrop-blur-xl";
+
+  const signupRingOffset = isLight
+    ? "focus-visible:ring-offset-[#FDFBFF]"
+    : "focus-visible:ring-offset-[#070A13]";
+
+  const toolsGroupBorder = isLight
+    ? toolsOpen
+      ? "border-violet-100/70 bg-[#FDFBFF]"
+      : "border-transparent hover:border-violet-100/60"
+    : toolsOpen
+      ? "border-violet-500/20 bg-white/[0.04]"
+      : "border-transparent hover:border-violet-500/[0.06]";
+
   return (
-    <nav
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0f0a1e]/85 backdrop-blur-xl border-b border-white/10 py-2"
-          : "bg-transparent py-3"
-      }`}
+    <header
+      data-nav-theme={isLight ? "light" : "dark"}
+      className={`sticky top-0 z-50 border-b transition-[box-shadow] duration-200 ${headerClass}`}
     >
-      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
-        {/* LOGO VE LİNKLER */}
-        <div className="flex items-center gap-24">
-          {" "}
+      <nav
+        className={`mx-auto flex ${NAV_BAR_HEIGHT} max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8`}
+        aria-label="Ana menü"
+      >
+        <div className="flex min-w-0 flex-1 items-center gap-6 lg:gap-10">
           <Link
             to="/"
             onClick={closeAll}
-            className="flex items-center shrink-0"
+            className={`flex shrink-0 items-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
+              isLight
+                ? "focus-visible:ring-offset-[#FDFBFF]"
+                : "focus-visible:ring-offset-[#070A13]"
+            }`}
           >
-            <Logo size="lg" />
+            <Logo size="nav" priority />
           </Link>
-          <div className="hidden lg:flex items-center gap-8">
-            {" "}
-            <div className="relative">
-              <button
-                ref={toolsBtnRef}
-                onMouseEnter={() => setToolsOpen(true)}
-                className="flex items-center gap-1.5 text-[15px] font-medium text-zinc-300 hover:text-white transition"
-              >
-                Tüm Araçlar <Chevron />
-              </button>
 
-              {toolsOpen && (
-                <div
-                  ref={toolsMenuRef}
-                  onMouseLeave={() => setToolsOpen(false)}
-                  className="absolute top-full -left-10 pt-4 w-[480px]"
+          <div className="hidden min-w-0 flex-1 items-center gap-0.5 md:flex lg:gap-1">
+            <div
+              ref={toolsWrapRef}
+              className="relative"
+              onMouseEnter={() => setToolsOpen(true)}
+              onMouseLeave={() => setToolsOpen(false)}
+            >
+              <div
+                className={`flex items-stretch rounded-lg border transition-colors ${toolsGroupBorder}`}
+              >
+                <NavLink
+                  to="/tools"
+                  onClick={closeAll}
+                  className={navLinkClass(isLight)}
                 >
-                  <div className="bg-[#1a142e] rounded-2xl shadow-2xl border border-white/10 p-5 grid grid-cols-2 gap-3 backdrop-blur-2xl">
-                    <div className="col-span-2 text-[10px] font-bold text-zinc-500 tracking-widest pb-2 border-b border-white/5 mb-2">
-                      PDF İŞLEMLERİ
-                    </div>
-                    {NAV_TOOL_GROUPS[0].items.map((item) => (
-                      <NavLink
-                        key={item.to}
-                        to={item.to}
-                        onClick={closeAll}
-                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-white/5 group transition"
-                      >
-                        <div className="bg-indigo-500/10 p-2 rounded-lg group-hover:bg-indigo-500/20">
-                          <item.icon className="text-indigo-400 w-5 h-5" />
-                        </div>
-                        <span className="text-[14px] font-medium text-zinc-300 group-hover:text-white">
-                          {item.label}
-                        </span>
-                      </NavLink>
-                    ))}
-                  </div>
-                </div>
-              )}
+                  {NAV_AUTH_LABELS.tools}
+                </NavLink>
+                <button
+                  type="button"
+                  id="nav-tools-trigger"
+                  aria-expanded={toolsOpen}
+                  aria-haspopup="menu"
+                  aria-controls={TOOLS_MENU_ID}
+                  aria-label="Hızlı araç listesi"
+                  onClick={() => setToolsOpen((o) => !o)}
+                  className={`flex cursor-pointer items-center border-l px-2 transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 focus-visible:ring-inset ${
+                    isLight
+                      ? "border-violet-100 text-slate-400 hover:text-violet-600"
+                      : "border-violet-500/[0.06] text-slate-500 hover:text-white"
+                  }`}
+                >
+                  <HiChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${
+                      toolsOpen ? "rotate-180" : ""
+                    }`}
+                    aria-hidden
+                  />
+                </button>
+              </div>
+
+              <NavToolsDropdown
+                isLight={isLight}
+                isOpen={toolsOpen}
+                onClose={closeAll}
+                toolsTriggerId="nav-tools-trigger"
+              />
             </div>
-            {session && <NavItem to="/dashboard" label="Panel" />}
-            <NavItem to="/merge-pdf" label="PDF Birleştir" />
-            <NavItem to="/compress-pdf" label="Sıkıştır" />
-            <NavItem to="/about" label="Hakkımızda" />
-            <NavItem to="/contact" label="İletişim" />
+
+            {loggedIn && (
+              <NavLink
+                to="/dashboard"
+                onClick={closeAll}
+                className={navLinkClass(isLight)}
+              >
+                {NAV_AUTH_LABELS.panel}
+              </NavLink>
+            )}
+
+            {NAV_PRIMARY_LINKS.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                onClick={closeAll}
+                className={navLinkClass(isLight)}
+              >
+                {link.label}
+              </NavLink>
+            ))}
           </div>
         </div>
 
-        <div className="flex items-center gap-4 sm:gap-5">
-          <div className="hidden md:flex items-center gap-5">
-            {session ? (
+        <div className="flex shrink-0 items-center gap-3 sm:gap-4">
+          <div className="hidden items-center gap-4 md:flex">
+            {loggedIn ? (
               <>
                 <Link
                   to="/dashboard"
-                  className="text-[14px] font-medium text-indigo-300 hover:text-white transition lg:hidden"
+                  onClick={closeAll}
+                  className={`hidden font-medium transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 md:inline-flex lg:hidden text-sm ${
+                    isLight
+                      ? "text-[#7c3aed] hover:text-[#6d28d9]"
+                      : "text-violet-300 hover:text-white"
+                  }`}
                 >
-                  Panel
+                  {NAV_AUTH_LABELS.panel}
                 </Link>
                 <span
-                  className="text-[13px] text-zinc-400 max-w-[140px] truncate"
-                  title={session.email || sessionLabel}
+                  className={`max-w-[100px] truncate text-sm font-medium xl:max-w-[140px] ${
+                    isLight ? "text-slate-600" : "text-zinc-400"
+                  }`}
+                  title={session.user.email || sessionLabel}
                 >
                   {sessionLabel}
                 </span>
                 <button
                   type="button"
                   onClick={logout}
-                  className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
+                  className={`cursor-pointer text-sm font-medium transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 ${
+                    isLight
+                      ? "text-slate-600 hover:text-violet-600"
+                      : "text-slate-300 hover:text-white"
+                  }`}
                 >
-                  Çıkış
+                  {NAV_AUTH_LABELS.logout}
                 </button>
               </>
             ) : (
               <>
                 <Link
                   to="/login"
-                  className="text-[14px] font-medium text-zinc-400 hover:text-white transition"
+                  className={`rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
+                    isLight
+                      ? `text-slate-700 hover:text-violet-600 ${signupRingOffset}`
+                      : `text-slate-300 hover:text-white ${signupRingOffset}`
+                  }`}
                 >
-                  Giriş Yap
+                  {NAV_AUTH_LABELS.login}
                 </Link>
                 <Link
                   to="/signup"
-                  className="bg-[#7c3aed] hover:bg-[#8b5cf6] text-white px-5 py-2 rounded-full text-[14px] font-bold transition shadow-lg shadow-indigo-500/20 active:scale-95"
+                  className={`rounded-lg px-4 py-2 text-sm font-semibold text-white transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
+                    isLight
+                      ? `bg-violet-600 hover:bg-violet-700 ${signupRingOffset}`
+                      : `bg-violet-600 shadow-sm shadow-black/25 hover:bg-violet-500 ${signupRingOffset}`
+                  }`}
                 >
-                  Kayıt Ol
+                  {NAV_AUTH_LABELS.signup}
                 </Link>
               </>
             )}
@@ -177,139 +292,198 @@ export default function Navbar() {
           <button
             type="button"
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden h-9 w-9 rounded-lg border border-white/10 flex items-center justify-center text-white"
+            className={`flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border md:hidden outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
+              isLight
+                ? "border-violet-100/70 bg-[#FDFBFF] text-slate-700 hover:border-violet-200 hover:text-violet-600"
+                : "border-violet-500/[0.06] bg-[#070A13]/80 text-slate-300 hover:text-white"
+            }`}
             aria-expanded={mobileOpen}
+            aria-controls={MOBILE_PANEL_ID}
             aria-label={mobileOpen ? "Menüyü kapat" : "Menüyü aç"}
           >
             {mobileOpen ? <CloseIcon /> : <MenuIcon />}
           </button>
         </div>
-      </div>
+      </nav>
 
-      {/* MOBİL PANEL */}
       {mobileOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-[#0f0a1e] border-t border-white/10 p-6 space-y-4 shadow-2xl">
-          <div className="grid grid-cols-1 gap-2">
-            {session && (
-              <NavLink
-                to="/dashboard"
+        <>
+          <button
+            type="button"
+            className={`fixed inset-0 z-40 bg-black/20 md:hidden ${NAV_MOBILE_TOP}`}
+            aria-label="Menüyü kapat"
+            onClick={closeAll}
+          />
+          <div
+            id={MOBILE_PANEL_ID}
+            className={`absolute top-full left-0 z-50 max-h-[min(85dvh,560px)] w-full overflow-y-auto border-t md:hidden ${
+              isLight
+                ? "border-violet-100/60 bg-[#FDFBFF]"
+                : "border-violet-500/[0.06] bg-[#070A13]"
+            }`}
+          >
+            <div className="mx-auto max-w-7xl p-4 pb-6">
+              <MobileLink
+                to="/tools"
                 onClick={closeAll}
-                className="flex items-center gap-4 p-4 rounded-xl border border-indigo-500/25 bg-indigo-500/10 text-indigo-200 font-medium"
+                isLight={isLight}
+                icon={HiOutlineViewGrid}
+                bold
               >
-                Panel — tüm araçlar
-              </NavLink>
-            )}
-            {NAV_TOOL_GROUPS[0].items.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                onClick={closeAll}
-                className="flex items-center gap-4 p-4 rounded-xl bg-white/5 text-zinc-300"
+                {NAV_AUTH_LABELS.tools}
+              </MobileLink>
+
+              <p
+                className={`mb-2 mt-4 px-3 text-[10px] font-bold uppercase tracking-wider ${
+                  isLight ? "text-slate-400" : "text-zinc-500"
+                }`}
               >
-                <item.icon className="text-indigo-400" />
-                {item.label}
-              </NavLink>
-            ))}
-            <div className="pt-4 mt-2 border-t border-white/10 space-y-2">
-              {session ? (
-                <>
-                  <p className="text-zinc-500 text-xs px-1 truncate">
-                    {sessionLabel}
-                  </p>
+                {NAV_AUTH_LABELS.quickTools}
+              </p>
+              <ul className="space-y-0.5">
+                {PDF_TOOLS.map((item) => (
+                  <li key={item.to}>
+                    <MobileLink to={item.to} onClick={closeAll} isLight={isLight}>
+                      {item.label}
+                    </MobileLink>
+                  </li>
+                ))}
+              </ul>
+
+              <div
+                className={`my-4 border-t ${isLight ? "border-violet-100/60" : "border-violet-500/[0.06]"}`}
+              />
+
+              {loggedIn && (
+                <MobileLink to="/dashboard" onClick={closeAll} isLight={isLight} bold>
+                  {NAV_AUTH_LABELS.panel}
+                </MobileLink>
+              )}
+              {NAV_PRIMARY_LINKS.map((link) => (
+                <MobileLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeAll}
+                  isLight={isLight}
+                >
+                  {link.label}
+                </MobileLink>
+              ))}
+              {NAV_MOBILE_EXTRA_LINKS.map((link) => (
+                <MobileLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeAll}
+                  isLight={isLight}
+                >
+                  {link.label}
+                </MobileLink>
+              ))}
+
+              <div
+                className={`mt-4 border-t pt-4 ${isLight ? "border-violet-100/60" : "border-violet-500/[0.06]"}`}
+              >
+                {loggedIn ? (
                   <button
                     type="button"
                     onClick={logout}
-                    className="w-full text-left p-4 rounded-xl bg-white/5 text-zinc-300 text-sm font-medium"
+                    className={`w-full cursor-pointer rounded-lg py-3 text-sm font-medium transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 ${
+                      isLight
+                        ? "text-slate-600 hover:bg-violet-50/40 hover:text-violet-600"
+                        : "text-zinc-300 hover:bg-white/5 hover:text-white"
+                    }`}
                   >
-                    Çıkış yap
+                    {NAV_AUTH_LABELS.logout}
                   </button>
-                </>
-              ) : (
-                <>
-                  <NavLink
-                    to="/login"
-                    onClick={closeAll}
-                    className="flex items-center justify-center p-4 rounded-xl border border-white/10 text-zinc-300 text-sm font-medium"
-                  >
-                    Giriş Yap
-                  </NavLink>
-                  <NavLink
-                    to="/signup"
-                    onClick={closeAll}
-                    className="flex items-center justify-center p-4 rounded-xl bg-[#7c3aed] text-white text-sm font-bold"
-                  >
-                    Kayıt Ol
-                  </NavLink>
-                </>
-              )}
+                ) : (
+                  <div className="flex gap-2">
+                    <Link
+                      to="/login"
+                      onClick={closeAll}
+                      className={`flex flex-1 cursor-pointer items-center justify-center rounded-lg border py-3 text-sm font-medium transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 ${
+                        isLight
+                          ? "border-violet-100/70 text-slate-700 hover:border-violet-200 hover:text-violet-600"
+                          : "border-violet-500/[0.06] text-slate-300 hover:bg-white/5 hover:text-white"
+                      }`}
+                    >
+                      {NAV_AUTH_LABELS.login}
+                    </Link>
+                    <Link
+                      to="/signup"
+                      onClick={closeAll}
+                      className={`flex flex-1 cursor-pointer items-center justify-center rounded-lg py-3 text-sm font-semibold text-white transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500 focus-visible:ring-offset-2 ${
+                        isLight
+                          ? `bg-violet-600 hover:bg-violet-700 ${signupRingOffset}`
+                          : `bg-violet-600 shadow-sm shadow-black/25 hover:bg-violet-500 ${signupRingOffset}`
+                      }`}
+                    >
+                      {NAV_AUTH_LABELS.signup}
+                    </Link>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
-    </nav>
+    </header>
   );
 }
 
-function NavItem({ to, label }) {
+function navLinkClass(isLight) {
+  const ringOffset = isLight
+    ? "focus-visible:ring-offset-[#FDFBFF]"
+    : "focus-visible:ring-offset-[#070A13]";
+
+  return ({ isActive }) =>
+    `rounded-md px-3 py-2 text-sm font-medium transition-colors outline-none focus-visible:ring-2 focus-visible:ring-violet-500 ${ringOffset} ${
+      isLight
+        ? isActive
+          ? "text-violet-600"
+          : "text-slate-700 hover:text-violet-600"
+        : isActive
+          ? "text-violet-300"
+          : "text-slate-300 hover:text-white"
+    }`;
+}
+
+function MobileLink({ to, onClick, isLight, children, icon: Icon, bold }) {
   return (
     <NavLink
       to={to}
-      className={({ isActive }) => `
-        text-[14px] font-medium transition-all
-        ${isActive ? "text-[#a78bfa]" : "text-zinc-400 hover:text-white"}
-      `}
+      onClick={onClick}
+      className={({ isActive }) =>
+        `flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition outline-none focus-visible:ring-2 focus-visible:ring-violet-500/40 ${
+          bold ? "font-semibold" : "font-medium"
+        } ${
+          isLight
+            ? isActive
+              ? "bg-violet-50/80 text-violet-600"
+              : "text-slate-700 hover:bg-violet-50/50 hover:text-violet-600"
+            : isActive
+              ? "bg-violet-500/10 text-violet-300"
+              : "text-slate-300 hover:bg-white/[0.05] hover:text-white"
+        }`
+      }
     >
-      {label}
+      {Icon && <Icon className="h-5 w-5 shrink-0 opacity-70" aria-hidden />}
+      {children}
     </NavLink>
-  );
-}
-
-function Chevron() {
-  return (
-    <svg
-      className="w-3.5 h-3.5 opacity-50"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth="3"
-    >
-      <path d="M19 9l-7 7-7-7" />
-    </svg>
   );
 }
 
 function MenuIcon() {
   return (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M4 6h16M4 12h16M4 18h16"
-      />
+    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
     </svg>
   );
 }
 
 function CloseIcon() {
   return (
-    <svg
-      className="w-5 h-5"
-      fill="none"
-      stroke="currentColor"
-      viewBox="0 0 24 24"
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-        d="M6 18L18 6M6 6l12 12"
-      />
+    <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
     </svg>
   );
 }

@@ -1,18 +1,48 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
+import { assertJwtConfigured } from "./lib/jwt.js";
+import authRouter from "./routes/auth.routes.js";
 import pdfRouter from "./routes/pdf.routes.js";
+
+assertJwtConfigured();
 
 const app = express();
 
-const ORIGINS = ["https://dosyahub.com", "https://www.dosyahub.com"];
-app.use(cors({ origin: ORIGINS, credentials: true }));
-app.options("*", cors({ origin: ORIGINS, credentials: true }));
+const PRODUCTION_ORIGINS = [
+  "https://dosyahub.com",
+  "https://www.dosyahub.com",
+];
+const DEV_ORIGINS = [
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:4173",
+  "http://127.0.0.1:4173",
+];
+
+const allowList =
+  process.env.NODE_ENV === "production"
+    ? PRODUCTION_ORIGINS
+    : [...PRODUCTION_ORIGINS, ...DEV_ORIGINS];
+
+const corsConfig = {
+  origin(origin, cb) {
+    if (!origin) return cb(null, true);
+    if (allowList.includes(origin)) return cb(null, true);
+    return cb(null, false);
+  },
+  credentials: true,
+};
+
+app.use(cors(corsConfig));
+app.options("*", cors(corsConfig));
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
 
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
+app.use("/api/auth", authRouter);
 app.use("/api", pdfRouter);
 
 app.use((err, _req, res, _next) => {

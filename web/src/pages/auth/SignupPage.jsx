@@ -10,6 +10,7 @@ import {
 } from "react-icons/hi";
 import Field from "../../components/contact/Field";
 import { setSession } from "../../lib/authSession";
+import { registerRequest } from "../../lib/authApi";
 
 const CANONICAL = "https://www.dosyahub.com/signup";
 
@@ -57,15 +58,16 @@ export default function SignupPage() {
 
     setLoading(true);
     try {
-      await new Promise((r) => setTimeout(r, 800));
-      setSession({
-        email: trimmed,
-        name: name.trim(),
-        at: Date.now(),
-      });
+      const data = await registerRequest(name.trim(), trimmed, password);
+      setSession(
+        { token: data.token, user: data.user, at: Date.now() },
+        { persistent: true }
+      );
       navigate("/dashboard", { replace: true });
-    } catch {
-      setError("Kayıt sırasında bir sorun oluştu. Tekrar deneyin.");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Kayıt sırasında bir sorun oluştu."
+      );
     } finally {
       setLoading(false);
     }
@@ -102,9 +104,8 @@ export default function SignupPage() {
                 Dakikalar içinde hazır olun
               </h1>
               <p className="text-zinc-400 text-sm leading-relaxed max-w-md">
-                Kayıt olduktan sonra oturum bilginiz tarayıcıda saklanır;
-                gerçek e-posta doğrulama ve sunucu kaydı entegrasyonu
-                tamamlandığında hesabınız kalıcı hale gelir.
+                Kayıt sonrası hesabınız veritabanına yazılır ve otomatik giriş
+                yapılır. E-posta doğrulaması ileride eklenebilir.
               </p>
               <ul className="space-y-3 text-sm text-zinc-500">
                 <li className="flex gap-2">

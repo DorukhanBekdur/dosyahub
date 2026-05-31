@@ -35,6 +35,8 @@
 - Express
 - Multer (file upload handling)
 - pdf-lib (PDF processing)
+- JWT + bcryptjs (giriş / kayıt)
+- Kullanıcı verisi: `server/data/users.json` (otomatik oluşur, repoda yok)
 
 ## 📦 Installation
 
@@ -56,6 +58,14 @@ pnpm install
 ```
 
 ## Running the Project
+
+Önce sunucu için ortam değişkeni tanımlayın (en az 16 karakter):
+
+```bash
+cd server
+cp .env.example .env
+# .env içinde JWT_SECRET değerini güçlü ve benzersiz bir dize yapın
+```
 
 ```bash
 # Start backend:

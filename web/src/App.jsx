@@ -11,7 +11,7 @@ import { APP_ROUTES } from "./config/routes";
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-900 dark:to-black text-zinc-900 dark:text-zinc-100 transition-colors">
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-zinc-50 to-white dark:from-zinc-900 dark:to-black font-sans text-zinc-900 dark:text-zinc-100 transition-colors">
         <Navbar />
 
         <main className="flex-1">

@@ -8,7 +8,14 @@ import {
   HiMail,
   HiOutlineSparkles,
 } from "react-icons/hi";
-import { getSession } from "../lib/authSession";
+import {
+  getSession,
+  setSession as saveSession,
+  clearSession,
+  hasValidAuthSession,
+  SESSION_KEY,
+} from "../lib/authSession";
+import { meRequest } from "../lib/authApi";
 import { getDashboardSections } from "../config/toolsCatalog";
 
 const CANONICAL = "https://www.dosyahub.com/dashboard";
@@ -22,29 +29,54 @@ function greetingForNow() {
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const [session, setSession] = useState(() => getSession());
+  const [session, setSessionState] = useState(() => getSession());
 
   useEffect(() => {
     const s = getSession();
-    if (!s) {
+    if (!hasValidAuthSession(s)) {
+      clearSession();
       navigate("/login", { replace: true, state: { from: { pathname: "/dashboard" } } });
       return;
     }
-    setSession(s);
+    setSessionState(s);
+
+    let cancelled = false;
+    (async () => {
+      try {
+        const { user } = await meRequest();
+        if (cancelled || !user) return;
+        const cur = getSession();
+        if (!hasValidAuthSession(cur)) return;
+        const next = { ...cur, user, at: Date.now() };
+        saveSession(next, {
+          persistent: !!localStorage.getItem(SESSION_KEY),
+        });
+        if (!cancelled) setSessionState(next);
+      } catch {
+        if (!cancelled) {
+          clearSession();
+          navigate("/login", { replace: true, state: { from: { pathname: "/dashboard" } } });
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [navigate]);
 
   const displayName = useMemo(() => {
-    if (!session) return "";
-    const name = session.name?.trim();
+    if (!session?.user) return "";
+    const name = session.user.name?.trim();
     if (name) return name.split(/\s+/)[0];
-    const email = session.email;
+    const email = session.user.email;
     if (email && typeof email === "string") return email.split("@")[0] || "Kullanıcı";
     return "Kullanıcı";
   }, [session]);
 
   const sections = useMemo(() => getDashboardSections(), []);
 
-  if (!session) {
+  if (!session || !hasValidAuthSession(session)) {
     return (
       <div className="min-h-[50vh] bg-[#0f0a1e] flex items-center justify-center text-zinc-500 text-sm">
         Yönlendiriliyorsunuz…

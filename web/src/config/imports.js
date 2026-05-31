@@ -23,3 +23,4 @@ export { default as WatermarkPage } from "../pages/WatermarkPage";
 export { default as LoginPage } from "../pages/auth/LoginPage";
 export { default as SignupPage } from "../pages/auth/SignupPage";
 export { default as DashboardPage } from "../pages/DashboardPage";
+export { default as AllToolsPage } from "../pages/AllToolsPage";

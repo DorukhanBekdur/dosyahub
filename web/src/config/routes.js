@@ -12,6 +12,7 @@ import {
   LoginPage,
   SignupPage,
   DashboardPage,
+  AllToolsPage,
 } from "./imports";
 import AboutPage from "../pages/corporate/AboutPage";
 import PrivacyPage from "../pages/corporate/PrivacyPage";
@@ -27,6 +28,7 @@ export const APP_ROUTES = [
   { path: "/images-to-pdf", element: ImagesToPdfPage },
   { path: "/rotate-pdf", element: RotatePdfPage },
   { path: "/watermark-pdf", element: WatermarkPage },
+  { path: "/tools", element: AllToolsPage },
   { path: "/dashboard", element: DashboardPage },
   { path: "/login", element: LoginPage },
   { path: "/signup", element: SignupPage },

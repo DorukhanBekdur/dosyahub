@@ -9,6 +9,7 @@ import {
 } from "react-icons/hi";
 import Field from "../../components/contact/Field";
 import { setSession } from "../../lib/authSession";
+import { loginRequest } from "../../lib/authApi";
 
 const CANONICAL = "https://www.dosyahub.com/login";
 
@@ -43,14 +44,16 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      await new Promise((r) => setTimeout(r, 700));
+      const data = await loginRequest(trimmed, password);
       setSession(
-        { email: trimmed, at: Date.now() },
+        { token: data.token, user: data.user, at: Date.now() },
         { persistent: remember }
       );
       navigate(from, { replace: true });
-    } catch {
-      setError("Giriş sırasında bir sorun oluştu. Tekrar deneyin.");
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : "Giriş sırasında bir sorun oluştu."
+      );
     } finally {
       setLoading(false);
     }
@@ -87,19 +90,17 @@ export default function LoginPage() {
                 Tekrar hoş geldiniz
               </h1>
               <p className="text-zinc-400 text-sm leading-relaxed max-w-md">
-                Hesabınızla tercihlerinizi senkronize edin ve yakında eklenecek
-                üyelik avantajlarından haberdar olun. PDF işlemleri şimdilik
-                üyeliksiz de kullanılabilir.
+                Şifreniz sunucuda bcrypt ile hash’lenir; oturumunuz JWT ile
+                yönetilir. PDF araçları üyelik olmadan da kullanılabilir.
               </p>
               <ul className="space-y-3 text-sm text-zinc-500">
                 <li className="flex gap-2">
                   <span className="text-indigo-400 mt-0.5">✓</span>
-                  Şifreleriniz tarayıcı dışına gönderilmez (önizleme oturumu).
+                  Güvenli giriş; şifre düz metin olarak saklanmaz.
                 </li>
                 <li className="flex gap-2">
                   <span className="text-indigo-400 mt-0.5">✓</span>
-                  API bağlandığında aynı form gerçek kimlik doğrulamaya
-                  yönlenecektir.
+                  Hesap bilgileri sunucuda güvenli şekilde saklanır.
                 </li>
               </ul>
             </div>

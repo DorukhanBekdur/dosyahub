@@ -38,3 +38,5 @@ build/
 # App-specific folders
 uploads/
 outputs/
+server/data/
+.pnpm-store/
